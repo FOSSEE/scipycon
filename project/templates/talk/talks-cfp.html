@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="section" id="call-for-papers">
+<h1>Call for Papers</h1>
+<p>We welcome contributions from the academic world as well as the industry. 
+We look forward to your submissions on the use of Python for scientific 
+computing and education.  This includes pedagogy,  exploration, modeling and 
+analysis from both applied and developmental perspectives.</p>
+<div class="section" id="submission-of-papers">
+<h2>Submission of Papers</h2>
+<p>If you wish to present, please submit an abstract of between
+300 and 700 words should describe the topic and motivate its
+relevance to scientific computing.  Depending on the number
+and quality of submissions, the conference organizers will
+allot between 10-30 minutes for all accepted talks.</p>
+<p>In addition, there will be an open session for lightning talks
+during which any attendee willing to do so is invited to do a
+couple-of-minutes-long presentation.</p>
+<p>If you wish to present a talk at the conference, please follow 
+the guidelines below.</p>
+</div>
+<div class="section" id="submission-guidelines">
+<h2>Submission Guidelines</h2>
+<ul class="simple">
+<li>Submissions should be uploaded via <a href="{% url kiwipycon_submit_talk %}">the web form.</a></li>
+<li>Submissions whose main purpose is to promote a commercial product or
+service will be refused.</li>
+<li>All accepted proposals must be presented at the SciPy conference by
+at least one author.</li>
+</ul>
+</div>
+</div>
+{% endblock content %}

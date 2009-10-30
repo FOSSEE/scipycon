@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Change Your Username{% endblock %}
+
+{% block content %}
+    <h1>Change your username</h1>
+
+    <form action="{% url kiwipycon_username %}"
+          method="post">
+        <table class="kiwipycon-default">
+            <tr>
+                  <td class="label">
+                      <label for="id_username">New username:</label>
+                  </td>
+                  <td>
+                      {{ form.username.errors }}                        
+                      {{ form.username }}
+                  </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input class="button left"
+                           type="submit"
+                           value="Save username" />
+                </td>
+            </tr>
+        </table>
+        
+    </form>
+{% endblock %}
+

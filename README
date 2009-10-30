@@ -1,0 +1,39 @@
+README
+======
+
+Prerequisites for Linux
+-----------------------
+
+Following software is required:
+
+* Mercurial (easy_install Mercurial)
+* git
+
+Prerequisites for Windows
+-------------------------
+
+Following software is required:
+
+* TortoiseHG
+* msysGit
+
+Quick Install:
+--------------
+
+cd ~/projects/
+hg clone https://vshivak@bitbucket.org/vshivak/kiwipycon/ kiwipycon
+cd kiwipycon
+python bootstrap.py
+./bin/buildout -v -c development.cfg
+./bin/django runserver_plus 8022
+
+# A WSGI web server should be running on your box at this point.
+# Open a web browser and go to URL http://localhost:8022/
+# to see your development version of http://nz.pycon.org/
+
+Sponsor data:
+-------------
+
+Sponsor data can imported into development db.:
+
+cat sponsor.sql | sqlite3 project.db

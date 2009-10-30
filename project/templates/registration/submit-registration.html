@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}Submit Registration{% endblock %}
+
+{% block content %}
+
+    <h1>Submit Registration</h1>
+
+    {% if over_reg %}
+    <div class="notice">
+      We have already reached the total number of registrations for the
+      conference. If you would like to be put on a waiting list in the event that
+      someone can't make it to the conference, please register below and we
+      will be in contact if a registration spot comes available. <strong>N.B. Do not
+      pay the admission fee.</strong>
+    </div>
+    {% endif %}
+        <form action="/submit-registration/"
+              method="post">
+    {% if not user.is_authenticated %}
+                <fieldset>
+                    <legend>Have you already registered for the conference?</legend>
+                    <table class="kiwipycon-default">
+                        {{ login_form }}
+                    </table>
+
+                <input type="hidden"
+                       name="action"
+                       value="login" />
+
+            <button class="button left"
+                    type="submit">
+                Login
+            </button>
+                </fieldset>
+
+        </form>
+    {% endif %}
+
+    <p></p>
+
+    {% if not user.is_authenticated %}
+        <br />
+        <form action="/submit-registration/"
+              enctype="multipart/form-data"
+              method="post">
+                <fieldset>
+                    <legend>Registrant Details</legend>
+                    <table class="kiwipycon-default required">
+                        {{ registrant_form }}
+                    </table>
+
+                <input type="hidden"
+                       name="action"
+                       value="register" />
+                </fieldset>
+    {% endif %}
+                <br />
+
+{% if registration_form.errors %}<div class="errors">Please correct the errors below</div>{% endif %}
+
+                <fieldset>
+                    <legend>Details</legend>
+                    <table class="kiwipycon-default required">
+                        {% for field in registration_form.personal_fields %}
+                        <tr class="{% cycle odd,even %}"><th>{{ field.label_tag }}</th>
+                          <td>{{ field.errors }}{{ field }}<br />{{ field.help_text }} </td></tr>
+                         {% endfor %}
+
+                        {% for field in registration_form.other_fields %}
+                        <tr class="{% cycle odd,even %}"><th>{{ field.label_tag }}</th>
+                          <td>{{ field.errors }}{{ field }}<br />{{ field.help_text }} </td></tr>
+                         {% endfor %}
+
+                    </table>
+                  </fieldset>
+
+                <br />
+
+                <fieldset>
+                    <legend>Demographics</legend>
+                    <table class="kiwipycon-default required">
+                        {% for field in registration_form.demographic_fields %}
+                        <tr class="{% cycle odd,even %}"><th>{{ field.label_tag }}</th>
+                          <td>{{ field.errors }}{{ field }}<br />{{ field.help_text }} </td></tr>
+                         {% endfor %}
+                    </table>
+                </fieldset>
+                <fieldset>
+                    <legend>Others</legend>
+                    <table class="kiwipycon-default">
+                         {{ wifi_form }}
+                    </table>
+
+                <button class="button left"
+                        type="submit">
+                    Submit Registration
+                </button>
+                </fieldset>                
+        </form>
+    {% if message %}
+    <script type="text/javascript">
+        $.jGrowl("{{ message }}");
+</script>
+    {% endif %}
+{% endblock content %}

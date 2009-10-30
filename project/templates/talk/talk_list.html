@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Talk Listing{% endblock %}
+
+{% block content %}
+<h1>Talks</h1>
+<h3>Accepted talks list is not out yet. This page will be updated soon.</h3>
+<p><strong>Showing {{ count }} of {{ count }}</strong></p>
+
+<ul class="plain">
+{% for object in object_list %}
+<li>
+  <ul class="plain" style="margin-bottom:1em;">
+      <li><a href="/talks/talk/{{object.id }}/">{{ object.title }}</a></li>
+      <li><strong>{{ object.speaker.get_profile.fullname }}</strong></li>
+      <li>{{ object.abstract }}</li>
+  </ul>
+</li>
+{% endfor %}
+</ul>
+{% endblock content %}
+

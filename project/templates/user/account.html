@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+          <li class="last"><a
+            href="mailto:kauaerangastore@xtra.co.nz">kauaerangastore@xtra.co.nz</a></li>
+<!-- TODO: Lot of fees related and New Zealand group related info. -->
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+<h1>My Profile: {{ user.first_name }} {{user.last_name}}</h1>
+
+<table class="kiwipycon-default">
+    <tr>
+        <td class="label">
+            Username:
+        </td>
+        <td>
+          {{ user.username }}
+        </td>
+    </tr>
+    <tr>
+        <td class="label">
+            Name:
+        </td>
+        <td>
+        {% if user.first_name %}
+            <span>{{ user.get_full_name }}</span>
+        {% else %}
+        <span class="important">No name, please <a 
+            href="{% url kiwipycon_edit_profile %}">edit profile</a>.</span>
+        {% endif %}
+        </td>
+        <td rowspan="4">
+        <div class="picture">
+          <img src="{{ photo }}" width="80" height="80" />
+        </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="label">
+            Email:
+        </td>
+        <td>
+            <a href="mailto:{{ user.email }}">{{ user.email }}</a>
+        </td>
+    </tr>
+    <tr>
+        <td class="label">
+          Url:
+        </td>
+        <td>
+            <a href="{{ profile.url }}" target="_blank">{{ profile.url }}</a>
+        </td>
+    </tr>
+    <tr>
+        <td class="label">
+          About:
+        </td>
+        <td style="width: 40em">
+          {{ profile.about }}
+        </td>
+    </tr>
+</table>
+{% if comment %}
+<strong>{{ comment }}</strong>
+{% endif %}
+{% if form %}
+<!-- wifi form -->
+  <h2>Wifi</h2>
+<p>The following form will help the SciPy.in team identify wireless
+requirements.</p> 
+<form action="" method="post">
+<table>
+  {{ form }}
+</table>
+<input type="submit" value="submit" />
+</form>
+{% endif %}
+{% if registration %}
+<div id="talks">
+  <h2>Your Registration</h2>
+<p>
+  <a href="/edit-registration/{{ registration.id }}/"
+    title="Edit">Edit Registration</a>
+  {% if registration.sponsor %}
+  {% else %}
+  | <a href="/invoice/"
+    title="Your invoice (html)">Your invoice (html)</a> (<a href="/pdf_invoice/"
+    title="Your invoice (pdf)">pdf</a>)</p>
+  {% endif %}
+  </p>
+</div>
+{% endif %}
+{% if talks %}
+<div id="talks">
+  <h2>Your Submitted Talks</h2>
+  <table class="kiwipycon-default" border="1">
+    <th>Title</th>
+    <th>Duration</th>
+    <th>Audience</th>
+    <th>Tags</th>
+    <th>&nbsp;</th>
+{% for talk in talks %}
+<tr>
+<td>{{ talk.title }}</td>
+<td>{{ talk.duration }}</td>
+<td>{{ talk.audience }}</td>
+<td>{{ talk.tags }}</td>
+<td>
+        {% if talk.approved %}
+          <span>Accepted</span>
+        {% else %}
+          <a href="/edit-talk/{{ talk.id }}/" title="Edit">Edit</a>
+        {% endif %}
+</td>
+</tr>
+{% endfor %}
+</table>
+</div>
+{% endif %}
+{% endblock content %}

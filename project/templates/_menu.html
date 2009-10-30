@@ -1,0 +1,47 @@
+<div id="left-inner">
+  <ul>
+    <li><a href="/submit-registration/">Registration</a></li>
+    <li>
+      <a href="/talks-cfp/">Talks & CfP</a>
+      <ul>
+        <li><a href="/talks-cfp/schedule/">Conference Schedule</a></li>
+        <li><a href="/talks/">Talks</a></li>
+      </ul>
+    </li>
+    <li>
+      About
+      <ul>
+        <li><a href="/about/accommodation/">Accommodation</a></li>
+        <li><a href="/about/food/">Food</a></li>
+        <li><a href="/about/venue/">The Venue</a></li>
+        <li><a href="/about/reaching/">Reaching the venue</a></li>
+      </ul>
+    </li>
+    <li><a href="/">Blog</a></li>
+    <!--<li><a href="/sponsorship/">Sponsorship</a></li>
+    <li><a href="/media/">Media</a></li>-->
+    {% if user.is_staff %}
+    <li><a href="/howto/">HowTo</a></li>
+    {% endif %}<!--
+    <li>Follow us:<br /><br />
+	  <a href="http://twitter.com/scipy.in" 
+	    target="_blank"
+	    title="Follow us on Twitter"><img src="/img/twitter.png" /></a>
+	</li>
+    <li>
+	  <a href="http://www.flickr.com/search/?q=scipy.in" 
+	    target="_blank"
+	    title="Flickr"><img src="/img/flickr.png" /></a>
+	</li>
+    <li>
+	  <a href="http://www.slideshare.net/tag/scipy.in" 
+	    target="_blank"
+	    title="SlideShare"><img src="/img/slideshare.png" /></a>
+    </li>
+    <li>
+	  <a href="http://scipy.in.blip.tv/"
+	    target="_blank"
+	    title="blip.tv"><img src="/img/bliptv.gif" /></a>
+	</li>-->
+  </ul>
+</div>

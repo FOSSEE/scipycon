@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}
+Registrations
+{% endblock %}
+
+{% block content %}
+
+<h1>Submit Registration</h1>
+
+    {% if over_reg %}
+    <div class="notice">
+      We have already reached the total number of registrations for the
+      conference.  If you would like to be put on a waiting list in the event
+      that someone can't make it to the conference, please follow the link
+      below to register and we will be in contact if a registration spot comes
+      available.
+    </div>
+    {% endif %}
+
+<p>Currently <strong>{{ registrations }}</strong> persons have registered to attend Kiwi PyCon 2009.</p>
+
+<p>To attend Kiwi Pycon 2009 please <a href="/submit-registration/">register</a></p>
+
+<p>Registration payments:
+
+<pre class="plain">
+New Zealand Python User Group,
+06-0158-0360348-00
+The National Bank,
+Auckland University Branch
+PO Box 2132
+</pre>
+
+Please use your username and invoice number as references when making payments.
+
+{% endblock %}

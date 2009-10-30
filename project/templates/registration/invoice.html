@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+    "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+</head>
+<body>
+<!-- TODO: Replace all New Zealand specific things in this file -->
+<table cellpadding="0" cellspacing="0" width="800px">
+  <tr>
+    <td>
+  <!--  TODO(get an ICON) -->
+  <img src="http://scipy.org/images/scipylogo.gif"
+    alt="SciPy.in Logo" title="SciPy.in Logo"
+    width="72" />
+<br /><br />
+  </td>
+  <td align="right">
+      41 Hihitahi Rise<br />
+      Te Haumi, Paihia 0200<br />
+      Incorporated Society #2250349<br />
+  </td>
+</tr>
+</table>
+<table cellpadding="0" cellspacing="0" width="800px">
+<tr>
+  <td>
+    <h1>New Zealand Python Users Group Incorporated</h1>
+  </td>
+</tr>
+<tr>
+  <td>
+    <hr />
+    <table cellpadding="0" cellspacing="0" width="800px">
+      <tr>
+        <td>Invoice Number: {{ registration.slug }}</td> 
+        <td align="right">
+          Date: {{ registration.submitted|date:"d F, Y"}}</td> 
+      </tr>
+    </table>
+    <hr />
+  </td>
+</tr>
+<tr>
+  <td>
+    <br />
+    <br />
+    To:<br />
+    {{ user.get_profile.fullname }}<br />
+    {{ user.email }}<br />
+    < {{ user.username }} ><br />
+  </td>
+</tr>
+<tr>
+  <td>
+    <br />
+    <br />
+  </td>
+</tr>
+<tr>
+  <td>
+    <table cellpadding="0" cellspacing="0" width="800px">
+      <tr>
+        <th align="left">Item</th> 
+        <th align="right">Price</th> 
+        <th align="right">Qty</th> 
+        <th align="right">Amount (NZ$)</th> 
+      </tr>
+      <tr>
+        <td colspan="4"><hr /></td>
+      </tr>
+      <tr>
+        <td>NZPycon 2009 Attendence fee</td> 
+        <td align="right">{{ registration.amount }}.00</td> 
+        <td align="right">1</td> 
+        <td align="right">{{ registration.amount }}.00</td> 
+      </tr>
+      <tr>
+        <td colspan="4"><hr /></td>
+      </tr>
+      <tr>
+        <td colspan="3"><strong>Total</strong></td>
+        <td align="right"><strong>${{ registration.amount }}.00</strong></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+  <td>
+    <br />
+    <br />
+  </td>
+</tr>
+    {% if registration.sponsor %}
+<tr>
+  <td>
+    As a guest of {{ registration.sponsor|title }} please ignore this invoice.
+  </td>
+</tr>
+    {% endif %}
+    {% if registration.discount %}
+<tr>
+  <td>
+    Your fee has been discounted because you are a student or otherwise on a
+    low income. You will be required to present your Student ID or a Community
+    Services Card on arrival.
+  </td>
+</tr>
+    {% endif %}
+    {% ifequal registration.amount 10 %}
+<tr>
+  <td>
+    Your fee has been discounted because you are a presenter at NZPycon 2009. 
+  </td>
+</tr>
+    {% endifequal %}
+<tr>
+  <td><strong>Thanks for your registration!</strong>
+</tr>
+<tr>
+  <td align="right">
+    <br />
+    {% if registration.payment %}
+    {% if registration.sponsor %}
+      <strong>Thank you, no payment required</strong>
+    {% else %}
+      <strong>Thank you, this invoice has been paid</strong>
+    {% endif %}
+    {% else %}
+    <strong>Please pay to:</strong><br />
+New Zealand Python User Group<br />
+06-0158-0360348-00<br />
+The National Bank<br />
+Auckland University Branch<br />
+PO Box 2132<br />
+    {% endif %}
+  </td>
+</tr>
+</table>
+</body>
+</html>
+

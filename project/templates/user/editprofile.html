@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Your Profile{% endblock %}
+
+{% block content %}
+    <h1>Edit Your Profile</h1>
+
+
+    <form action="{% url kiwipycon_edit_profile %}"
+          enctype="multipart/form-data"
+          method="post">
+                <fieldset>
+                    <legend>Edit Profile</legend>
+                    <table class="kiwipycon-default">
+                        {{ form }}
+                    </table>
+                    <input type="hidden"
+                           name="action"
+                           value="email" />
+        
+                    <input class="button left"
+                           type="submit"
+                           value="Save Changes" />
+        
+    </fieldset>
+    </form>
+{% endblock %}
+

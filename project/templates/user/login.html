@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Login or Register{% endblock %}
+
+{% block content %}
+<h1>Login or Register</h1>
+
+    <div class="login">
+        <h2 class="authenticate">Login</h2>
+
+        <div class="description">
+            Log in for registered users of the site.
+        </div>
+
+        <form class="authenticate"
+              enctype="multipart/form-data"
+              action="{% url kiwipycon_login %}"
+              method="post">
+
+                <table class="kiwipycon-default">
+                    {{ login_form }}
+                    <tr>
+                        <td></td>
+                        <td>
+                            <a href="{% url kiwipycon_password_reset %}">Forgot password?</a>
+                        </td>
+                    </tr>
+                </table>
+
+            <input type="hidden"
+                   name="action"
+                   value="login" />
+
+            <input type="hidden"
+                   name="next"
+                   value="{{ next_url }}" />
+
+            <button class="button left"
+                    type="submit">
+                Login
+            </button>
+
+        </form>
+    </div>
+
+    <div class="register">
+        <h2 class="authenticate">Register</h2>
+
+        <div class="description">
+            If you are not already a member of the site you can register here.
+        </div>
+
+        <form action="{% url kiwipycon_login %}"
+              method="post">
+                    <table class="kiwipycon-default">
+                        {{ register_form }}
+                    </table>
+                <input type="hidden"
+                       name="action"
+                       value="register" />
+
+                <input type="hidden"
+                       name="next"
+                       value="{{ next_url }}" />
+
+                <button class="button left"
+                        type="submit">
+                    Register
+                </button>
+        </form>
+    </div>
+{% endblock content %}
+

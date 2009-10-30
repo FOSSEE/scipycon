@@ -1,0 +1,41 @@
+{% extends "admin/base_site.html" %}
+
+{% block title %}Download Registrations{% endblock %}
+
+{% block content %}
+<h1>Edit Registration</h1>
+
+{% include '_errors.html' %}
+
+<form action=""
+      method="post">
+    <fieldset>
+        <legend>Select Registrations</legend>
+        <table class="kiwipycon-default">
+            {{ form }}
+        </table>
+        <button class="button left"
+                type="submit">
+            Submit
+        </button>
+    </fieldset>
+</form>
+
+{% if no_results %}
+<p>{{ no_results }}</p>
+{% endif %}
+{% if results %}
+<table>
+{% for reg in results %}
+<tr>
+    <td>{{reg.registrant.get_full_name }}</td>
+    <td>{{reg.registrant.email }}</td>
+    <td>{{reg.amount }}</td>
+    <td>{{reg.payment }}</td>
+    <td>{{reg.party }}</td>
+</tr>
+{% endfor %}
+</table>
+{% endif %}
+{% endblock content %}
+

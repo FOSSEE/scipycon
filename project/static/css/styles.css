@@ -1,0 +1,435 @@
+html,
+body
+{
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Arial, "Bitstream Vera Sans", Helvetica, sans-serif;
+    font-size: 1em;
+    background-color: white;
+    color: #58585a;
+}
+
+p {
+    text-indent: 1em;
+    width: 70%;
+}
+pre.plain {
+    font-family: Verdana, Arial, "Bitstream Vera Sans", Helvetica, sans-serif;
+    font-size: 1em;
+    color: #58585a;
+    margin-left: 1em;
+}
+img
+{
+    border: 0;
+}
+
+a
+{
+    color: #224466;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5
+{
+    font-family: Georgia, "Bitstream Vera Serif", Palatino, serif;
+    font-weight: normal;
+    line-height: 1em;
+}
+
+h1
+{
+    font-size: 1.8em;
+    color: #224466;
+    margin: 0.5em 0 0.7em 0;
+    text-decoration: none;
+    padding-bottom: 0.5em;
+/*    border-bottom: 1px solid #224466; */
+    width: 80%;
+}
+
+h2
+{
+    font-size: 1.5em;
+    color: #337799;
+    margin: 0.7em 0 0.5em 0;
+}
+
+h3
+{
+    font-size: 1.25em;
+    font-style: italic;
+    color: #337799;
+    margin: 0.5em 0;
+}
+
+ul.plain {
+  list-style: none;
+  list-style-type: none;
+  margin: 0; padding: 0;
+}
+/* give some color to <span class="title">Kiwi PyCon 2009</span> */
+span.title
+{
+}
+div#comment_form {
+    border-top: 1px solid #ccc;
+}
+div#comment_form label {
+    width: 200px;
+}
+/* default table layout */
+table.kiwipycon-default
+{
+    border-collapse: collapse;
+}
+
+table.kiwipycon-default td
+{
+    padding: 5px 15px;
+}
+
+table.kiwipycon-default th
+{
+    font-weight: bold;
+    padding: 4px 6px;
+}
+
+table.kiwipycon-default a
+{
+    text-decoration: none;
+}
+
+table.kiwipycon-default .buttons
+{
+    padding: 10px 0;
+}
+
+tr.odd {
+    background-color: #efefef;
+}
+tr.even {
+    background-color: #fff;
+}
+td,
+th
+{
+    text-align:left;
+    vertical-align: top;
+}
+
+.important
+{
+    color: #337799;
+    font-weight: bold;
+}
+
+.clear
+{
+    clear: both;
+}
+
+/* user account */
+div.picture
+{
+    width: 80%;
+    text-align: right;
+}
+
+div.picture img
+{
+    border: 1px solid #ddd;
+}
+
+/* layout elements */
+#logo
+{
+    border: 0;
+    margin: 0;
+    padding: 0.5em 1.5em;
+    background-color: #f1f1f1;
+    border-bottom: 1px dotted #888888;
+}
+#logo a img {
+    border: 0;
+}
+
+/* layout */
+#header
+{
+    position: absolute;
+    top: 1.55em;
+    left: 400px;
+}
+
+#wrapper
+{
+    position: relative;
+}
+
+#left
+{
+    width: 200px;
+    font-size: 0.8em;
+    float: left;
+}
+
+#content
+{
+    font-size: 0.8em;
+    padding: 0;
+    margin: 0 240px 0 220px;
+    min-height: 850px;
+}
+
+#right
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 250px;
+    font-size: 0.8em;
+    float: right;
+    margin: 0;
+    padding: 0 2em 0 0;
+}
+
+#right h2
+{
+    margin: 0;
+    padding: 0;
+}
+
+#footer
+{
+    border-top: 1px dotted #888888;
+    margin: 150px 0 0;
+    padding: 0 1em;
+    font-size: 0.5em;
+    clear: both;
+    position: relative;
+}
+
+/* jquery growl appears on right */
+#header h1
+{
+    font-size: 2.75em;
+    color: #224466;
+    font-family: Georgia, "Bitstream Vera Serif", Palatino, serif;
+    border: none !important;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 0.2em;
+}
+
+#header h3
+{
+	  font-size: 1.2em;
+	  font-family: Georgia, "Bitstream Vera Serif", Palatino, serif;
+	  border: none !important;
+	  width: 100%;
+	  margin: 0;
+	  padding: 0;
+	  padding-bottom: 0.2em;
+}
+#menu-user
+{
+    position: absolute;
+    right: 0em;
+    font-size: 0.8em;
+}
+
+#menu-user a
+{
+    text-decoration: none;
+}
+
+#left-inner
+{
+    margin: 0 2em;
+    padding: 0;
+}
+
+#left-inner a {
+    text-decoration: none;
+}
+
+#left-inner ul
+{
+    list-style: none;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+#left-inner ul li ul
+{
+    margin-left: 0.5em;
+    padding: 0;
+}
+
+#left-inner li
+{
+    font-weight: bold;
+    padding: 0 0 0.5em 0;
+}
+
+#left-inner li ul li
+{
+    font-weight: normal;
+    padding: 0 0 0.3em 0;
+}
+
+#right-inner {
+    margin: 0;
+    padding: 0;
+}
+
+#right-inner ul
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+#right-inner li
+{
+	  font-weight: bold;
+    padding-bottom: 15px;
+}
+/* forms */
+div.form
+{
+    margin-top: 1em;
+}
+
+div.form th
+{
+    text-align: left;
+}
+fieldset {
+    width: 70%;
+}
+legend {
+    font-weight: bold;
+    color: #222;
+}
+div.messages {
+    padding:.3em .8em;
+    margin-bottom:1em;
+    border:2px solid #ddd;
+    background:#E3FBE4;
+    color:#1f8a11;
+    border-color:#C2FBC4;
+}
+.notice {
+    background:#FFF6BF;
+    color:#514721;
+    border-color:#FFD324;
+    padding:.8em;
+    margin-bottom:1em;
+    border:2px solid #ddd;
+}
+ul.errorlist, .errors, .error {
+    padding:.3em .8em;
+    margin-bottom:1em;
+    border:2px solid #ddd;
+    background:#FBE3E4;
+    color:#8a1f11;
+    border-color:#FBC2C4;
+}
+ul.errorlist {
+  list-style: none;
+  list-style-type: none;
+}
+/* Login/register */
+div.login
+{
+    float: left;
+}
+
+div.register
+{
+    padding-left: 2em;
+    margin: 0 0 0 270px;
+    border-left: 1px solid #aaa;
+}
+
+/* --------------------------------------------------------------
+   Based on buttons by Kevin Hale [particletree.com]
+   * particletree.com/features/rediscovering-the-button-element
+-------------------------------------------------------------- */
+
+a.button, button, input.button {
+  display:block;
+  float: right;
+  margin: 0.7em 8px 0.7em 0.5em;
+  padding:2px 10px 2px 10px;   /* Links */
+  font-size:100%;
+  line-height:120%;
+  text-decoration:none;
+  font-weight:bold;
+  cursor:pointer;
+  background-color: #66aacc;
+  border: 1px solid #222;
+  color: #fff !important;
+}
+
+a.button.left, button.left, input.left {
+  margin: 0.7em 0.5em 0.7em 0em;
+  float:left;
+}
+
+button {
+  width:auto;
+  overflow:visible;
+  padding:4px 10px 3px 7px;   /* IE6 */
+}
+
+button[type] {
+  padding:4px 10px 4px 7px;   /* Firefox */
+  line-height:17px;           /* Safari */
+}
+
+*:first-child+html button[type] {
+  padding:4px 10px 3px 7px;   /* IE7 */
+}
+
+button img, a.button img {
+  margin:0 3px -3px 0 !important;
+  padding:0;
+  border:none;
+  width:16px;
+  height:16px;
+  float:none;
+}
+
+table.required tr {
+    border-left: 3px solid #cc0000;
+}
+
+/* Button colors */
+
+/* Standard */
+button:hover, a.button:hover, input.button:hover {
+  background-color: #337799;
+  border: 1px solid #222;
+  color:black !important;
+}
+
+/* horizontal menu */
+div.right {
+    text-align: right;
+    width: 80%;
+}
+ul.horizontal-menu li {
+  display: inline;
+  list-style-type: none;
+  padding-right: 20px;
+}

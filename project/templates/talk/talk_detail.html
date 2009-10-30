@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block content %}
+<h1>{{ object.title }}</h1>
+<p><a href="/talks/">View all talks</a></p>
+
+<style>
+dl.default dt {
+    font-weight: bold;
+}
+dl.default dd {
+    margin-bottom: 1em;
+}
+</style>
+
+<dl class="default">
+    <dt>Title</dt>
+    <dd>{{ object.title }}</dd>
+    <dt>Speaker</dt>
+    <dd>{{ object.speaker.get_profile.fullname }}</dd>
+    <dt>Speaker's profile</dt>
+    <dd>{{ object.speaker.get_profile.about }}</dd>
+    <dt>Topic</dt>
+    <dd>{{ object.topic }}</dd>
+    <dt>Abstract</dt>
+    <dd>{{ object.abstract }}</dd>
+    <dt>Outline</dt>
+    <dd>{{ object.outline }}</dd>
+    <dt>Audience</dt>
+    {% load talk_extras %}
+    {% with choices|choice:object.audience as audience %}
+    <dd>{{ audience|title }}</dd>
+    {% endwith %}
+    <dt>Tags</dt>
+    <dd>{{ object.tags }}</dd>
+</dl>
+
+</ul>
+{% endblock content %}
+
+

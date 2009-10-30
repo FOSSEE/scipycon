@@ -1,0 +1,27 @@
+6 September 2009
+----------------
+
+- added sponsor table, prepopulate from sponsor.sql
+  (need to manually add number of guests allowed per sponsor)
+- sponsor logo and credits sourced from sponsor table
+- new schwag sponsor page (generated from sponsor table)
+  (please delete current static page which this replaces)
+- added fields to registration:
+    party - pre-conference party
+    discount - student/benefits
+    sponsor - a guest of sponsor
+    postcode
+- prefixed invoice number with NZPYCON2009_****
+- added confirmation email for sponsor guests (no invoice number)
+- added payment confirmation email when admin confirms payment for 
+  registrant. (Using save() hook on Registration model
+  PDF invoice will be attached to this email.
+- link and icon to twitter account
+- removed 'submit-talk' links
+- decided that a mechanism to email all speakers or all attendees to be
+  overkill. 
+
+- added list and singleton views for talks
+- set up south migrations for apps
+
+- added further functionality to registrations to deal with price scale.

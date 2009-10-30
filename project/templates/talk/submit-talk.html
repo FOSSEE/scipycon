@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Submit Talk Proposal{% endblock %}
+
+{% block content %}
+    <h1>Submit Talk Proposal</h1>
+
+{% include '_errors.html' %}
+
+        <form action="{% url kiwipycon_submit_talk %}"
+              method="post">
+    {% if not user.is_authenticated %}
+                <fieldset>
+                    <legend>Are you a member of this site?</legend>
+                    <table class="kiwipycon-default required">
+                        {{ login_form }}
+                    </table>
+
+                <input type="hidden"
+                       name="action"
+                       value="login" />
+
+            <button class="button left"
+                    type="submit">
+                Login
+            </button>
+                </fieldset>
+
+        </form>
+        <br />
+        <form action="{% url kiwipycon_submit_talk %}"
+              enctype="multipart/form-data"
+              method="post">
+                <fieldset>
+                    <legend>Speaker Registration</legend>
+                    <table class="kiwipycon-default required">
+                        {{ register_form }}
+                    </table>
+
+                <input type="hidden"
+                       name="action"
+                       value="register" />
+                </fieldset>
+    {% endif %}
+                <br />
+                <fieldset>
+                    <legend>Talk Submission</legend>
+                    <table class="kiwipycon-default required">
+                        {{ talk_form }}
+                    </table>
+
+                <button class="button left"
+                        type="submit">
+                    Submit Talk
+                </button>
+                </fieldset>
+        </form>
+    {% if message %}
+    <script type="text/javascript">
+        $.jGrowl("{{ message }}");
+</script>
+    {% endif %}
+{% endblock content %}
