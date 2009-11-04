@@ -31,7 +31,7 @@ INSTALLED_APPS = (
 
 DATABASE_ENGINE = 'mysql'
 DATABASE_NAME = 'conference'
-DATABASE_USER = ''
+DATABASE_USER = 'root'
 DATABASE_PASSWORD = ''
 
 EMAIL_HOST = 'localhost'

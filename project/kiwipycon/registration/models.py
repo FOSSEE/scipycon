@@ -46,7 +46,7 @@ class Registration(models.Model):
     # scipy.in specific
     sprint = models.BooleanField(default=False)
 
-    amount = models.IntegerField(default=0)
+#    amount = models.IntegerField(default=0)
     allow_contact = models.BooleanField(default=False)
 #    payment = models.BooleanField(default=False)
     submitted = models.DateTimeField(auto_now_add=True)
