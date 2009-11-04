@@ -1,7 +1,10 @@
 #django
 from project.settings import *
 
-SITE_ID = 2
+DEBUG=True
+TEMPLATE_DEBUG=DEBUG
+
+SITE_ID = 1 
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -23,10 +26,11 @@ INSTALLED_APPS = (
     'basic.media',
     'django_extensions',
     'south',
+    'registration',
 )
 
-DATABASE_ENGINE = 'postgresql_psycopg2'
-DATABASE_NAME = 'kpc09'
-DATABASE_USER = 'kpc09'
+DATABASE_ENGINE = 'mysql'
+DATABASE_NAME = 'conference2009'
+DATABASE_USER = 'root'
 # Imports DATABASE_PASSWORD from project/local.py that is not part of mercurial repo
 from project.local import DATABASE_PASSWORD
