@@ -54,7 +54,7 @@ class Talk(models.Model):
     topic = models.CharField(max_length=255, 
                              #choices=TOPIC_CHOICES,
                              blank=True)
-    #topic_other = models.CharField(max_length=255, blank=True)
+#    topic_other = models.CharField(max_length=255, blank=True)
     duration = models.CharField(max_length=3, choices=DURATION_CHOICES)
     audience = models.CharField(max_length=32, choices=AUDIENCE_CHOICES, blank=True)
 #    audience_other = models.CharField(max_length=128, blank=True)

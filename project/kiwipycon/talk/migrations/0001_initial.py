@@ -17,16 +17,16 @@ class Migration:
             ('contact', models.CharField(max_length=1024)),
             ('title', models.CharField(max_length=1024)),
             ('abstract', models.TextField()),
-            ('outline', models.TextField()),
+#            ('outline', models.TextField()),
             ('topic', models.CharField(blank=True, max_length=255)),
-            ('topic_other', models.CharField(max_length=255, blank=True)),
+#            ('topic_other', models.CharField(max_length=255, blank=True)),
             ('duration', models.CharField(max_length=3)),
             ('audience', models.CharField(blank=True, max_length=32)),
-            ('audience_other', models.CharField(max_length=128, blank=True)),
+#            ('audience_other', models.CharField(max_length=128, blank=True)),
             ('approved', models.BooleanField(default=False)),
             ('submitted', models.DateTimeField(auto_now_add=True)),
             ('last_mod', models.DateTimeField(auto_now=True)),
-            ('tags', TagField(blank=True)),
+#            ('tags', TagField(blank=True)),
         ))
         db.send_create_signal('talk', ['Talk'])
         

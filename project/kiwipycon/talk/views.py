@@ -150,14 +150,15 @@ def submit_talk(request, template_name='talk/submit-talk.html'):
                     contact = talk_form.data.get('contact'),
                     title = talk_form.data.get('title'),
                     abstract = talk_form.data.get('abstract'),
-                    outline = talk_form.data.get('outline'),
+#                    outline = talk_form.data.get('outline'),
                     topic = talk_form.data.get('topic'),
-                    topic_other = talk_form.data.get('topic_other'),
+#                    topic_other = talk_form.data.get('topic_other'),
                     duration = talk_form.data.get('duration'),
                     audience = talk_form.data.get('audience'),
-                    audience_other = talk_form.data.get('audience_other'),
+#                    audience_other = talk_form.data.get('audience_other'),
                     approved = False,
-                    tags = talk_form.data.get('tags'))
+#                    tags = talk_form.data.get('tags')
+                    )
                 talk.save()
                 # Saved, ... redirect back to account
                 redirect_to = reverse('kiwipycon_account')
