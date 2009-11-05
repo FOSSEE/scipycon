@@ -73,13 +73,13 @@ def edit_talk(request, id, template_name='talk/edit-talk.html'):
             talk.contact = form.data.get('contact')
             talk.title = form.data.get('title')
             talk.abstract = form.data.get('abstract')
-            talk.outline = form.data.get('outline')
+#            talk.outline = form.data.get('outline')
             talk.topic = form.data.get('topic')
-            talk.topic_other = form.data.get('topic_other')
+#            talk.topic_other = form.data.get('topic_other')
             talk.duration = form.data.get('duration')
             talk.audience = form.data.get('audience')
-            talk.audience_other = form.data.get('audience_other')
-            talk.tags = form.data.get('tags')
+#            talk.audience_other = form.data.get('audience_other')
+#            talk.tags = form.data.get('tags')
             talk.save()
             # Saved.. redirect
             redirect_to = reverse('kiwipycon_account')
@@ -92,13 +92,13 @@ def edit_talk(request, id, template_name='talk/edit-talk.html'):
                                     'contact' : talk.contact,
                                     'title' : talk.title,
                                     'abstract' : talk.abstract,
-                                    'outline' : talk.outline,
+#                                    'outline' : talk.outline,
                                     'topic' : talk.topic,
-                                    'topic_other' : talk.topic_other,
+#                                    'topic_other' : talk.topic_other,
                                     'duration' : talk.duration,
                                     'audience' : talk.audience,
-                                    'audience_other' : talk.audience_other,
-                                    'tags' : talk.tags,
+#                                    'audience_other' : talk.audience_other,
+#                                    'tags' : talk.tags,
             })
 
     return render_to_response(template_name, RequestContext(request, locals()))

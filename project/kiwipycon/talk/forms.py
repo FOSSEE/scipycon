@@ -31,7 +31,7 @@ class TalkSubmitForm(forms.Form):
         max_length=1024,
         widget=forms.TextInput(attrs={'size':'50'}))
     abstract = forms.CharField(widget=forms.Textarea, required=True,
-        help_text=u'Summary of proposed presentation (around 30 words)')
+        help_text=u'Summary of proposed presentation (In 300-700 words)')
 #    outline = forms.CharField(widget=forms.Textarea, required=True,
 #        help_text=u'Outline of proposed presentation (around 200 words)')
 #    topic = forms.ChoiceField(choices=TOPIC_CHOICES,
