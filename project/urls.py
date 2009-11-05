@@ -18,7 +18,9 @@ admin.autodiscover()
 # Blog & Admin
 urlpatterns = patterns(
     '',
-    (r'', include('basic.blog.urls')),
+    url(r'', 
+        direct_to_template, {"template": "home.html"},
+        name='home'),
     (r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),
     (r'^comments/', include('django.contrib.comments.urls')),
     (r'^admin/(.*)', admin.site.root),
