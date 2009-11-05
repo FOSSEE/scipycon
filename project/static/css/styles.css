@@ -11,7 +11,11 @@ body
 
 p {
     text-indent: 1em;
-    width: 70%;
+    width: 80%;
+    font-family: Verdana, Arial, "Bitstream Vera Sans", Helvetica, sans-serif;
+    font-size: 1.1em;
+    color: #58585a;
+    margin-left: 1em;
 }
 pre.plain {
     font-family: Verdana, Arial, "Bitstream Vera Sans", Helvetica, sans-serif;
