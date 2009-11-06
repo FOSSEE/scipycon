@@ -106,38 +106,24 @@ http://nz.pycon.org/password-reset
 confirmation_newuser = """
 Dear %(name)s,
 
-Welcome to Kiwi Pycon 2009. You may log in to 
-http://nz.pycon.org/login using the following credentials:
+Welcome to SciPy.in 2009. You may log in to 
+http://scipy.in/login using the following credentials:
 
 Username: %(username)s
 Password: %(password)s
 
-Amount: %(amount)s
-
-Your invoice number is: %(invoice)s
-
-Please use this number and your username as reference when 
-making payment to the following:
-
-New Zealand Python User Group,
-06-0158-0360348-00
-The National Bank,
-Auckland University Branch
-PO Box 2132
+There is an entry fee for the SciPy conference only. However
+the sprint and tutorials don't have any entry fee. The entry
+fee for the conference can be paid on the spot on the first
+day of the conference.
 
 Thanks for your registration!
 
-You can view your invoice at:
-http://nz.pycon.org/invoice
-And a pdf version here:
-http://nz.pycon.org/pdf_invoice
-
 Regards,
-The Kiwi Pycon 2009 Team
+The SciPy.in Team
 
 If you lose your password to the website please visit:
-http://nz.pycon.org/password-reset
-
+http://scipy.in/password-reset
     """
 
 confirmation_sponsoreduser = """
@@ -183,33 +169,22 @@ http://nz.pycon.org/password-reset
 confirmation_currentuser = """
 Dear %(name)s,
 
-Welcome to Kiwi Pycon 2009.
+Welcome to SciPy.in 2009. You may log in to 
+http://scipy.in/login using the following credentials:
 
-Your invoice number is: %(invoice)s
-Your username is: %(username)s
+Username: %(username)s
+Password: %(password)s
 
-Amount: %(amount)s
-
-Please use this number and your username as reference when making payment
-to the following:
-
-New Zealand Python User Group,
-06-0158-0360348-00
-The National Bank,
-Auckland University Branch
-PO Box 2132
+There is an entry fee for the SciPy conference only. However
+the sprint and tutorials don't have any entry fee. The entry
+fee for the conference can be paid on the spot on the first
+day of the conference. 
 
 Thanks for your registration!
 
-You can view your invoice at:
-http://nz.pycon.org/invoice 
-And a pdf version here:
-http://nz.pycon.org/pdf_invoice
-
 Regards,
-The Kiwi Pycon 2009 Team
+The SciPy.in Team
 
-If you have lost your password to the website please visit:
-http://nz.pycon.org/password-reset
-
+If you lose your password to the website please visit:
+http://scipy.in/password-reset
     """
