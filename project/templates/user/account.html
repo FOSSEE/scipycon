@@ -80,12 +80,6 @@ requirements.</p>
 <p>
   <a href="/edit-registration/{{ registration.id }}/"
     title="Edit">Edit Registration</a>
-  {% if registration.sponsor %}
-  {% else %}
-  | <a href="/invoice/"
-    title="Your invoice (html)">Your invoice (html)</a> (<a href="/pdf_invoice/"
-    title="Your invoice (pdf)">pdf</a>)</p>
-  {% endif %}
   </p>
 </div>
 {% endif %}
