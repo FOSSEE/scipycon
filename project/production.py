@@ -29,6 +29,8 @@ INSTALLED_APPS = (
     'registration',
 )
 
+ACCOUNT_ACTIVATION_DAYS = 55
+
 DATABASE_ENGINE = 'mysql'
 DATABASE_NAME = 'conference2009'
 DATABASE_USER = 'root'
