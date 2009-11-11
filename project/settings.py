@@ -76,3 +76,5 @@ TEMPLATE_CONTEXT_PROCESSORS = (
         'project.kiwipycon.context_processors.sponsors')
 
 DEFAULT_FROM_EMAIL = 'admin@scip.in'
+
+ACCOUNT_ACTIVATION_DAYS = 55
