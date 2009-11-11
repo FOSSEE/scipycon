@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+  <div class="post">
+    <div class="title"><h2>{% trans "Register" %}</h2></div>
+    <div id="search">
+    <style type="text/css">
+    ul.errorlist {
+        margin: 0;
+        padding: 0;
+    }
+    .errorlist li {        
+        color: red;
+        display: block;
+        font-size: 10px;
+        margin: 0 1 3px;
+        padding: 0px 45px;
+    }
+</style>
+
+      <form method="POST" action=".">
+        <table>
+          {{ form.as_table }}
+        </table>
+        <p><input type="submit" name="Register" value="{% trans "Register" %}" class="btn"></p>
+      </form>
+      <script type="text/javascript">
+	document.getElementById('id_username').focus();
+      </script>
+   </div>
+{% endblock %}

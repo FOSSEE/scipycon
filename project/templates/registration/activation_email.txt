@@ -1,0 +1,17 @@
+Hello everyone,
+
+   It looks like you have registered for SciPy.in with this email address.
+To confirm your registration please activate your account by clicking on the
+link below. 
+
+  http://scipy.in/accounts/activate/{{ activation_key }}
+
+If your browser doesn't support clicking on the link, please copy
+paste the URL in your browser's address bar.
+
+Note: Your activation key is valid only for 7 days. Please activate your accout
+before that.
+
+--
+ Thanks for registering,
+ SciPy team

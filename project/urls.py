@@ -73,7 +73,8 @@ urlpatterns += patterns('',
         name='reaching'),
     url(r'^talks-cfp/schedule/$', 
         direct_to_template, {"template": "talk/schedule.html"},
-        name='reaching')
+        name='reaching'),
+    (r'^accounts/', include('registration.urls')),
     )
 
 # Password reset
