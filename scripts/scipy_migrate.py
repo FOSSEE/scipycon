@@ -25,8 +25,9 @@ def remind_users():
 
     for reg in regs:
 
-        subject = "Update and activate your SciPy.in registration."
+        subject = 'Update and activate your SciPy.in registration.'
         message = loader.render_to_string(
             template, dictionary={'activation_key': reg.activation_key})
 
-        reg.user.email_user(subject=subject, message=message)
+        reg.user.email_user(subject=subject, message=message,
+                            from_email='admin@scipy.in')
