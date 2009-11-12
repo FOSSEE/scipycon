@@ -66,7 +66,7 @@ def kiwipycon_createuser(request, data):
         filename = handle_uploaded_photo(user, request.FILES['photo'])
     if filename:
         profile.photo = filename
-    print photo, filename
+    #print photo, filename
 
     profile.url = data.get("url")
     profile.about = data.get("about")
@@ -111,7 +111,7 @@ def handle_uploaded_photo(user, ufile):
             th = int(round(nw / pr))
             image = image.resize((nw, th), Image.ANTIALIAS)
             t = int(round(( th - nh ) / 2.0))
-            print((0, t, nw, t + nh))
+            #print((0, t, nw, t + nh))
             image = image.crop((0, t, nw, t + nh))
         else:
             # photo aspect matches the destination ratio
