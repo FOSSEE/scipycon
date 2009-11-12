@@ -75,6 +75,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
         'django.core.context_processors.media',
         'project.kiwipycon.context_processors.sponsors')
 
-DEFAULT_FROM_EMAIL = 'admin@scip.in'
+DEFAULT_FROM_EMAIL = 'admin@scipy.in'
 
 ACCOUNT_ACTIVATION_DAYS = 55
