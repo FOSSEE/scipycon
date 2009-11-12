@@ -438,3 +438,9 @@ ul.horizontal-menu li {
   list-style-type: none;
   padding-right: 20px;
 }
+
+ol li {
+  font-family: Verdana, Arial, "Bitstream Vera Sans", Helvetica, sans-serif;
+  font-size: 1.1em;
+  color: #58585a;
+}
