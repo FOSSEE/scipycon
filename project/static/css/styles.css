@@ -306,6 +306,8 @@ div.picture img
 #right-inner li
 {
 	  font-weight: bold;
+	  font-family: Verdana, Arial, "Bitstream Vera Sans", Helvetica, sans-serif;
+    font-size: 1.3em;
     padding-bottom: 15px;
 }
 /* forms */
@@ -443,4 +445,22 @@ ol li {
   font-family: Verdana, Arial, "Bitstream Vera Sans", Helvetica, sans-serif;
   font-size: 1.1em;
   color: #58585a;
+}
+
+#speaker {
+	display:inline;
+}
+
+#speakerphoto {
+	float: left;
+	padding-right: 20px;
+}
+
+#speakerinfo {
+    width: 80%;
+    font-family: Verdana, Arial, "Bitstream Vera Sans", Helvetica, sans-serif;
+    font-size: 1.2em;
+    color: #58585a;
+    margin-left: 5em;
+    text-align: justify;
 }
