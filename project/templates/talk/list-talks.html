@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}My Talks{% endblock %}
+
+{% block content %}
+<h1>My Talks</h1>
+{% if talk_list %}
+<h3>List of the talks I have submitted.</h3>
+
+<table class="list-talks">
+  <tr>
+    <th>Title</th>
+    <th>Contact</th>
+    <th>Topic</th>
+    <th>Duration</th>
+    <th>Audience type</th>
+    <th>Edit</th>
+  </tr>
+  {% for talk in talk_list %}
+    <tr>
+      <td>{{ talk.title }}</td>
+      <td>{{ talk.contact }}</td>
+      <td>{{ talk.topic }}</td>
+      <td>{{ talk.duration }}</td>
+      <td>{{ talk.audience }}</td>
+      <td><u><a href="/edit-talk/{{ talk.id }}/">Edit</a></u></td>
+    </tr>
+  {% endfor %}
+</table>
+{% else %}
+<h2>No talks</h2>
+{% endif %}
+{% endblock content %}
