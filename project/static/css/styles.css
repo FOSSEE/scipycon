@@ -126,6 +126,32 @@ th
     vertical-align: top;
 }
 
+/* list my talks table layout */
+table.list-talks
+{
+    border: 1px solid #ddd;
+    font-size: 1.1em;
+}
+
+table.list-talks td
+{
+	  border: 1px solid #ddd;
+    padding: 5px 15px;
+}
+
+table.list-talks th
+{
+	  border: 1px solid #ddd;
+    font-weight: bold;
+    align: center;
+    padding: 5px 15px;
+}
+
+table.list-talks a
+{
+    text-decoration: none;
+}
+
 .important
 {
     color: #337799;
@@ -307,7 +333,7 @@ div.picture img
 {
 	  font-weight: bold;
 	  font-family: Verdana, Arial, "Bitstream Vera Sans", Helvetica, sans-serif;
-    font-size: 1.3em;
+    font-size: 1em;
     padding-bottom: 15px;
 }
 /* forms */

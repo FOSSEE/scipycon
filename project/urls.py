@@ -18,9 +18,7 @@ admin.autodiscover()
 # Blog & Admin
 urlpatterns = patterns(
     '',
-    url(r'^$', 
-        direct_to_template, {"template": "home.html"},
-        name='home'),
+    url(r'^$',  direct_to_template, {"template": "home.html"}, name='home'),
     (r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),
     (r'^comments/', include('django.contrib.comments.urls')),
     (r'^admin/(.*)', admin.site.root),
@@ -32,6 +30,8 @@ urlpatterns += patterns('project.kiwipycon.talk.views',
     url(r'^talks/talk/(?P<id>\d+)/$',  'talk', name='talk_detail'),
     url(r'^submit-talk/$',  'submit_talk', name='kiwipycon_submit_talk'),
     url(r'^edit-talk/(?P<id>\d+)/$',  'edit_talk', name='kiwipycon_edit_talk'),
+    url(r'^talks-cfp/list-talks/(?P<id>\d+)/$',  'list_talks',
+        name='kiwipycon_list_talk'),
     )
 
 # Registration

@@ -182,3 +182,14 @@ def submit_talk(request, template_name='talk/submit-talk.html'):
         'login_form' : login_form
     }))
 
+@login_required
+def list_talks(request, id, template_name='talk/list-talks.html'):
+    '''List all the tasks submitted by a user.
+    '''
+
+    speaker = User.objects.get(pk=id)
+    talks = Talk.objects.filter(speaker=speaker)
+
+    return render_to_response(template_name, RequestContext(request, {
+        'talk_list': talks,
+    }))
