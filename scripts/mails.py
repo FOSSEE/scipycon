@@ -30,3 +30,21 @@ def speaker_accepted():
 
         talk.speaker.email_user(subject=subject, message=message,
                                 from_email='admin@scipy.in')
+
+def speaker_sponsorship():
+    """Sends a mail to each speaker whose talk has been accepted
+    informing them about the their sponsorship.
+    """
+
+    talks = Talk.objects.all()
+
+    template = 'notifications/speaker_sponsorship_mail.html'
+
+    for talk in talks:
+        subject = 'Details regarding your travel and accommodation for SciPy.in 2009'
+        message = loader.render_to_string(
+            template, dictionary={'name': talk.speaker.username,
+                                  'title': talk.title})
+
+        talk.speaker.email_user(subject=subject, message=message,
+                                from_email='admin@scipy.in')
