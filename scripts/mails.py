@@ -67,4 +67,4 @@ def delegate_remainder():
             template, dictionary={'name': reg.user.username})
 
         reg.user.email_user(subject=subject, message=message,
-                            from_email='admin@scipy.in')
+                            from_email='madhusudancs@gmail.com')
