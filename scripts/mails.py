@@ -11,6 +11,7 @@ __authors__ = [
 from django.template import loader
 
 from project.kiwipycon.talk.models import Talk
+from django.contrib.auth.models import User
 
 
 def speaker_accepted():
@@ -31,6 +32,7 @@ def speaker_accepted():
         talk.speaker.email_user(subject=subject, message=message,
                                 from_email='admin@scipy.in')
 
+
 def speaker_sponsorship():
     """Sends a mail to each speaker whose talk has been accepted
     informing them about the their sponsorship.
@@ -48,3 +50,21 @@ def speaker_sponsorship():
 
         talk.speaker.email_user(subject=subject, message=message,
                                 from_email='admin@scipy.in')
+
+
+def delegate_remainder():
+    """Sends a mail to each speaker whose talk has been accepted
+    informing them about the their sponsorship.
+    """
+
+    regs = User.objects.all()
+
+    template = 'notifications/remainder_mail.html'
+
+    for reg in regs:
+        subject = 'SciPy.in 2009: Remainder and details'
+        message = loader.render_to_string(
+            template, dictionary={'name': reg.user.username})
+
+        reg.user.email_user(subject=subject, message=message,
+                            from_email='admin@scipy.in')
