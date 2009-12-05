@@ -59,12 +59,12 @@ def delegate_remainder():
 
     regs = User.objects.all()
 
-    template = 'notifications/remainder_mail.html'
+    template = 'notifications/reminder_mail.html'
 
     for reg in regs:
         subject = 'SciPy.in 2009: Remainder and details'
         message = loader.render_to_string(
-            template, dictionary={'name': reg.user.username})
+            template, dictionary={'name': reg.username})
 
-        reg.user.email_user(subject=subject, message=message,
-                            from_email='madhusudancs@gmail.com')
+        reg.email_user(subject=subject, message=message,
+                       from_email='madhusudancs@gmail.com')
