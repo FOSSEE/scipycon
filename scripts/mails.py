@@ -9,9 +9,10 @@ __authors__ = [
 
 
 from django.template import loader
-
-from project.kiwipycon.talk.models import Talk
 from django.contrib.auth.models import User
+
+from project.kiwipycon.registration.models import Registration
+from project.kiwipycon.talk.models import Talk
 
 
 def speaker_accepted():
@@ -68,3 +69,39 @@ def delegate_remainder():
 
         reg.email_user(subject=subject, message=message,
                        from_email='madhusudancs@gmail.com')
+
+
+def delegate_about_event():
+    """Sends a mail to each confirmed delegate informing
+    them about the the individual events.
+    """
+
+    regs = Registration.objects.all()
+
+    template = 'notifications/sprints_about_mail.html'
+
+    for reg in regs:
+        subject = 'SciPy.in 2009: Details of the individual events'
+        message = loader.render_to_string(
+            template, dictionary={'name': reg.registrant.username})
+
+        reg.registrant.email_user(subject=subject, message=message,
+                                  from_email='madhusudancs@gmail.com')
+
+
+def speaker_confirmation():
+    """Sends a mail to each speaker asking for confirmation.
+    """
+
+    talks = Talk.objects.all()
+
+    template = 'notifications/speaker_confirmation_mail.html'
+
+    for talk in talks:
+        subject = 'SciPy.in 2009: Requesting for confirmation of your talk'
+        message = loader.render_to_string(
+            template, dictionary={'name': talk.speaker.username,
+                                  'title': talk.title})
+
+        talk.speaker.email_user(subject=subject, message=message,
+                                from_email='admin@scipy.in')
