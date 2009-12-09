@@ -14,7 +14,6 @@
     <th>Topic</th>
     <th>Duration</th>
     <th>Audience type</th>
-    <th>Abstract</th>
   </tr>
   {% for talk in talk_list %}
     <tr>
@@ -23,7 +22,6 @@
       <td>{{ talk.topic }}</td>
       <td>{{ talk.duration }}</td>
       <td>{{ talk.audience }}</td>
-      <td>{{ talk.abstract }}</td>
     </tr>
   {% endfor %}
 </table>
