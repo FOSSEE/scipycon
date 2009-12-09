@@ -142,6 +142,7 @@ table.list-talks
 {
     border: 1px solid #ddd;
     font-size: 1.1em;
+    width: 80%;
 }
 
 table.list-talks td
