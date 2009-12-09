@@ -18,6 +18,17 @@ p {
     margin-left: 1em;
     text-align: justify;
 }
+
+p.noindent {
+    text-indent: 0;
+    width: 80%;
+    font-family: Verdana, Arial, "Bitstream Vera Sans", Helvetica, sans-serif;
+    font-size: 1.1em;
+    color: #58585a;
+    margin-left: .2em;
+    text-align: justify;
+}
+
 pre.plain {
     font-family: Verdana, Arial, "Bitstream Vera Sans", Helvetica, sans-serif;
     font-size: 1em;
