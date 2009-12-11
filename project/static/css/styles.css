@@ -142,7 +142,6 @@ table.list-talks
 {
     border: 1px solid #ddd;
     font-size: 1.1em;
-    width: 95%;
 }
 
 table.list-talks td
@@ -160,6 +159,63 @@ table.list-talks th
 }
 
 table.list-talks a
+{
+    text-decoration: none;
+}
+
+/* list my talks table layout */
+table.list-all-talks
+{
+    border: 1px solid #ddd;
+    font-size: 1.1em;
+    width: 95%;
+}
+
+table.list-all-talks td
+{
+    border: 1px solid #ddd;
+    padding: 5px 15px;
+    font-size: 1.2em;
+    color: black;
+}
+
+table.list-all-talks td.speaker
+{
+    border: 1px solid #ddd;
+    font-size: 1.2em;
+    color: black;
+}
+
+table.list-all-talks td.speaker h4
+{
+	  font-size: 1.25em;
+    margin:0; padding: 0;
+}
+
+table.list-all-talks th
+{
+    border: 1px solid #ddd;
+    font-weight: bold;
+    align: center;
+    padding: 5px 15px;
+}
+
+table.list-all-talks th.speaker
+{
+    border: 1px solid #ddd;
+    font-size: 1.2em;
+    color: black;
+    text-align: center;
+}
+
+table.list-all-talks th.speaker h4
+{
+    font-size: 1.25em;
+    margin:0;
+    padding: 0;
+}
+
+table.list-all-talks a
 {
     text-decoration: none;
 }
