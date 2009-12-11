@@ -89,6 +89,24 @@ def delegate_about_event():
                                   from_email='madhusudancs@gmail.com')
 
 
+def delegate_last_day():
+    """Sends a mail to each confirmed delegate informing
+    them about the final details.
+    """
+
+    regs = Registration.objects.all()
+
+    template = 'notifications/last_day_mail.html'
+
+    for reg in regs:
+        subject = 'SciPy.in 2009: Schedule and other details'
+        message = loader.render_to_string(
+            template, dictionary={'name': reg.registrant.username})
+
+        reg.registrant.email_user(subject=subject, message=message,
+                                  from_email='madhusudancs@gmail.com')
+
+
 def speaker_confirmation():
     """Sends a mail to each speaker asking for confirmation.
     """
