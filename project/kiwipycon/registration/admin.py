@@ -9,7 +9,7 @@ from .models import Registration
 from .models import Wifi
 
 class RegistrationAdmin(admin.ModelAdmin):
-    list_display = ('registrant', 'slug', 'email', 'city', 
+    list_display = ('registrant', 'full_name', 'slug', 'email', 'city', 
             'organisation', 'occupation', 'postcode',
             'tshirt', 'conference', 'tutorial', 'sprint',
             'allow_contact')
@@ -23,9 +23,13 @@ class RegistrationAdmin(admin.ModelAdmin):
         }),
     )
 
+    search_fields = ['registrant__username', 'registrant__email']
+
     def email(self, obj):
         return obj.registrant.email
 
+    def full_name(self, obj):
+        return obj.registrant.get_full_name()
 
 admin.site.register(Registration, RegistrationAdmin)
 
