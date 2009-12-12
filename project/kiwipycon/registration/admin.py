@@ -9,10 +9,10 @@ from .models import Registration
 from .models import Wifi
 
 class RegistrationAdmin(admin.ModelAdmin):
-    list_display = ('registrant', 'full_name', 'slug', 'email', 'city', 
-            'organisation', 'occupation', 'postcode',
-            'tshirt', 'conference', 'tutorial', 'sprint',
-            'allow_contact')
+    list_display = ('registrant', 'full_name', 'laptop', 'slug',
+            'email', 'city', 'organisation', 'occupation',
+            'postcode', 'tshirt', 'conference', 'tutorial',
+            'sprint', 'allow_contact')
     fieldsets = (
         ('Details', {
             'fields': ('slug', 'registrant', 'organisation', 'occupation',
@@ -30,6 +30,9 @@ class RegistrationAdmin(admin.ModelAdmin):
 
     def full_name(self, obj):
         return obj.registrant.get_full_name()
+
+    def laptop(self, obj):
+        return obj.registrant.wifi_set.values()[0]['wifi']
 
 admin.site.register(Registration, RegistrationAdmin)
 
