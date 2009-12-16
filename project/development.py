@@ -30,7 +30,7 @@ INSTALLED_APPS = (
 )
 
 DATABASE_ENGINE = 'mysql'
-DATABASE_NAME = 'conference'
+DATABASE_NAME = 'conference2009'
 DATABASE_USER = 'root'
 DATABASE_PASSWORD = ''
 

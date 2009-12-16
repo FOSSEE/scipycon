@@ -1,7 +1,7 @@
 #django
 from project.settings import *
 
-DEBUG=True
+DEBUG=False
 TEMPLATE_DEBUG=DEBUG
 
 SITE_ID = 1 
