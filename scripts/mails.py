@@ -123,3 +123,19 @@ def speaker_confirmation():
 
         talk.speaker.email_user(subject=subject, message=message,
                                 from_email='admin@scipy.in')
+
+def proceedings_detail():
+    """Sends a mail to each speaker informing them about proceedings
+    """
+
+    talks = Talk.objects.all()
+
+    template = 'notifications/proceedings_detail_mail.html'
+
+    for talk in talks:
+        subject = 'SciPy.in 2009 Proceedings'
+        message = loader.render_to_string(
+            template, dictionary={'name': talk.speaker.username})
+
+        talk.speaker.email_user(subject=subject, message=message,
+                                from_email='admin@scipy.in')
