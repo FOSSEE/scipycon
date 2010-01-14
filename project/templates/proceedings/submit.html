@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Submit Paper for Proceedings{% endblock %}
+
+{% block addscripts %}
+  <script type="text/javascript" src="/static/jquery/jquery-ui-1.7.2.custom.min.js"></script>
+  <script type="text/javascript" src="/static/jquery/jquery-dynamic-form.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){	
+	  $("#author").dynamicForm("#plus", "#minus", {createColor: 'yellow',removeColor: 'red'});
+	});
+  </script>
+{% endblock %}
+
+{% block content %}
+  <h1>Submit Proceedings paper</h1>
+
+  {% include '_errors.html' %}
+
+  <form action="{% url kiwipycon_submit_proceedings %}" method="post">
+    {% if not user.is_authenticated %}
+    <fieldset>
+      <legend>Are you a member of this site?</legend>
+      <table class="kiwipycon-default required">{{ login_form }}</table>
+      <input type="hidden" name="action" value="login" />
+      <button class="button left" type="submit">Login</button>
+    </fieldset>
+  </form>
+  <br />
+  <form action="{% url kiwipycon_submit_talk %}" enctype="multipart/form-data" method="post">
+    <fieldset>
+      <legend>User Registration</legend>
+      <table class="kiwipycon-default required">{{ register_form }}</table>
+      <input type="hidden" name="action" value="register" />
+    </fieldset>
+
+    {% endif %}
+    <br />
+
+    <fieldset>
+      <legend>Proceedings Paper Submission</legend>
+      <table class="kiwipycon-default required">
+		<tr>
+          <th>{{ proceedings_form.title.label }}</th>
+          <td>{{ proceedings_form.title.errors }}{{ proceedings_form.title }}</td>
+        </tr>
+		<tr>
+          <th>{{ proceedings_form.abstract.label }}</th>
+          <td>{{ proceedings_form.abstract.errors }}{{ proceedings_form.abstract }}</td>
+        </tr>
+        <tr>
+          <th>{{ proceedings_form.body.label }}</th>
+          <td>{{ proceedings_form.body.errors }}{{ proceedings_form.body }}</td>
+        </tr>
+        <tr>
+          <th>{{ proceedings_form.rst_file.label }}</th>
+          <td>{{ proceedings_form.rst_file.errors }}{{ proceedings_form.rst_file }}</td>
+        </tr>
+        <tr>
+          <th>{{ proceedings_form.authors.label }}</th>
+          <td id="author">
+            {{ proceedings_form.authors.errors }}
+            {{ proceedings_form.authors }}
+            <span><a id="minus" href="">[Remove]</a><a id="plus" href="">[Add]</a></span>
+            <br />
+          </td>
+        </tr>
+      </table>
+      <button class="button left" type="submit">Submit Paper</button>
+    </fieldset>
+  </form>
+  {% if message %}
+  <script type="text/javascript">$.jGrowl("{{ message }}");</script>
+  {% endif %}
+{% endblock content %}
