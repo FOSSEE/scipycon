@@ -7,6 +7,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 from project.kiwipycon.user.forms import RegisterForm
+from project.kiwipycon.user.models import UserProfile
 from project.kiwipycon.proceedings.forms import ProceedingsForm
 
 
