@@ -20,18 +20,18 @@ INSTALLED_APPS = (
     'project.kiwipycon.talk',
     'project.kiwipycon.registration',
     'project.kiwipycon.sponsor',
+    'project.kiwipycon.proceedings',
     'tagging',
     'basic.blog',
     'basic.inlines',
     'basic.media',
     'django_extensions',
     'south',
-    'registration',
 )
 
-DATABASE_ENGINE = 'mysql'
-DATABASE_NAME = 'conference2009'
-DATABASE_USER = 'root'
+DATABASE_ENGINE = 'sqlite3'
+DATABASE_NAME = '/home/madhu/conference2009.db'
+DATABASE_USER = ''
 DATABASE_PASSWORD = ''
 
 EMAIL_HOST = 'localhost'

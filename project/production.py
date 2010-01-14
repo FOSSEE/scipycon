@@ -26,7 +26,6 @@ INSTALLED_APPS = (
     'basic.media',
     'django_extensions',
     'south',
-    'registration',
 )
 
 DATABASE_ENGINE = 'mysql'
