@@ -25,10 +25,6 @@ class ProceedingsForm(forms.Form):
         help_text=u'The file should contain two sections, one with a heading '
         "'Abstract' and other with a heading 'Body'.")
 
-    self_author = forms.BooleanField(
-        required=False, label=u'Author(yourself)',
-        help_text=u'Check the field if you are one of the authors')
-
-    additional_authors = forms.CharField(
-        required=False, label=u'Additional Author(s)',
-        help_text=u'User ID of each additional author separated by comma.')
+    authors = forms.CharField(
+        required=False, label=u'Author',
+        help_text=u'User ID of the author.')
