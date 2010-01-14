@@ -7,10 +7,12 @@
   <link rel="stylesheet" type="text/css" href="/static/jquery/jquery.jgrowl.css" />
   <link rel="stylesheet" type="text/css" href="/static/css/styles-20090826.css" />
 
-  <script type="text/javascript" src="/static/jquery/jquery.pack.js"></script>
+  <script type="text/javascript" src="/static/jquery/jquery.min.js"></script>
   <script type="text/javascript" src="/static/jquery/jquery.jgrowl_minimized.js"></script>
   <script type="text/javascript" src="/static/jquery/jquery.cookie.pack.js"></script>
   <script type="text/javascript" src="/static/js/kiwipycon.js"></script>
+
+  {% block addscripts %}{% endblock %}
 
   <link rel="icon" href="/static/img/favicon.ico" type="image/x-icon" />
 
