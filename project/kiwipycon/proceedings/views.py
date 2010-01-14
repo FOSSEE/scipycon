@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render_to_response
@@ -33,7 +34,6 @@ def submit(request, template = 'proceedings/submit.html'):
             login_form = AuthenticationForm(data=request.POST)
             if login_form.is_valid():
 
-                from django.contrib.auth import login
                 login(request, login_form.get_user())
 
                 redirect_to = reverse('kiwipycon_submit_proceedings')
