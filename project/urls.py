@@ -54,12 +54,17 @@ urlpatterns += patterns('project.kiwipycon.user.views',
     url(r'^password/$', 'password', name='kiwipycon_password'), # change pwd
     url(r'^username/$', 'username', name='kiwipycon_username'), # change uname
     url(r'^edit-profile/$', 'edit_profile', name='kiwipycon_edit_profile'),
+    url(r'^get-usernames/$', 'get_usernames', name='kiwipycon_get_usernames'),
     )
 
 # Proceedings
 urlpatterns += patterns('project.kiwipycon.proceedings.views',
-    url(r'^proceedings/submit/$',  'submit', name='kiwipycon_submit_proceedings'),
-    url(r'^proceedings/edit/$',  'edit', name='kiwipycon_edit_proceedings'),
+    url(r'^proceedings/submit/$', 'submit',
+        name='kiwipycon_submit_proceedings'),
+    url(r'^proceedings/submit/(?P<id>\d+)/$', 'submit', 
+        name='kiwipycon_submit_proceedings'),
+    url(r'^proceedings/show_paper/(?P<id>\d+)/$', 'show_paper', 
+        name='kiwipycon_show_paper'),
     )
 
 # About pages and all other static html pages

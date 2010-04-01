@@ -2,12 +2,37 @@
 {% block title %}Submit Paper for Proceedings{% endblock %}
 
 {% block addscripts %}
-  <script type="text/javascript" src="/static/jquery/jquery-ui-1.7.2.custom.min.js"></script>
-  <script type="text/javascript" src="/static/jquery/jquery-dynamic-form.js"></script>
+  <script type="text/javascript" src="/static/jquery/jquery.watermarkinput.js"></script>
+  <link rel="stylesheet" href="/static/css/autosuggest_inquisitor.css" type="text/css" media="screen" charset="utf-8">
+  <script type="text/javascript" src="/static/jquery/jquery.autosuggest.js"></script>
   <script type="text/javascript">
-    $(document).ready(function(){	
-	  $("#author").dynamicForm("#plus", "#minus", {createColor: 'yellow',removeColor: 'red'});
-	});
+  /** Init autosuggest on Search Input **/
+  jQuery(function() {
+
+    // Set autosuggest options with all plugins activated
+    var options = {
+      script:"{% url kiwipycon_get_usernames %}?limit=10&",
+      varname:"input",
+      json:true,            // Returned response type
+      shownoresults:true,       // If disable, display nothing if no results
+      noresults:"No Results",     // String displayed when no results
+      maxresults:8,         // Max num results displayed
+      cache:false,          // To enable cache
+      minchars:2,           // Start AJAX request with at leat 2 chars
+      timeout:100000,         // AutoHide in XX ms
+      callback: function (obj) {    // Callback after click or selection   
+        // => TO submit form (general use)
+        //$('#id_authors').val('sucks'); 
+        //$('#form_search_country').submit(); 
+      }
+    };
+    
+    // Init autosuggest
+    var as_json = new bsn.AutoSuggest('id_authors', options);
+    
+    // Display a little watermak  
+    $("#id_authors").Watermark("Ex : alex, guido, travis");
+  });
   </script>
 {% endblock %}
 
@@ -16,7 +41,7 @@
 
   {% include '_errors.html' %}
 
-  <form action="{% url kiwipycon_submit_proceedings %}" method="post">
+  <form action="{% if id %}{% url kiwipycon_submit_proceedings id %}{% else %}{% url kiwipycon_submit_proceedings %}{% endif %}" method="post">
     {% if not user.is_authenticated %}
     <fieldset>
       <legend>Are you a member of this site?</legend>
@@ -26,7 +51,8 @@
     </fieldset>
   </form>
   <br />
-  <form action="{% url kiwipycon_submit_talk %}" enctype="multipart/form-data" method="post">
+  <form action="{% url kiwipycon_submit_proceedings id %}" 
+    enctype="multipart/form-data" method="post">
     <fieldset>
       <legend>User Registration</legend>
       <table class="kiwipycon-default required">{{ register_form }}</table>
@@ -53,16 +79,13 @@
         </tr>
         <tr>
           <th>{{ proceedings_form.rst_file.label }}</th>
-          <td>{{ proceedings_form.rst_file.errors }}{{ proceedings_form.rst_file }}</td>
+          <td>{{ proceedings_form.rst_file.errors }}
+              {{ proceedings_form.rst_file }}</td>
         </tr>
         <tr>
           <th>{{ proceedings_form.authors.label }}</th>
-          <td id="author">
-            {{ proceedings_form.authors.errors }}
-            {{ proceedings_form.authors }}
-            <span><a id="minus" href="">[Remove]</a><a id="plus" href="">[Add]</a></span>
-            <br />
-          </td>
+          <td>{{ proceedings_form.authors.errors }}
+              {{ proceedings_form.authors }}</td>
         </tr>
       </table>
       <button class="button left" type="submit">Submit Paper</button>

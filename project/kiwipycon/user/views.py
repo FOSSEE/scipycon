@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
+
 #python
 from urlparse import urlparse
+import json
 import urllib
 import os
 
 #django
 from django.conf import settings
+from django.db.models import Q
+from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
@@ -16,6 +20,7 @@ from django.db.models.signals import post_save
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 
 #PIL
@@ -236,3 +241,38 @@ def username(request, template_name="user/username.html"):
         "form": username_form
     }))
 
+
+def get_usernames(request):
+    """Returns in json the list of ten possible usernames
+    starting with the last pattern in the comma separated string
+    """
+
+    get_params = request.GET
+    authors_str = get_params.get('input')
+
+    if not authors_str:
+        return HttpResponse(json.dumps(''))
+
+    authors = authors_str.split(',')
+    search_author = authors[-1].strip()
+
+    users = User.objects.filter(
+        Q(username__istartswith=search_author) | Q(
+        first_name__istartswith=search_author) | Q(
+        last_name__istartswith=search_author))
+
+    results = [{'id': '',
+                'info': 'plugin_header',
+                'value': 'User Names'
+              }]
+    
+    for user in users:
+        results.append(
+            {'id': 'author_name',
+             'info': str(user.get_full_name()),
+             'value': str(user.username)
+            })
+
+    json_response = {'results': results}
+
+    return HttpResponse(json.dumps(json_response))

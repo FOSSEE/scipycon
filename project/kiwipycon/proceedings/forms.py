@@ -26,5 +26,5 @@ class ProceedingsForm(forms.Form):
         "'Abstract' and other with a heading 'Body'.")
 
     authors = forms.CharField(
-        required=False, label=u'Author',
-        help_text=u'User ID of the author.')
+        required=False, label=u'Author(s)',
+        help_text=u'Comma separated list of User ID of the author(s).')
