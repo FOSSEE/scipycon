@@ -4,7 +4,7 @@ from __future__ import absolute_import
 #django.contrib
 from django.contrib import admin
 
-#kiwipycon
+#scipycon
 from .models import Talk
 
 class TalkAdmin(admin.ModelAdmin):

@@ -11,21 +11,13 @@ from django.contrib.auth.models import User
 from .models import SIZE_CHOICES
 from .models import Registration
 from .models import Wifi
-from project.kiwipycon.sponsor.models import Sponsor
+
 
 class RegistrationSubmitForm(forms.Form):
     """PyCon registration form
     """
     tshirt = forms.ChoiceField(choices=SIZE_CHOICES, required=True,
         label=u'T-shirt size', help_text=u'Yes, we all get a t-shirt!')
-#    beverage = forms.CharField(required=True, label=u'Beverage',
-#        help_text=u'Your beverage of choice - coffee, tea etc',
-#        max_length=255,
-#        widget=forms.TextInput(attrs={'size':'50'}))
-#    diet = forms.CharField(required=False, label=u'Dietary',
-#        help_text=u'Special dietary requirements - vegetarian etc',
-#        max_length=255,
-#        widget=forms.TextInput(attrs={'size':'50'}))
     organisation = forms.CharField(required=True, label=u'Organisation',
         help_text=u'The primary organisation that you are a member of.',
         max_length=255,
@@ -52,15 +44,6 @@ class RegistrationSubmitForm(forms.Form):
         help_text=u'Do you intend to attend the tutorials?')
     sprint = forms.BooleanField(required=False, label=u'Sprint',
         help_text=u'Do you intend to attend the sprints?')
-#    party = forms.BooleanField(required=False, label=u'Pre-con party',
-#        help_text=u'Do you intend to attend the pre-conference party on Friday?')
-#    discount = forms.BooleanField(required=False, label=u'Student/Unwaged?',
-#        help_text=u'You will be required to present your Community Services '\
-#                'Card or Student ID on arrival.')
-#    sponsor = forms.CharField(required=False, label=u'Sponsor code',
-#        help_text=u'If attending as a sponsor please enter your sponsor code.',
-#        max_length=50,
-#        widget=forms.TextInput(attrs={'size':'20'}))
 
     def demographic_fields(self):
         return (self['organisation'],
@@ -74,34 +57,6 @@ class RegistrationSubmitForm(forms.Form):
                 self['tutorial'],
                 self['sprint'],
                 self['allow_contact'])
-
-#    def other_fields(self):
-#        return (self['sponsor'],)
-#
-#    def clean_sponsor(self):
-#        """Validates that the entered sponsor code is valid and within limits
-#        of allowed guests
-#        """
-#        sponsorcode = self.cleaned_data.get("sponsor")
-#        if sponsorcode:
-#            try:
-#                sponsor = Sponsor.objects.get(slug=sponsorcode)
-#            except ObjectDoesNotExist:
-#                raise forms.ValidationError(
-#                    u"The sponsor code you entered is not valid.")
-#            if sponsor:
-#                guests = sponsor.guests
-#                if guests == 0:
-#                    raise forms.ValidationError(
-#                        u"The sponsor code you entered is not valid.")
-#                count = Registration.objects.filter(
-#                            sponsor=sponsorcode).count()
-#                if count >= guests:
-#                    raise forms.ValidationError(
-#                    u"That sponsor has reached limit of guests.")
-#
-#
-#        return sponsorcode
 
 
 class RegistrationEditForm(RegistrationSubmitForm):

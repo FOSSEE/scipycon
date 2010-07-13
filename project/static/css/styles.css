@@ -98,28 +98,28 @@ div#comment_form label {
     width: 200px;
 }
 /* default table layout */
-table.kiwipycon-default
+table.scipycon-default
 {
     border-collapse: collapse;
 }
 
-table.kiwipycon-default td
+table.scipycon-default td
 {
     padding: 5px 15px;
 }
 
-table.kiwipycon-default th
+table.scipycon-default th
 {
     font-weight: bold;
     padding: 4px 6px;
 }
 
-table.kiwipycon-default a
+table.scipycon-default a
 {
     text-decoration: none;
 }
 
-table.kiwipycon-default .buttons
+table.scipycon-default .buttons
 {
     padding: 10px 0;
 }

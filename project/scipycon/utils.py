@@ -8,7 +8,7 @@ from random import randint
 #django
 from django.http import HttpResponseRedirect
 
-def kiwipycon_quote(string, encoding="utf-8"):
+def scipycon_quote(string, encoding="utf-8"):
     """Encodes string to encoding before quoting.
     """
     return urllib.quote(string.encode(encoding))
@@ -26,7 +26,7 @@ def set_message_cookie(url, msg):
         datetime.timedelta(seconds=max_age), "%a, %d-%b-%Y %H:%M:%S GMT")
 
     response = HttpResponseRedirect(url)
-    response.set_cookie("message", kiwipycon_quote(msg), max_age=max_age, expires=expires)
+    response.set_cookie("message", scipycon_quote(msg), max_age=max_age, expires=expires)
 
     return response
 

@@ -22,12 +22,12 @@ from PIL import Image
 # tagging
 from tagging.models import Tag
 
-#kiwipycon
-from project.kiwipycon.utils import set_message_cookie
-from project.kiwipycon.utils import slugify
-from project.kiwipycon.user.models import UserProfile
-from project.kiwipycon.user.forms import RegisterForm
-from project.kiwipycon.user.utils import kiwipycon_createuser
+#scipycon
+from project.scipycon.utils import set_message_cookie
+from project.scipycon.utils import slugify
+from project.scipycon.user.models import UserProfile
+from project.scipycon.user.forms import RegisterForm
+from project.scipycon.user.utils import scipycon_createuser
 
 from .models import Talk
 from .forms import TalkSubmitForm
@@ -55,12 +55,12 @@ def edit_talk(request, id, template_name='talk/edit-talk.html'):
     talk = Talk.objects.get(pk=id)
 
     if talk.approved == True:
-        redirect_to = reverse('kiwipycon_account')
+        redirect_to = reverse('scipycon_account')
         return set_message_cookie(redirect_to,
                 msg = u'Sorry but you cannot edit the talk once'\
                       + ' it has been accepted.')
     if talk.speaker != request.user:
-        redirect_to = reverse('kiwipycon_account')
+        redirect_to = reverse('scipycon_account')
         return set_message_cookie(redirect_to,
                 msg = u'Redirected to account because the talk you selected' \
                       + ' is not your own.')
@@ -82,7 +82,7 @@ def edit_talk(request, id, template_name='talk/edit-talk.html'):
 #            talk.tags = form.data.get('tags')
             talk.save()
             # Saved.. redirect
-            redirect_to = reverse('kiwipycon_account')
+            redirect_to = reverse('scipycon_account')
             return set_message_cookie(redirect_to,
                     msg = u'Your changes have been saved.')
     else:
@@ -130,7 +130,7 @@ def submit_talk(request, template_name='talk/submit-talk.html'):
                 from django.contrib.auth import login
                 login(request, login_form.get_user())
 
-                redirect_to = reverse('kiwipycon_submit_talk')
+                redirect_to = reverse('scipycon_submit_talk')
                 return set_message_cookie(redirect_to,
                         msg = u'You have been logged in.')
 
@@ -138,7 +138,7 @@ def submit_talk(request, template_name='talk/submit-talk.html'):
             # add the new user
             if register_form.is_valid():
 
-                user = kiwipycon_createuser(request, register_form.data)
+                user = scipycon_createuser(request, register_form.data)
 
         if talk_form.is_valid():
             if user.is_authenticated():
@@ -161,11 +161,11 @@ def submit_talk(request, template_name='talk/submit-talk.html'):
                     )
                 talk.save()
                 # Saved, ... redirect back to account
-                redirect_to = reverse('kiwipycon_account')
+                redirect_to = reverse('scipycon_account')
                 return set_message_cookie(redirect_to,
                         msg = u'Thanks, your talk has been submitted.')
             else:
-                redirect_to = reverse('kiwipycon_submit_talk')
+                redirect_to = reverse('scipycon_submit_talk')
                 return set_message_cookie(redirect_to,
                         msg = u'Something is wrong here.')
 

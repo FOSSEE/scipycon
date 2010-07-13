@@ -3,7 +3,7 @@ from __future__ import absolute_import
 
 from django.contrib import admin
 
-from project.kiwipycon.proceedings.models import Paper
+from project.scipycon.proceedings.models import Paper
 
 
 class PaperAdmin(admin.ModelAdmin):

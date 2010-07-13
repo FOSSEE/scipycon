@@ -11,8 +11,8 @@ __authors__ = [
 from django.template import loader
 from django.contrib.auth.models import User
 
-from project.kiwipycon.registration.models import Registration
-from project.kiwipycon.talk.models import Talk
+from project.scipycon.registration.models import Registration
+from project.scipycon.talk.models import Talk
 
 
 def speaker_accepted():

@@ -4,7 +4,7 @@ from __future__ import absolute_import
 #django
 from django.contrib import admin
 
-#kiwipycon
+#scipycon
 from .models import UserProfile
 
 class UserProfileAdmin(admin.ModelAdmin):

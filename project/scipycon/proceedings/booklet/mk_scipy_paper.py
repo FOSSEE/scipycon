@@ -11,7 +11,7 @@ from docutils import core as docCore
 
 conf_name = 'SciPy2009'
 
-current_dir = '/media/python/workspace/kiwipycon/project/kiwipycon/proceedings/booklet'
+current_dir = '/media/python/workspace/scipycon/project/scipycon/proceedings/booklet'
 
 outdir = current_dir + os.sep + 'output'
 

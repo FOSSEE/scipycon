@@ -7,7 +7,7 @@
 {% block content %}
 <h1>My Profile: {{ user.first_name }} {{user.last_name}}</h1>
 
-<table class="kiwipycon-default">
+<table class="scipycon-default">
     <tr>
         <td class="label">
             Username:
@@ -25,7 +25,7 @@
             <span>{{ user.get_full_name }}</span>
         {% else %}
         <span class="important">No name, please <a 
-            href="{% url kiwipycon_edit_profile %}">edit profile</a>.</span>
+            href="{% url scipycon_edit_profile %}">edit profile</a>.</span>
         {% endif %}
         </td>
         <td rowspan="4">
@@ -86,7 +86,7 @@ requirements.</p>
 {% if talks %}
 <div id="talks">
   <h2>Your Submitted Talks</h2>
-  <table class="kiwipycon-default" border="1">
+  <table class="scipycon-default" border="1">
     <th>Title</th>
     <th>Duration</th>
     <th>Audience</th>

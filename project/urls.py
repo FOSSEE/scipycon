@@ -6,20 +6,11 @@ from django.contrib import admin
 from django.views.generic.simple import direct_to_template
 from django.conf.urls.defaults import *
 
-#basic.blog
-from basic.blog.feeds import BlogPostsFeed
-
-feeds = {
-    'blog': BlogPostsFeed,
-    }
-
 admin.autodiscover()
 
-# Blog & Admin
-urlpatterns = patterns(
-    '',
+# Admin
+urlpatterns = patterns('',
     url(r'^$',  direct_to_template, {"template": "home.html"}, name='home'),
-    (r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),
     (r'^comments/', include('django.contrib.comments.urls')),
     (r'^admin/(.*)', admin.site.root),
 )
@@ -92,12 +83,11 @@ urlpatterns += patterns('',
     url(r'^talks-cfp/speakers/$', 
         direct_to_template, {"template": "talk/speakers.html"},
         name='scipycon_speakers'),
-    (r'^accounts/', include('registration.urls')),
     )
 
 # Password reset
 urlpatterns += patterns('django.contrib.auth.views',
-     url(r'^password-reset/$', 'password_reset', name='kiwipycon_password_reset'),
+     url(r'^password-reset/$', 'password_reset', name='scipycon_password_reset'),
      url(r'^password-reset-done/$', 'password_reset_done'),
      url(r'^password-reset-confirm/(?P<uidb36>[-\w]*)/(?P<token>[-\w]*)$', 'password_reset_confirm'),
      url(r'^password-reset-complete/$', 'password_reset_complete'),

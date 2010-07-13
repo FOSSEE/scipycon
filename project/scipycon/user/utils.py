@@ -15,7 +15,7 @@ from django.contrib.auth.models import User
 from PIL import Image
 
 
-def kiwipycon_createregistrant(request, data):
+def scipycon_createregistrant(request, data):
     """Create user"""
     email = data.get("email")
     name = data.get("name")
@@ -38,7 +38,7 @@ def kiwipycon_createregistrant(request, data):
 
     return user
 
-def kiwipycon_createuser(request, data):
+def scipycon_createuser(request, data):
     """Create user"""
     email = data.get("email")
     username = data.get("username")

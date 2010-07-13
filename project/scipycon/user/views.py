@@ -26,15 +26,14 @@ from django.core.exceptions import ObjectDoesNotExist
 #PIL
 from PIL import Image
 
-#kiwipycon
-from project.kiwipycon.utils import set_message_cookie
-from project.kiwipycon.talk.models import Talk
-from project.kiwipycon.registration.models import Registration
-from project.kiwipycon.registration.models import Wifi
-from project.kiwipycon.registration.forms import WifiForm
-from project.kiwipycon.sponsor.models import Sponsor
+#scipycon
+from project.scipycon.utils import set_message_cookie
+from project.scipycon.talk.models import Talk
+from project.scipycon.registration.models import Registration
+from project.scipycon.registration.models import Wifi
+from project.scipycon.registration.forms import WifiForm
 
-from .utils import kiwipycon_createuser
+from .utils import scipycon_createuser
 from .utils import handle_uploaded_photo
 from .forms import RegisterForm
 from .forms import EditProfileForm
@@ -111,7 +110,7 @@ def edit_profile(request, template_name="user/editprofile.html"):
             profile.about = form.data.get("about")
             profile.save()
 
-            redirect_to = reverse("kiwipycon_account")
+            redirect_to = reverse("scipycon_account")
             return set_message_cookie(redirect_to,
                     msg = u"Your profile has been changed.")
 
@@ -135,7 +134,7 @@ def login(request, template_name="user/login.html"):
     """
     user = request.user
     if user.is_authenticated():
-        redirect_to = reverse("kiwipycon_account")
+        redirect_to = reverse("scipycon_account")
         return set_message_cookie(redirect_to,
                 msg = u"Redirected to account from login form.")
 
@@ -150,7 +149,7 @@ def login(request, template_name="user/login.html"):
             redirect_to = request.POST.get("next")
             # Light security check -- make sure redirect_to isn't garbage.
             if not redirect_to or '//' in redirect_to or ' ' in redirect_to:
-                redirect_to = reverse("kiwipycon_account")
+                redirect_to = reverse("scipycon_account")
 
             from django.contrib.auth import login
             login(request, login_form.get_user())
@@ -161,11 +160,11 @@ def login(request, template_name="user/login.html"):
         register_form = RegisterForm(data=request.POST)
         if register_form.is_valid():
 
-            user = kiwipycon_createuser(request, register_form.data)
+            user = scipycon_createuser(request, register_form.data)
 
             redirect_to = request.POST.get("next")
             if not redirect_to or '//' in redirect_to or ' ' in redirect_to:
-                redirect_to = reverse("kiwipycon_account")
+                redirect_to = reverse("scipycon_account")
 
             return set_message_cookie(
                 redirect_to, msg = u"You have been registered and logged in.")
@@ -175,7 +174,7 @@ def login(request, template_name="user/login.html"):
     if next_url is None:
         next_url = request.META.get("HTTP_REFERER")
     if next_url is None:
-        next_url = reverse("kiwipycon_account")
+        next_url = reverse("scipycon_account")
     # Get just the path of the url. See django.contrib.auth.views.login for more
     next_url = urlparse(next_url)
     next_url = next_url[2]
@@ -212,7 +211,7 @@ def password(request, template_name="user/password.html"):
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             form.save()
-            redirect_to = reverse("kiwipycon_account")
+            redirect_to = reverse("scipycon_account")
             return set_message_cookie(redirect_to,
                     msg = u"Your password has been changed.")
     else:
@@ -231,7 +230,7 @@ def username(request, template_name="user/username.html"):
         if username_form.is_valid():
             request.user.username = username_form.cleaned_data.get("username")
             request.user.save()
-            redirect_to = reverse("kiwipycon_account")
+            redirect_to = reverse("scipycon_account")
             return set_message_cookie(redirect_to,
                     msg = u"Your username has been changed.")
     else:        

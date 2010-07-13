@@ -15,21 +15,16 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.flatpages',
     'django.contrib.markup',
-    'project.kiwipycon',
-    'project.kiwipycon.user',
-    'project.kiwipycon.talk',
-    'project.kiwipycon.registration',
-    'project.kiwipycon.sponsor',
+    'project.scipycon',
+    'project.scipycon.user',
+    'project.scipycon.talk',
+    'project.scipycon.registration',
+    'project.scipycon.proceedings',
     'tagging',
-    'basic.blog',
-    'basic.inlines',
-    'basic.media',
-    'django_extensions',
-    'south',
 )
 
 DATABASE_ENGINE = 'mysql'
-DATABASE_NAME = 'conference2009'
-DATABASE_USER = 'root'
+DATABASE_NAME = 'scipycon'
+DATABASE_USER = 'scipy'
 # Imports DATABASE_PASSWORD from project/local.py that is not part of mercurial repo
 from project.local import DATABASE_PASSWORD

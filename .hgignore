@@ -34,9 +34,9 @@ downloads
 .project
 project/local.py
 project/project.egg-info
-project.db
+scipycon.db
 project/media/user/*
 project/static/media
-project/kiwipycon/user/*.pyc
+project/scipycon/user/*.pyc
 apache/*
 

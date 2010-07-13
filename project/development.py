@@ -15,22 +15,16 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.flatpages',
     'django.contrib.markup',
-    'project.kiwipycon',
-    'project.kiwipycon.user',
-    'project.kiwipycon.talk',
-    'project.kiwipycon.registration',
-    'project.kiwipycon.sponsor',
-    'project.kiwipycon.proceedings',
+    'project.scipycon',
+    'project.scipycon.user',
+    'project.scipycon.talk',
+    'project.scipycon.registration',
+    'project.scipycon.proceedings',
     'tagging',
-    'basic.blog',
-    'basic.inlines',
-    'basic.media',
-    'django_extensions',
-    'south',
 )
 
 DATABASE_ENGINE = 'sqlite3'
-DATABASE_NAME = '/home/madhu/conference2009.db'
+DATABASE_NAME = '../scipycon.db'
 DATABASE_USER = ''
 DATABASE_PASSWORD = ''
 

@@ -7,12 +7,12 @@
 
 {% include '_errors.html' %}
 
-        <form action="{% url kiwipycon_submit_talk %}"
+        <form action="{% url scipycon_submit_talk %}"
               method="post">
     {% if not user.is_authenticated %}
                 <fieldset>
                     <legend>Are you a member of this site?</legend>
-                    <table class="kiwipycon-default required">
+                    <table class="scipycon-default required">
                         {{ login_form }}
                     </table>
 
@@ -28,12 +28,12 @@
 
         </form>
         <br />
-        <form action="{% url kiwipycon_submit_talk %}"
+        <form action="{% url scipycon_submit_talk %}"
               enctype="multipart/form-data"
               method="post">
                 <fieldset>
                     <legend>Speaker Registration</legend>
-                    <table class="kiwipycon-default required">
+                    <table class="scipycon-default required">
                         {{ register_form }}
                     </table>
 
@@ -45,7 +45,7 @@
                 <br />
                 <fieldset>
                     <legend>Talk Submission</legend>
-                    <table class="kiwipycon-default required">
+                    <table class="scipycon-default required">
                         {{ talk_form }}
                     </table>
 

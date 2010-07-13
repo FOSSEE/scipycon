@@ -10,12 +10,12 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from project.kiwipycon.proceedings.models import Paper
-from project.kiwipycon.user.forms import RegisterForm
-from project.kiwipycon.user.models import UserProfile
-from project.kiwipycon.utils import set_message_cookie
-from project.kiwipycon.proceedings.booklet import mk_scipy_paper
-from project.kiwipycon.proceedings.forms import ProceedingsForm
+from project.scipycon.proceedings.models import Paper
+from project.scipycon.user.forms import RegisterForm
+from project.scipycon.user.models import UserProfile
+from project.scipycon.utils import set_message_cookie
+from project.scipycon.proceedings.booklet import mk_scipy_paper
+from project.scipycon.proceedings.forms import ProceedingsForm
 
 
 def handleUploadedFile(proceedings_form_data, rst_file):
@@ -60,7 +60,7 @@ def submit(request, id=None, template='proceedings/submit.html'):
 
                 login(request, login_form.get_user())
 
-                redirect_to = reverse('kiwipycon_submit_proceedings')
+                redirect_to = reverse('scipycon_submit_proceedings')
                 return set_message_cookie(redirect_to,
                         msg = u'You have been logged in.')
 
@@ -68,7 +68,7 @@ def submit(request, id=None, template='proceedings/submit.html'):
             # add the new user
             if register_form.is_valid():
 
-                user = kiwipycon_createuser(request, register_form.data)
+                user = scipycon_createuser(request, register_form.data)
 
         proceedings_form = ProceedingsForm(data=request.POST,
                                            files=request.FILES)
@@ -86,14 +86,14 @@ def submit(request, id=None, template='proceedings/submit.html'):
                     authors=authors)
 
                 # Successfully saved. So get back to the edit page.
-                redirect_to = reverse('kiwipycon_submit_proceedings',
+                redirect_to = reverse('scipycon_submit_proceedings',
                                   args=[paper.id])
                 return set_message_cookie(
                 redirect_to, msg = u'Thanks, your paper has been submitted.')
             else:
                 # This is impossible. Something was wrong so return back
                 # to submit page
-                redirect_to = reverse('kiwipycon_submit_proceedings')
+                redirect_to = reverse('scipycon_submit_proceedings')
                 return set_message_cookie(
                 redirect_to, msg = u'Something is wrong here.')          
     else:
@@ -193,8 +193,8 @@ def show_paper(request, id):
 
     abstract['paper_text'] = paper.body
 
-    outfilename = '/media/python/workspace/kiwipycon/project/kiwipycon/proceedings/booklet/output/paper.pdf'
-    attach_dir = os.path.dirname('/media/python/workspace/kiwipycon/project/kiwipycon/proceedings/booklet/output/')
+    outfilename = '/media/python/workspace/scipycon/project/scipycon/proceedings/booklet/output/paper.pdf'
+    attach_dir = os.path.dirname('/media/python/workspace/scipycon/project/scipycon/proceedings/booklet/output/')
     mk_scipy_paper.mk_abstract_preview(abstract, outfilename, attach_dir)
 
     from django.http import HttpResponse

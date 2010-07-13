@@ -18,14 +18,12 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 
-#kiwipycon
-from project.kiwipycon.utils import set_message_cookie
-from project.kiwipycon.utils import slugify
-from project.kiwipycon.user.models import UserProfile
-from project.kiwipycon.user.utils import kiwipycon_createregistrant
-from project.kiwipycon.user.forms import RegistrantForm
-from project.kiwipycon.sponsor.models import Sponsor
-from project.kiwipycon.talk.models import Talk
+from project.scipycon.utils import set_message_cookie
+from project.scipycon.utils import slugify
+from project.scipycon.user.models import UserProfile
+from project.scipycon.user.utils import scipycon_createregistrant
+from project.scipycon.user.forms import RegistrantForm
+from project.scipycon.talk.models import Talk
 
 from .models import Registration
 from .models import Wifi
@@ -45,7 +43,7 @@ def download_csv(request,
     """
     """
     if not request.user.is_staff:
-        redirect_to = reverse('kiwipycon_login')
+        redirect_to = reverse('scipycon_login')
     if request.method == "POST":
         form = RegistrationAdminSelectForm(request.POST)
         if form.is_valid():
@@ -118,7 +116,7 @@ def invoice(request, template_name='registration/invoice.html'):
     user = request.user
     registration = get_object_or_404(Registration, registrant=user)
     if registration.sponsor:
-        redirect_to = reverse('kiwipycon_account')
+        redirect_to = reverse('scipycon_account')
         return set_message_cookie(redirect_to,
                 msg = u'You are a sponsored guest, no payment required.')
     return render_to_response(template_name, RequestContext(request,
@@ -129,7 +127,7 @@ def pdf_invoice(request, template_name='registration/invoice.html'):
     user = request.user
     registration = get_object_or_404(Registration, registrant=user)
     if registration.sponsor:
-        redirect_to = reverse('kiwipycon_account')
+        redirect_to = reverse('scipycon_account')
         return set_message_cookie(redirect_to,
                 msg = u'You are a sponsored guest, no payment required.')
     content = render_to_string(template_name,
@@ -161,7 +159,7 @@ def edit_registration(request, id,
     reg = Registration.objects.get(pk=id)
 
     if reg.registrant != request.user:
-        redirect_to = reverse('kiwipycon_account')
+        redirect_to = reverse('scipycon_account')
         return set_message_cookie(redirect_to,
                 msg = u'Redirected because the registration you selected' \
                       + ' is not your own.')
@@ -179,7 +177,7 @@ def edit_registration(request, id,
             reg.sprint = form.data.get('sprint') and True or False
             reg.save()
             # Saved.. redirect
-            redirect_to = reverse('kiwipycon_account')
+            redirect_to = reverse('scipycon_account')
             return set_message_cookie(redirect_to,
                     msg = u'Your changes have been saved.')
     else:
@@ -214,7 +212,7 @@ def submit_registration(request,
         try:
             registration = Registration.objects.get(registrant=user)
             if registration:
-                redirect_to = reverse('kiwipycon_account')
+                redirect_to = reverse('scipycon_account')
                 return set_message_cookie(redirect_to,
                         msg = u'You have already been registered.')
 
@@ -235,7 +233,7 @@ def submit_registration(request,
                 from django.contrib.auth import login
                 login(request, login_form.get_user())
 
-                redirect_to = reverse('kiwipycon_submit_registration')
+                redirect_to = reverse('scipycon_submit_registration')
                 return set_message_cookie(redirect_to,
                         msg = u'You have been logged in please continue' + \
                                'with registration.')
@@ -244,7 +242,7 @@ def submit_registration(request,
         passwd = None
         if not user.is_authenticated():
             if registrant_form.is_valid():
-                newuser = kiwipycon_createregistrant(request, registrant_form.data)
+                newuser = scipycon_createregistrant(request, registrant_form.data)
                 # Log in user
                 passwd = User.objects.make_random_password()
                 newuser.set_password(passwd)
@@ -313,7 +311,7 @@ def submit_registration(request,
             # 2. send user email with registration id
                 send_confirmation(registrant, slug)
 
-            redirect_to = reverse('kiwipycon_registrations')
+            redirect_to = reverse('scipycon_registrations')
             return set_message_cookie(redirect_to,
                     msg = u'Thank you, your registration has been submitted '\
                            'and an email has been sent with payment details.')

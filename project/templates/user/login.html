@@ -14,15 +14,15 @@
 
         <form class="authenticate"
               enctype="multipart/form-data"
-              action="{% url kiwipycon_login %}"
+              action="{% url scipycon_login %}"
               method="post">
 
-                <table class="kiwipycon-default">
+                <table class="scipycon-default">
                     {{ login_form }}
                     <tr>
                         <td></td>
                         <td>
-                            <a href="{% url kiwipycon_password_reset %}">Forgot password?</a>
+                            <a href="{% url scipycon_password_reset %}">Forgot password?</a>
                         </td>
                     </tr>
                 </table>
@@ -50,9 +50,9 @@
             If you are not already a member of the site you can register here.
         </div>
 
-        <form action="{% url kiwipycon_login %}"
+        <form action="{% url scipycon_login %}"
               method="post">
-                    <table class="kiwipycon-default">
+                    <table class="scipycon-default">
                         {{ register_form }}
                     </table>
                 <input type="hidden"

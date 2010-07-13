@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 #tagging
 from tagging.forms import TagField
 
-#kiwipycon
+#scipycon
 #from .models import TOPIC_CHOICES
 from .models import DURATION_CHOICES
 from .models import AUDIENCE_CHOICES
