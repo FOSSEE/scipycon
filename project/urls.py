@@ -25,75 +25,73 @@ urlpatterns = patterns(
 )
 
 # Talks, etc.
-urlpatterns += patterns('project.kiwipycon.talk.views',
-    url(r'^talks/$',  'list_talks', name='list_talks'),
-    url(r'^talks/talk/(?P<id>\d+)/$',  'talk', name='talk_detail'),
-    url(r'^submit-talk/$',  'submit_talk', name='kiwipycon_submit_talk'),
-    url(r'^edit-talk/(?P<id>\d+)/$',  'edit_talk', name='kiwipycon_edit_talk'),
-    url(r'^talks-cfp/list-talks/(?P<id>\d+)/$',  'list_talks',
-        name='kiwipycon_list_talk'),
+urlpatterns += patterns('project.scipycon.talk.views',
+    url(r'^talks/$', 'list_talks', name='list_talks'),
+    url(r'^talks/talk/(?P<id>\d+)/$', 'talk', name='talk_detail'),
+    url(r'^submit-talk/$', 'submit_talk', name='scipycon_submit_talk'),
+    url(r'^edit-talk/(?P<id>\d+)/$', 'edit_talk', name='scipycon_edit_talk'),
+    url(r'^talks-cfp/list-talks/(?P<id>\d+)/$', 'list_talks',
+        name='scipycon_list_talk'),
     )
 
 # Registration
-urlpatterns += patterns('project.kiwipycon.registration.views',
-    url(r'^invoice/$',  'invoice', name='kiwipycon_invoice'),
-    url(r'^pdf_invoice/$',  'pdf_invoice', name='kiwipycon_pdf_invoice'),
-    url(r'^registrations/$',  'registrations', name='kiwipycon_registrations'),
-    url(r'^submit-registration/$',  'submit_registration', name='kiwipycon_submit_registration'),
-    url(r'^edit-registration/(?P<id>\d+)/$',  'edit_registration',
-        name='kiwipycon_edit_registration'),
+urlpatterns += patterns('project.scipycon.registration.views',
+    url(r'^registrations/$', 'registrations', name='scipycon_registrations'),
+    url(r'^submit-registration/$', 'submit_registration', name='scipycon_submit_registration'),
+    url(r'^edit-registration/(?P<id>\d+)/$', 'edit_registration',
+        name='scipycon_edit_registration'),
     url(r'^download_csv/', 'download_csv', name="download_csv"),
     )
 
 
 # Authentication and Profile
-urlpatterns += patterns('project.kiwipycon.user.views',
-    url(r'^login/$',  'login', name='kiwipycon_login'),
-    url(r'^logout/$',  'logout', name='kiwipycon_logout'),
-    url(r'^account/$',  'account', name='kiwipycon_account'),
-    url(r'^password/$', 'password', name='kiwipycon_password'), # change pwd
-    url(r'^username/$', 'username', name='kiwipycon_username'), # change uname
-    url(r'^edit-profile/$', 'edit_profile', name='kiwipycon_edit_profile'),
-    url(r'^get-usernames/$', 'get_usernames', name='kiwipycon_get_usernames'),
+urlpatterns += patterns('project.scipycon.user.views',
+    url(r'^login/$', 'login', name='scipycon_login'),
+    url(r'^logout/$', 'logout', name='scipycon_logout'),
+    url(r'^account/$', 'account', name='scipycon_account'),
+    url(r'^password/$', 'password', name='scipycon_password'), # change pwd
+    url(r'^username/$', 'username', name='scipycon_username'), # change uname
+    url(r'^edit-profile/$', 'edit_profile', name='scipycon_edit_profile'),
+    url(r'^get-usernames/$', 'get_usernames', name='scipycon_get_usernames'),
     )
 
 # Proceedings
-urlpatterns += patterns('project.kiwipycon.proceedings.views',
+urlpatterns += patterns('project.scipycon.proceedings.views',
     url(r'^proceedings/submit/$', 'submit',
-        name='kiwipycon_submit_proceedings'),
+        name='scipycon_submit_proceedings'),
     url(r'^proceedings/submit/(?P<id>\d+)/$', 'submit', 
-        name='kiwipycon_submit_proceedings'),
+        name='scipycon_submit_proceedings'),
     url(r'^proceedings/show_paper/(?P<id>\d+)/$', 'show_paper', 
-        name='kiwipycon_show_paper'),
+        name='scipycon_show_paper'),
     )
 
 # About pages and all other static html pages
 urlpatterns += patterns('',
     url(r'^about/accommodation/$', 
         direct_to_template, {"template": "about/accommodation.html"},
-        name='accommodation'),
+        name='scipycon_accommodation'),
     url(r'^about/food/$',
-        direct_to_template, {"template": "about/food.html"}, name='food'),
+        direct_to_template, {"template": "about/food.html"}, name='scipycon_food'),
     url(r'^about/venue/$',
-        direct_to_template, {"template": "about/venue.html"}, name='venue'),
+        direct_to_template, {"template": "about/venue.html"}, name='scipycon_venue'),
     url(r'^about/reaching/$', 
         direct_to_template, {"template": "about/reaching.html"},
-        name='reaching'),
+        name='scipycon_reaching'),
     url(r'^talks-cfp/$', 
         direct_to_template, {"template": "talk/talks-cfp.html"},
-        name='talks-cfp'),
+        name='scipycon_talks_cfp'),
     url(r'^talks-cfp/schedule/$', 
         direct_to_template, {"template": "talk/schedule.html"},
-        name='schedule'),
+        name='scipycon_schedule'),
     url(r'^talks-cfp/tutorial/$', 
         direct_to_template, {"template": "talk/tutorial-schedule.html"},
-        name='tutorial-schedule'),
+        name='scipycon_tutorial_schedule'),
     url(r'^talks-cfp/sprint/$', 
         direct_to_template, {"template": "talk/sprint-schedule.html"},
-        name='sprint-schedule'),
+        name='scipycon_sprint_schedule'),
     url(r'^talks-cfp/speakers/$', 
         direct_to_template, {"template": "talk/speakers.html"},
-        name='speakers'),
+        name='scipycon_speakers'),
     (r'^accounts/', include('registration.urls')),
     )
 
