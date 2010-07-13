@@ -3,7 +3,7 @@ from __future__ import absolute_import
 
 #python
 from urlparse import urlparse
-import json
+import simplejson as json
 import urllib
 import os
 
