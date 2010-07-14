@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import
-
 from django.db import models
 from django.contrib.auth.models import User
 
+from project.scipycon.base import models as base_models
 
-class Paper(models.Model):
+
+class Paper(base_models.Base):
     """Data model for storing proceedings paper.
     """
 
@@ -22,7 +21,7 @@ class Paper(models.Model):
     authors = models.ManyToManyField(User)
 
 
-class Attachments(models.Model):
+class Attachments(models.Base):
     """Stores attachments for papers.
     """
 

@@ -1,19 +1,21 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import
-
-#django
 from django.db import models
 from django.conf import settings
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 
-class UserProfile(models.Model):
+from project.scipycon.base import models as base_models
+
+
+class UserProfile(base_models.Base):
+    """Extend atributes for django User
     """
-    Extend atributes for django User
-    """
+
     user = models.ForeignKey(User, unique=True)
+
     url = models.URLField(blank=True, verify_exists=False)
+
     photo = models.CharField(max_length=64, blank=True)
+
     about = models.TextField(blank=True)
 
     def __unicode__(self):
