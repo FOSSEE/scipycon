@@ -1,14 +1,18 @@
 <div id="left-inner">
   <ul>
     <li><a href="/">Home</a></li>
+    <!-- 
     <li><a href="/submit-registration/">Registration</a></li>
+     -->
     <li>
-      <a href="/talks-cfp/">Talks & CfP</a>
+      <!--<a href="/talks-cfp/">-->Talks & CfP<!--</a>  -->
       <ul>
         <li><a href="/talks-cfp/schedule/">Conference Schedule</a></li>
+        <!--
         <li><a href="/talks-cfp/tutorial/">Tutorial Schedule</a></li>
         <li><a href="/talks-cfp/sprint/">Sprint Plan &amp; Schedule</a></li>
         <li><a href="/talks-cfp/speakers/">Speakers</a></li>
+         -->
         {% if user.is_authenticated %}
           <li><a href="/talks-cfp/list-talks/{{ user.id }}">My talks</a></li>
         {% endif %}
@@ -17,13 +21,16 @@
     <li>
       About
       <ul>
+        <!--
         <li><a href="/about/accommodation/">Accommodation</a></li>
         <li><a href="/about/food/">Food</a></li>
+          -->
         <li><a href="/about/venue/">The Venue</a></li>
+        <!--
         <li><a href="/about/reaching/">Reaching the venue</a></li>
+          -->
       </ul>
     </li>
-    <li><a href="/">Blog</a></li>
     {% if user.is_staff %}
     <li><a href="/howto/">HowTo</a></li>
     {% endif %}
