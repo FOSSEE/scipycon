@@ -18,14 +18,16 @@ SIZE_CHOICES = (
     )
 
 
-class Wifi(base_models.Base):
-    """Defines wifi options at *PyCon"""
+class Wifi(base_models.ScopedBase):
+    """Defines wifi options at SciPy.in
+    """
     user = models.ForeignKey(User)
+
     wifi = models.CharField(max_length=50, choices=WIFI_CHOICES,
-            help_text=WIFI_HELP, verbose_name="Laptop")
+                            help_text=WIFI_HELP, verbose_name="Laptop")
 
 
-class Registration(base_models.Model):
+class Registration(base_models.ScopedBase):
     """Defines registration at SciPy.in"""
 
     slug = models.SlugField()
@@ -39,7 +41,7 @@ class Registration(base_models.Model):
     city = models.CharField(max_length=255, blank=True)
 
     postcode = models.CharField(max_length=255, blank=True)
-    
+
     phone_num = models.CharField(max_length=14, blank=True)
 
     tshirt = models.CharField(max_length=2, choices=SIZE_CHOICES)

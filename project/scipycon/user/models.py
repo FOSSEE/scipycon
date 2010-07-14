@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from project.scipycon.base import models as base_models
 
 
-class UserProfile(base_models.Base):
+class UserProfile(base_models.ScopedBase):
     """Extend atributes for django User
     """
 

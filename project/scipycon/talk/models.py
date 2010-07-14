@@ -22,7 +22,7 @@ AUDIENCE_CHOICES = (
     )
 
 
-class Talk(base_models.Base):
+class Talk(base_models.ScopedBase):
     """Defines talks at SciPy.in
     """
 

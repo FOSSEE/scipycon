@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from project.scipycon.base import models as base_models
 
 
-class Paper(base_models.Base):
+class Paper(base_models.ScopedBase):
     """Data model for storing proceedings paper.
     """
 
@@ -21,7 +21,7 @@ class Paper(base_models.Base):
     authors = models.ManyToManyField(User)
 
 
-class Attachments(models.Base):
+class Attachments(models.Model):
     """Stores attachments for papers.
     """
 
