@@ -8,6 +8,11 @@ from django.conf.urls.defaults import *
 
 admin.autodiscover()
 
+PROGRAM_PATTERN_CORE = r'[a-z](?:[0-9a-z]|_[0-9a-z])*'
+EVENT_PATTERN_CORE =r'(?:[0-9a-z]|_[0-9a-z])*' 
+SCOPE_ARG_PATTERN = r'(?P<scope>%s/%s)' % (
+    PROGRAM_PATTERN_CORE, EVENT_PATTERN_CORE) 
+
 # Admin
 urlpatterns = patterns('',
     url(r'^$',  direct_to_template, {"template": "home.html"}, name='home'),
@@ -27,11 +32,14 @@ urlpatterns += patterns('project.scipycon.talk.views',
 
 # Registration
 urlpatterns += patterns('project.scipycon.registration.views',
-    url(r'^registrations/$', 'registrations', name='scipycon_registrations'),
-    url(r'^submit-registration/$', 'submit_registration', name='scipycon_submit_registration'),
-    url(r'^edit-registration/(?P<id>\d+)/$', 'edit_registration',
-        name='scipycon_edit_registration'),
-    url(r'^download_csv/', 'download_csv', name="download_csv"),
+    url(r'^%s/registrations/$' % (SCOPE_ARG_PATTERN), 'registrations',
+        name='scipycon_registrations'),
+    url(r'^%s/submit-registration/$' % (SCOPE_ARG_PATTERN),
+        'submit_registration', name='scipycon_submit_registration'),
+    url(r'^%s/edit-registration/(?P<id>\d+)/$' % (SCOPE_ARG_PATTERN),
+        'edit_registration', name='scipycon_edit_registration'),
+    url(r'^%s/download_csv/' % (SCOPE_ARG_PATTERN),
+        'download_csv', name="download_csv"),
     )
 
 

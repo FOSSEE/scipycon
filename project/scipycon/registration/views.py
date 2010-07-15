@@ -1,10 +1,6 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import
-
 import cStringIO as StringIO
 import csv
 
-# django
 from django.conf import settings
 from django.shortcuts import render_to_response
 from django.template.loader import render_to_string
@@ -196,7 +192,7 @@ def edit_registration(request, id,
 
     return render_to_response(template_name, RequestContext(request, locals()))
 
-def submit_registration(request,
+def submit_registration(request, scope,
         template_name='registration/submit-registration.html'):
     '''Allows user to edit registration
     '''
