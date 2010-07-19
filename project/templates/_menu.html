@@ -1,17 +1,31 @@
 <div id="left-inner">
   <ul>
-    <li><a href="/">Home</a></li>
-    <!-- 
-    <li><a href="/submit-registration/">Registration</a></li>
-     -->
+    <li><a href="/{{ params.scope }}/">Home</a></li>
+    <li><a href="/{{ params.scope }}/submit-registration/">Registration</a></li>
     <li>
-      <!--<a href="/talks-cfp/">-->Talks & CfP<!--</a>  -->
+      <!--<a href="/{{ params.scope }}/talks-cfp/">-->Talks & CfP<!--</a>  -->
       <ul>
-        <li><a href="/talks-cfp/schedule/">Conference Schedule</a></li>
+        <li>
+          <a href="/{{ params.scope }}/talks-cfp/schedule/">
+            Conference Schedule
+          </a>
+        </li>
         <!--
-        <li><a href="/talks-cfp/tutorial/">Tutorial Schedule</a></li>
-        <li><a href="/talks-cfp/sprint/">Sprint Plan &amp; Schedule</a></li>
-        <li><a href="/talks-cfp/speakers/">Speakers</a></li>
+        <li>
+          <a href="/{{ params.scope }}/talks-cfp/tutorial/">
+            Tutorial Schedule
+          </a>
+        </li>
+        <li>
+          <a href="/{{ params.scope }}/talks-cfp/sprint/">
+            Sprint Plan &amp; Schedule
+          </a>
+        </li>
+        <li>
+          <a href="/{{ params.scope }}/talks-cfp/speakers/">
+            Speakers
+          </a>
+        </li>
          -->
         {% if user.is_authenticated %}
           <li><a href="/talks-cfp/list-talks/{{ user.id }}">My talks</a></li>
@@ -22,17 +36,29 @@
       About
       <ul>
         <!--
-        <li><a href="/about/accommodation/">Accommodation</a></li>
-        <li><a href="/about/food/">Food</a></li>
+        <li>
+          <a href="/{{ params.scope }}/about/accommodation/">
+            Accommodation
+          </a>
+        </li>
+        <li>
+          <a href="/{{ params.scope }}/about/food/">
+            Food
+          </a>
+        </li>
           -->
-        <li><a href="/about/venue/">The Venue</a></li>
+        <li><a href="/{{ params.scope }}/about/venue/">The Venue</a></li>
         <!--
-        <li><a href="/about/reaching/">Reaching the venue</a></li>
+        <li>
+          <a href="/{{ params.scope }}/about/reaching/">
+            Reaching the venue
+          </a>
+        </li>
           -->
       </ul>
     </li>
     {% if user.is_staff %}
-    <li><a href="/howto/">HowTo</a></li>
+    <li><a href="/{{ params.scope }}/howto/">HowTo</a></li>
     {% endif %}
   </ul>
 </div>
