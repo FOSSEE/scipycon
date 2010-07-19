@@ -34,7 +34,7 @@ from .forms import IC
 REG_TOTAL = 1000
 
 @login_required
-def download_csv(request,
+def download_csv(request, scope,
         template_name = 'registration/download-csv.html'):
     """
     """
@@ -108,7 +108,7 @@ def download_csv(request,
 
 # NOT REQUIRED FOR SciPy.in
 @login_required
-def invoice(request, template_name='registration/invoice.html'):
+def invoice(request, scope, template_name='registration/invoice.html'):
     user = request.user
     registration = get_object_or_404(Registration, registrant=user)
     if registration.sponsor:
@@ -119,7 +119,7 @@ def invoice(request, template_name='registration/invoice.html'):
         {'registration' : registration, 'user': user}))
 
 @login_required
-def pdf_invoice(request, template_name='registration/invoice.html'):
+def pdf_invoice(request, scope, template_name='registration/invoice.html'):
     user = request.user
     registration = get_object_or_404(Registration, registrant=user)
     if registration.sponsor:
@@ -137,7 +137,7 @@ def pdf_invoice(request, template_name='registration/invoice.html'):
         " version")
 
 
-def registrations(request,
+def registrations(request, scope,
         template_name='registration/registrations.html'):
     """Simple page to count registrations"""
     #registrations = Registration.objects.filter(payment=True).count()
@@ -148,7 +148,7 @@ def registrations(request,
             'registrations' : registrations}))
 
 @login_required
-def edit_registration(request, id,
+def edit_registration(request, scope, id,
         template_name='registration/edit-registration.html'):
     '''Allows users that submitted a registration to edit it.
     '''
@@ -190,7 +190,9 @@ def edit_registration(request, id,
                                     'allow_contact' : reg.allow_contact,
             })
 
-    return render_to_response(template_name, RequestContext(request, locals()))
+    return render_to_response(
+        template_name, RequestContext(request, {
+        'params': {'scope': scope}}))
 
 def submit_registration(request, scope,
         template_name='registration/submit-registration.html'):
@@ -321,6 +323,7 @@ def submit_registration(request, scope,
 
 
     return render_to_response(template_name, RequestContext(request, {
+        'params': {'scope': scope},
         'registration_form': registration_form,
         'registrant_form' : registrant_form,
         'over_reg' : reg_count >= REG_TOTAL and True or False,
