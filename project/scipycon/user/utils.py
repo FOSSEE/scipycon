@@ -1,27 +1,23 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import
-
-#python imports
 import os
 
-#django
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
-
-#django.contrib
 from django.contrib.auth.models import User
 
-#PIL
 from PIL import Image
+
+from project.scipycon.user.models import UserProfile
 
 
 def scipycon_createregistrant(request, data):
-    """Create user"""
-    email = data.get("email")
-    name = data.get("name")
-    username = data.get("username")
+    """Create user
+    """
 
-    n = name.split(" ")
+    email = data.get('email')
+    name = data.get('name')
+    username = data.get('username')
+
+    n = name.split(' ')
     if len(n) > 1:
         first_name = ' '.join(n[:-1])
         last_name = n[-1]
@@ -38,38 +34,50 @@ def scipycon_createregistrant(request, data):
 
     return user
 
-def scipycon_createuser(request, data):
-    """Create user"""
-    email = data.get("email")
-    username = data.get("username")
-    password = data.get("password_1")
-    password = data.get("password_1")
+def scipycon_createuser(request, data, scope):
+    """Create user
+    """
+
+    from django.contrib.auth import authenticate
+    from django.contrib.auth import login
+
+    from project.scipycon.base.models import Event
+
+    email = data.get('email')
+    username = data.get('username')
+    password = data.get('password_1')
+    password = data.get('password_1')
 
     # Create user
     user = User.objects.create_user(
         username=username, email=email, password=password)
-    user.first_name = data.get("first_name")
-    user.last_name = data.get("last_name")
+    user.first_name = data.get('first_name')
+    user.last_name = data.get('last_name')
     user.save()
 
     # Log in user
-    from django.contrib.auth import authenticate
+    
     user = authenticate(username=username, password=password)
 
-    from django.contrib.auth import login
     login(request, user)
 
-    profile = user.get_profile()
+    scope_entity = Event.objects.get(scope=scope)
+
+    try:
+        profile = user.get_profile()
+    except:
+        profile, new = UserProfile.objects.get_or_create(
+            user=user, scope=scope_entity)
+
     photo = request.FILES.get('photo', None)
     filename= None
     if photo:
         filename = handle_uploaded_photo(user, request.FILES['photo'])
     if filename:
         profile.photo = filename
-    #print photo, filename
 
-    profile.url = data.get("url")
-    profile.about = data.get("about")
+    profile.url = data.get('url')
+    profile.about = data.get('about')
     profile.save()
 
     return user

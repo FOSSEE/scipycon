@@ -55,8 +55,6 @@ def account(request, scope, template_name="user/account.html"):
     else:
         photo = '/img/user-default.png'
 
-    qstring = ""
-
     wifi_comment = None
     if wifiobj:
         wifi_form = False
@@ -105,7 +103,8 @@ def edit_profile(request, scope, template_name="user/editprofile.html"):
             profile.about = form.data.get("about")
             profile.save()
 
-            redirect_to = reverse("scipycon_account")
+            redirect_to = reverse('scipycon_account',
+                                  kwargs={'scope': scope})
             return set_message_cookie(redirect_to,
                     msg = u"Your profile has been changed.")
 
@@ -119,14 +118,16 @@ def edit_profile(request, scope, template_name="user/editprofile.html"):
                                         })
 
     return render_to_response(template_name, RequestContext(request, {
-        "form": form
+        'params': {'scope': scope},
+        'form': form
     }))
 
 def login(request, scope, template_name="user/login.html"):
     """Custom view to login or register/login a user.
-    Integration of register and login form
-    It uses Django's standard AuthenticationForm, though.
+       Integration of register and login form
+       It uses Django's standard AuthenticationForm, though.
     """
+
     user = request.user
     if user.is_authenticated():
         redirect_to = reverse("scipycon_account", kwargs={'scope': scope})
@@ -144,7 +145,8 @@ def login(request, scope, template_name="user/login.html"):
             redirect_to = request.POST.get("next")
             # Light security check -- make sure redirect_to isn't garbage.
             if not redirect_to or '//' in redirect_to or ' ' in redirect_to:
-                redirect_to = reverse("scipycon_account")
+                redirect_to = reverse('scipycon_account',
+                                      kwargs={'scope': scope})
 
             from django.contrib.auth import login
             login(request, login_form.get_user())
@@ -159,7 +161,8 @@ def login(request, scope, template_name="user/login.html"):
 
             redirect_to = request.POST.get("next")
             if not redirect_to or '//' in redirect_to or ' ' in redirect_to:
-                redirect_to = reverse("scipycon_account")
+                redirect_to = reverse('scipycon_account',
+                                      kwargs={'scope': scope})
 
             return set_message_cookie(
                 redirect_to, msg = u"You have been registered and logged in.")
@@ -169,8 +172,10 @@ def login(request, scope, template_name="user/login.html"):
     if next_url is None:
         next_url = request.META.get("HTTP_REFERER")
     if next_url is None:
-        next_url = reverse("scipycon_account")
-    # Get just the path of the url. See django.contrib.auth.views.login for more
+        next_url = reverse('scipycon_account', kwargs={'scope': scope})
+
+    # Get just the path of the url.
+    # See django.contrib.auth.views.login for more
     next_url = urlparse(next_url)
     next_url = next_url[2]
 
@@ -193,23 +198,25 @@ def logout(request, scope):
     The reason to use a custom logout method is just to provide a login and a
     logoutmethod on one place.
     """
+
     from django.contrib.auth import logout
     logout(request)
 
-    redirect_to = '/'
+    redirect_to = '/%s' % (scope)
     return set_message_cookie(redirect_to, msg = u"You have been logged out.")
 
 @login_required
-def password(request, scope, template_name="user/password.html"):
+def password(request, scope, template_name='user/password.html'):
     """Changes the password of current user.
     """
-    if request.method == "POST":
+
+    if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             form.save()
-            redirect_to = reverse("scipycon_account")
+            redirect_to = reverse('scipycon_account', kwargs={'scope': scope})
             return set_message_cookie(redirect_to,
-                    msg = u"Your password has been changed.")
+                    msg = u'Your password has been changed.')
     else:
         form = PasswordChangeForm(request.user)
 
@@ -219,22 +226,26 @@ def password(request, scope, template_name="user/password.html"):
     }))
 
 @login_required
-def username(request, scope, template_name="user/username.html"):
+def username(request, scope, template_name='user/username.html'):
     """Saves the username from the data form.
     """
-    if request.method == "POST":
-        username_form = UsernameForm(initial={"username" : request.user.username}, data=request.POST)
+    if request.method == 'POST':
+        username_form = UsernameForm(
+            initial={'username' : request.user.username},
+            data=request.POST)
         if username_form.is_valid():
             request.user.username = username_form.cleaned_data.get("username")
             request.user.save()
-            redirect_to = reverse("scipycon_account")
+            redirect_to = reverse('scipycon_account',
+                                  kwargs={'scope': scope})
             return set_message_cookie(redirect_to,
                     msg = u"Your username has been changed.")
     else:        
         username_form = UsernameForm(initial={"username" : request.user.username})
 
     return render_to_response(template_name, RequestContext(request, {
-        "form": username_form
+        'params': {'scope': scope},
+        'form': username_form
     }))
 
 

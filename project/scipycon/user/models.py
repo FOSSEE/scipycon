@@ -24,15 +24,3 @@ class UserProfile(base_models.ScopedBase):
 
     def fullname(self):
         return '%s %s' % (self.user.first_name, self.user.last_name)
-
-def add_profile(sender, instance, signal, *args, **kwargs):
-    """Create user profile on create of new user"""
-    if not instance.is_superuser:
-        try:
-            profile, new = UserProfile.objects.get_or_create(user=instance)
-            if new:
-                profile.save()
-        except:
-            pass
-
-post_save.connect(add_profile, sender=User, weak=False)
