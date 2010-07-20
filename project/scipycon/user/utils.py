@@ -83,10 +83,13 @@ def scipycon_createuser(request, data, scope):
     return user
 
 def handle_uploaded_photo(user, ufile):
+    """Handles the upload and gives the file path to be saved.
+    """
+
     usermedia = settings.USER_MEDIA_ROOT
     filename = ufile.name
     ext = filename.split('.')[-1]
-    filesize = ufile.size
+
     filecontent = ufile.read()
     userfilename = 'user-%d.%s' % (user.id, ext)
     if not filecontent:
@@ -119,7 +122,6 @@ def handle_uploaded_photo(user, ufile):
             th = int(round(nw / pr))
             image = image.resize((nw, th), Image.ANTIALIAS)
             t = int(round(( th - nh ) / 2.0))
-            #print((0, t, nw, t + nh))
             image = image.crop((0, t, nw, t + nh))
         else:
             # photo aspect matches the destination ratio
@@ -127,4 +129,3 @@ def handle_uploaded_photo(user, ufile):
 
         image.save(str(foutname))
     return userfilename
-

@@ -1,7 +1,6 @@
 from urlparse import urlparse
 
 import simplejson as json
-import urllib
 import os
 
 from django.conf import settings
@@ -12,7 +11,6 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.db.models import Q
-from django.db.models.signals import post_save
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -23,13 +21,12 @@ from project.scipycon.registration.models import Registration
 from project.scipycon.registration.models import Wifi
 from project.scipycon.registration.forms import WifiForm
 from project.scipycon.talk.models import Talk
-from project.scipycon.utils import set_message_cookie
-
 from project.scipycon.user.forms import EditProfileForm
-from project.scipycon.user.utils import handle_uploaded_photo
 from project.scipycon.user.forms import RegisterForm
-from project.scipycon.user.utils import scipycon_createuser
 from project.scipycon.user.forms import UsernameForm
+from project.scipycon.user.utils import handle_uploaded_photo
+from project.scipycon.user.utils import scipycon_createuser
+from project.scipycon.utils import set_message_cookie
 
 
 @login_required
@@ -79,6 +76,7 @@ def account(request, scope, template_name="user/account.html"):
 def edit_profile(request, scope, template_name="user/editprofile.html"):
     """Allows user to edit profile
     """
+
     user = request.user
     profile = user.get_profile()
 
@@ -106,16 +104,18 @@ def edit_profile(request, scope, template_name="user/editprofile.html"):
             redirect_to = reverse('scipycon_account',
                                   kwargs={'scope': scope})
             return set_message_cookie(redirect_to,
-                    msg = u"Your profile has been changed.")
+                    msg = u'Your profile has been changed.')
 
     else:
-        form = EditProfileForm(initial={"email" : user.email,
-                                        "email2" : user.email, # hidden field
-                                        "first_name" : user.first_name,
-                                        "last_name" : user.last_name,
-                                        "url" : profile.url,
-                                        "about" : profile.about,
-                                        })
+        form = EditProfileForm(
+            initial={
+                'email' : user.email,
+                'email2' : user.email, # hidden field
+                'first_name' : user.first_name,
+                'last_name' : user.last_name,
+                'url' : profile.url,
+                'about' : profile.about,
+            })
 
     return render_to_response(template_name, RequestContext(request, {
         'params': {'scope': scope},
