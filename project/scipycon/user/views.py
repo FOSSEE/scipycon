@@ -17,6 +17,7 @@ from django.template import RequestContext
 
 from PIL import Image
 
+from project.scipycon.base.models import Event
 from project.scipycon.registration.models import Registration
 from project.scipycon.registration.models import Wifi
 from project.scipycon.registration.forms import WifiForm
@@ -38,39 +39,32 @@ def account(request, scope, template_name="user/account.html"):
     profile = user.get_profile()
 
     talks = Talk.objects.filter(speaker=user)
+
     try:
         registration = Registration.objects.get(registrant=user)
     except ObjectDoesNotExist:
         registration = None
+
     try:
         wifiobj = Wifi.objects.get(user=user)
     except ObjectDoesNotExist:
         wifiobj = None
+
+    event = Event.objects.get(scope=scope)
 
     if profile.photo:
         photo = os.path.join(settings.USER_MEDIA_URL, profile.photo)
     else:
         photo = '/img/user-default.png'
 
-    wifi_comment = None
-    if wifiobj:
-        wifi_form = False
-    else:
-        if request.method == "POST":
-            wifi_form = WifiForm(request.POST)
-            if wifi_form.is_valid():
-                wifi_form.save(user)
-            wifi_comment = 'Thanks, your wifi preference has been saved'
-            wifi_form = None
-        else:
-            wifi_form = WifiForm()
-
     return render_to_response(template_name, RequestContext(request, {
         'params': {'scope': scope},
-        'form' : wifi_form, 'comment': wifi_comment,
-        'user' : user, 'profile' : profile, 'photo' : photo,
-        'talks' : talks, 'registration' : registration,
-    }))
+        'user' : user,
+        'profile' : profile,
+        'photo' : photo,
+        'talks' : talks,
+        'registration' : registration,
+        'event': event}))
 
 @login_required
 def edit_profile(request, scope, template_name="user/editprofile.html"):
