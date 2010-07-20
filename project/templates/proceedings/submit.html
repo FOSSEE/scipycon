@@ -11,7 +11,7 @@
 
     // Set autosuggest options with all plugins activated
     var options = {
-      script:"{% url scipycon_get_usernames %}?limit=10&",
+      script:"{% url scipycon_get_usernames params.scope %}?limit=10&",
       varname:"input",
       json:true,            // Returned response type
       shownoresults:true,       // If disable, display nothing if no results
@@ -41,7 +41,13 @@
 
   {% include '_errors.html' %}
 
-  <form action="{% if id %}{% url scipycon_submit_proceedings id %}{% else %}{% url scipycon_submit_proceedings %}{% endif %}" method="post">
+  <form action="
+      {% if id %}
+          {% url scipycon_submit_proceedings id  params.scope %}
+      {% else %}
+          {% url scipycon_submit_proceedings params.scope %}
+      {% endif %}"
+      method="post">
     {% if not user.is_authenticated %}
     <fieldset>
       <legend>Are you a member of this site?</legend>
@@ -51,7 +57,7 @@
     </fieldset>
   </form>
   <br />
-  <form action="{% url scipycon_submit_proceedings id %}" 
+  <form action="{% url scipycon_submit_proceedings id params.scope %}"
     enctype="multipart/form-data" method="post">
     <fieldset>
       <legend>User Registration</legend>

@@ -7,7 +7,7 @@
 
 {% include '_errors.html' %}
 
-<form action="{% url scipycon_edit_registration id %}"
+<form action="{% url scipycon_edit_registration id params.scope %}"
       method="post">
     <fieldset>
         <legend>Edit Registration</legend>

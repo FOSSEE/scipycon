@@ -1,31 +1,43 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="section" id="call-for-papers">
-<h1>Call for Papers</h1>
-<p>We look forward to your submissions on the use of Python for Scientific
-Computing and Education. This includes pedagogy, exploration, modeling
-and analysis from both applied and developmental perspectives. We 
-welcome contributions from academia as well as industry.</p>
-<div class="section" id="submission-of-papers">
-<h2>Submission of Papers</h2>
-<p>If you wish to present your paper using this platform, please submit
-an abstract of 300 to 700 words describing the topic, including its relevance
-to scientific computing. Based on the number and quality of the submissions,
- the conference organizers will allot 10 - 30 minutes for each accepted talk.</p>
-<p>In addition to these talks, there will be an open session of lightning talks,
-during which any attendee who wishes to talk on a pertinent topic is invited to 
- do a presentation not exceeding five minutes in duration.</p>
-<p>If you wish to present a talk at the conference, please follow the guidelines below.</p>
-</div>
-<div class="section" id="submission-guidelines">
-<h2>Submission Guidelines</h2>
-<ul class="simple">
-<li>Submissions should be uploaded via <a href="{% url scipycon_submit_talk %}">the web form.</a></li>
-<li>Submissions whose main purpose is to promote a commercial product or
-service will be refused.</li>
-<li>All accepted proposals must be presented at the SciPy conference by
-at least one author.</li>
-</ul>
-</div>
+  <h1>Call for Papers</h1>
+  <p>
+    We look forward to your submissions on the use of Python for Scientific
+    Computing and Education. This includes pedagogy, exploration, modeling
+    and analysis from both applied and developmental perspectives. We 
+    welcome contributions from academia as well as industry.
+  </p>
+  <div class="section" id="submission-of-papers">
+    <h2>Submission of Papers</h2>
+    <p>
+      If you wish to present your paper using this platform, please submit
+      an abstract of 300 to 700 words describing the topic, including its
+      relevance to scientific computing. Based on the number and quality of
+      the submissions, the conference organizers will allot 10 - 30 minutes
+      for each accepted talk.
+    </p>
+    <p>
+      In addition to these talks, there will be an open session of lightning
+      talks, during which any attendee who wishes to talk on a pertinent topic
+      is invited to do a presentation not exceeding five minutes in duration.
+    </p>
+    <p>
+      If you wish to present a talk at the conference, please follow the
+      guidelines below.
+    </p>
+  </div>
+
+  <div class="section" id="submission-guidelines">
+    <h2>Submission Guidelines</h2>
+    <ul class="simple">
+      <li>Submissions should be uploaded via <a href="
+          {% url scipycon_submit_talk params.scope %}">the web form.</a></li>
+      <li>Submissions whose main purpose is to promote a commercial product
+          or service will be refused.</li>
+      <li>All accepted proposals must be presented at the SciPy conference by
+          at least one author.</li>
+    </ul>
+  </div>
 </div>
 {% endblock content %}

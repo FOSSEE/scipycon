@@ -3,61 +3,51 @@
 {% block title %}Submit Talk Proposal{% endblock %}
 
 {% block content %}
-    <h1>Submit Talk Proposal</h1>
+  <h1>Submit Talk Proposal</h1>
 
-{% include '_errors.html' %}
+  {% include '_errors.html' %}
 
-        <form action="{% url scipycon_submit_talk %}"
-              method="post">
+  <form action="{% url scipycon_submit_talk params.scope %}" method="post">
     {% if not user.is_authenticated %}
-                <fieldset>
-                    <legend>Are you a member of this site?</legend>
-                    <table class="scipycon-default required">
-                        {{ login_form }}
-                    </table>
+      <fieldset>
+        <legend>Are you a member of this site?</legend>
+        <table class="scipycon-default required">
+          {{ login_form }}
+        </table>
 
-                <input type="hidden"
-                       name="action"
-                       value="login" />
+        <input type="hidden" name="action" value="login" />
 
-            <button class="button left"
-                    type="submit">
-                Login
-            </button>
-                </fieldset>
+        <button class="button left" type="submit">Login</button>
+      </fieldset>
 
-        </form>
-        <br />
-        <form action="{% url scipycon_submit_talk %}"
-              enctype="multipart/form-data"
-              method="post">
-                <fieldset>
-                    <legend>Speaker Registration</legend>
-                    <table class="scipycon-default required">
-                        {{ register_form }}
-                    </table>
+    </form>
+    <br />
 
-                <input type="hidden"
-                       name="action"
-                       value="register" />
-                </fieldset>
+    <form action="{% url scipycon_submit_talk %}"
+        enctype="multipart/form-data" method="post">
+      <fieldset>
+        <legend>Speaker Registration</legend>
+        <table class="scipycon-default required">
+          {{ register_form }}
+        </table>
+
+        <input type="hidden" name="action" value="register" />
+      </fieldset>
     {% endif %}
-                <br />
-                <fieldset>
-                    <legend>Talk Submission</legend>
-                    <table class="scipycon-default required">
-                        {{ talk_form }}
-                    </table>
+    <br />
 
-                <button class="button left"
-                        type="submit">
-                    Submit Talk
-                </button>
-                </fieldset>
-        </form>
-    {% if message %}
+    <fieldset>
+      <legend>Talk Submission</legend>
+      <table class="scipycon-default required">
+        {{ talk_form }}
+      </table>
+
+      <button class="button left" type="submit">Submit Talk</button>
+    </fieldset>
+  </form>
+  {% if message %}
     <script type="text/javascript">
         $.jGrowl("{{ message }}");
-</script>
-    {% endif %}
+     </script>
+  {% endif %}
 {% endblock content %}
