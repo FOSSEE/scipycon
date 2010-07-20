@@ -1,48 +1,42 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import
-
-#python
 from urlparse import urlparse
+
 import simplejson as json
 import urllib
 import os
 
-#django
 from django.conf import settings
-from django.db.models import Q
-from django.http import HttpResponse
-from django.shortcuts import render_to_response
-from django.template import RequestContext
-from django.core.urlresolvers import reverse
-from django.db.models.signals import post_save
-
-#django.contrib
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.urlresolvers import reverse
+from django.db.models import Q
+from django.db.models.signals import post_save
+from django.http import HttpResponse
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
-#PIL
 from PIL import Image
 
-#scipycon
-from project.scipycon.utils import set_message_cookie
-from project.scipycon.talk.models import Talk
 from project.scipycon.registration.models import Registration
 from project.scipycon.registration.models import Wifi
 from project.scipycon.registration.forms import WifiForm
+from project.scipycon.talk.models import Talk
+from project.scipycon.utils import set_message_cookie
 
-from .utils import scipycon_createuser
-from .utils import handle_uploaded_photo
-from .forms import RegisterForm
-from .forms import EditProfileForm
-from .forms import UsernameForm
+from project.scipycon.user.forms import EditProfileForm
+from project.scipycon.user.utils import handle_uploaded_photo
+from project.scipycon.user.forms import RegisterForm
+from project.scipycon.user.utils import scipycon_createuser
+from project.scipycon.user.forms import UsernameForm
+
 
 @login_required
-def account(request, template_name="user/account.html"):
+def account(request, scope, template_name="user/account.html"):
     """Displays the main screen of the current user's account.
     """
+
     user = request.user
     profile = user.get_profile()
 
@@ -77,13 +71,14 @@ def account(request, template_name="user/account.html"):
             wifi_form = WifiForm()
 
     return render_to_response(template_name, RequestContext(request, {
-        "form" : wifi_form, "comment": wifi_comment,
-        "user" : user, "profile" : profile, "photo" : photo,
-        "talks" : talks, "registration" : registration,
+        'params': {'scope': scope},
+        'form' : wifi_form, 'comment': wifi_comment,
+        'user' : user, 'profile' : profile, 'photo' : photo,
+        'talks' : talks, 'registration' : registration,
     }))
 
 @login_required
-def edit_profile(request, template_name="user/editprofile.html"):
+def edit_profile(request, scope, template_name="user/editprofile.html"):
     """Allows user to edit profile
     """
     user = request.user
@@ -127,14 +122,14 @@ def edit_profile(request, template_name="user/editprofile.html"):
         "form": form
     }))
 
-def login(request, template_name="user/login.html"):
+def login(request, scope, template_name="user/login.html"):
     """Custom view to login or register/login a user.
     Integration of register and login form
     It uses Django's standard AuthenticationForm, though.
     """
     user = request.user
     if user.is_authenticated():
-        redirect_to = reverse("scipycon_account")
+        redirect_to = reverse("scipycon_account", kwargs={'scope': scope})
         return set_message_cookie(redirect_to,
                 msg = u"Redirected to account from login form.")
 
@@ -160,7 +155,7 @@ def login(request, template_name="user/login.html"):
         register_form = RegisterForm(data=request.POST)
         if register_form.is_valid():
 
-            user = scipycon_createuser(request, register_form.data)
+            user = scipycon_createuser(request, register_form.data, scope)
 
             redirect_to = request.POST.get("next")
             if not redirect_to or '//' in redirect_to or ' ' in redirect_to:
@@ -185,13 +180,14 @@ def login(request, template_name="user/login.html"):
         login_form_errors = None
 
     return render_to_response(template_name, RequestContext(request, {
-        "login_form" : login_form,
-        "login_form_errors" : login_form_errors,
-        "register_form" : register_form,
-        "next_url" : next_url,
+        'params': {'scope': scope},
+        'login_form' : login_form,
+        'login_form_errors' : login_form_errors,
+        'register_form' : register_form,
+        'next_url' : next_url,
     }))
 
-def logout(request):
+def logout(request, scope):
     """Custom method to logout a user.
 
     The reason to use a custom logout method is just to provide a login and a
@@ -204,7 +200,7 @@ def logout(request):
     return set_message_cookie(redirect_to, msg = u"You have been logged out.")
 
 @login_required
-def password(request, template_name="user/password.html"):
+def password(request, scope, template_name="user/password.html"):
     """Changes the password of current user.
     """
     if request.method == "POST":
@@ -218,11 +214,12 @@ def password(request, template_name="user/password.html"):
         form = PasswordChangeForm(request.user)
 
     return render_to_response(template_name, RequestContext(request, {
-        "form" : form
+        'params': {'scope': scope},
+        'form' : form
     }))
 
 @login_required
-def username(request, template_name="user/username.html"):
+def username(request, scope, template_name="user/username.html"):
     """Saves the username from the data form.
     """
     if request.method == "POST":
@@ -241,7 +238,7 @@ def username(request, template_name="user/username.html"):
     }))
 
 
-def get_usernames(request):
+def get_usernames(request, scope):
     """Returns in json the list of ten possible usernames
     starting with the last pattern in the comma separated string
     """
