@@ -3,11 +3,10 @@ from django.contrib.auth.models import User
 
 from project.scipycon.base import models as base_models
 
-from .utils import send_confirmation_payment_email
-from .utils import send_banking_fix_email
-
-from .labels import WIFI_CHOICES
-from .labels import WIFI_HELP
+from project.scipycon.registration.labels import WIFI_CHOICES
+from project.scipycon.registration.labels import WIFI_HELP
+from project.scipycon.registration.utils import send_confirmation_payment_email
+from project.scipycon.registration.utils import send_banking_fix_email
 
 
 SIZE_CHOICES = (
