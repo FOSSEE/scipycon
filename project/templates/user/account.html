@@ -1,6 +1,8 @@
 {% extends "base.html" %}
-          <li class="last"><a
-            href="mailto:kauaerangastore@xtra.co.nz">kauaerangastore@xtra.co.nz</a></li>
+<!-- 
+<li class="last">
+<a href="mailto:kauaerangastore@xtra.co.nz">kauaerangastore@xtra.co.nz</a></li>
+ -->
 <!-- TODO: Lot of fees related and New Zealand group related info. -->
 {% block title %}My Profile{% endblock %}
 
@@ -25,7 +27,7 @@
             <span>{{ user.get_full_name }}</span>
         {% else %}
         <span class="important">No name, please <a 
-            href="{% url scipycon_edit_profile %}">edit profile</a>.</span>
+            href="{% url scipycon_edit_profile params.scope %}">edit profile</a>.</span>
         {% endif %}
         </td>
         <td rowspan="4">
