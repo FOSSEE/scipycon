@@ -6,10 +6,11 @@ from django.contrib.auth.models import User
 
 from PIL import Image
 
+from project.scipycon.base.models import Event
 from project.scipycon.user.models import UserProfile
 
 
-def scipycon_createregistrant(request, data):
+def scipycon_createregistrant(request, data, scope):
     """Create user
     """
 
@@ -32,6 +33,14 @@ def scipycon_createregistrant(request, data):
     user.last_name = last_name
     user.save()
 
+    scope_entity = Event.objects.get(scope=scope)
+    try:
+        profile = user.get_profile()
+    except:
+        profile, new = UserProfile.objects.get_or_create(
+            user=user, scope=scope_entity)
+        profile.save()
+
     return user
 
 def scipycon_createuser(request, data, scope):
@@ -40,8 +49,6 @@ def scipycon_createuser(request, data, scope):
 
     from django.contrib.auth import authenticate
     from django.contrib.auth import login
-
-    from project.scipycon.base.models import Event
 
     email = data.get('email')
     username = data.get('username')
