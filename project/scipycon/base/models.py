@@ -6,28 +6,28 @@ class Timeline(models.Model):
     """
 
     # Start of registration for the program
-    registration_start = models.DateTimeField(blank=True)
+    registration_start = models.DateTimeField(blank=True, null=True)
 
     # End of registration for the program
-    registration_end = models.DateTimeField(blank=True)
+    registration_end = models.DateTimeField(blank=True, null=True)
 
     # Start of Call for Papers
-    cfp_start = models.DateTimeField(blank=True)
+    cfp_start = models.DateTimeField(blank=True, null=True)
 
     # End of Call for Papers
-    cfp_end = models.DateTimeField(blank=True)
+    cfp_end = models.DateTimeField(blank=True, null=True)
 
     # Accepted papers announced
-    accepted_papers_announced = models.DateTimeField(blank=True)
+    accepted_papers_announced = models.DateTimeField(blank=True, null=True)
 
     # Deadline to submit proceedings paper
-    proceedings_paper_deadline = models.DateTimeField(blank=True)
+    proceedings_paper_deadline = models.DateTimeField(blank=True, null=True)
 
     # Start of the actual program
-    event_start = models.DateTimeField(blank=True)
+    event_start = models.DateTimeField(blank=True, null=True)
 
     # End of the actual program
-    event_end = models.DateTimeField(blank=True)
+    event_end = models.DateTimeField(blank=True, null=True)
 
 
 class Event(models.Model):
