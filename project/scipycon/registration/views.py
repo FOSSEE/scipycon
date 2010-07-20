@@ -30,10 +30,21 @@ def registrations(request, scope,
     """Simple page to count registrations"""
 
     registrations = Registration.objects.all().count()
+
+    user = request.user
+    if user.is_authenticated():
+        registration = Registration.objects.get(registrant=user)
+    else:
+        registration = None
+
+    event = Event.objects.get(scope=scope)
+
     return render_to_response(template_name, RequestContext(request, {
         'params': {'scope': scope},
         'over_reg' : registrations >= REG_TOTAL and True or False,
-        'registrations' : registrations}))
+        'registrations' : registrations,
+        'registration': registration,
+        'event': event}))
 
 @login_required
 def edit_registration(request, scope, id,
@@ -164,7 +175,7 @@ def submit_registration(request, scope,
         if not user.is_authenticated():
             if registrant_form.is_valid():
                 newuser = scipycon_createregistrant(
-                    request, registrant_form.data)
+                    request, registrant_form.data, scope)
 
                 # Log in user
                 passwd = User.objects.make_random_password()
@@ -210,7 +221,7 @@ def submit_registration(request, scope,
 
             # get id and use as slug and invoice number
             id = reg.id
-            slug = 'SPYIN10%05d' % id
+            slug = 'SCIPYIN2010%04d' % id
             reg.slug = slug
             reg.save()
 
