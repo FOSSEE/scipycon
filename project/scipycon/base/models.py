@@ -26,6 +26,9 @@ class Event(models.Model):
     def __unicode__(self):
         return '%s %s' % (self.name, self.turn)
 
+    def get_full_name(self):
+        return self.__unicode__()
+
 
 class Timeline(models.Model):
     """Timeline of the program

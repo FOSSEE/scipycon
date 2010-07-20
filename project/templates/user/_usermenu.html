@@ -1,11 +1,15 @@
 <div class="right">
     <ul class="horizontal-menu">
         <li>
-            <a href="{% url scipycon_account params.scope %}">My Profile</a>
+            <a href="{% url scipycon_account params.scope %}">My Account</a>
         </li>
         <li>
             <a href="{% url scipycon_edit_profile params.scope %}">Edit Profile</a>
         </li>
+        {% comment %} <li>
+            <a href="{% url scipycon_edit_registration params.scope registration.id %}">Edit Registration</a>
+        </li>
+        {% endcomment %}
         <li>
             <a href="{% url scipycon_password params.scope %}">Change Password</a>
         </li>

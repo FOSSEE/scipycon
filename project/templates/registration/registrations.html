@@ -6,7 +6,7 @@ Registrations
 
 {% block content %}
 
-<h1>Submit Registration</h1>
+<h1>Registration Statistics</h1>
 
     {% if over_reg %}
     <div class="notice">
@@ -18,9 +18,16 @@ Registrations
     </div>
     {% endif %}
 
-<p>Currently <strong>{{ registrations }}</strong> persons have registered to attend SciPy.in 2009.</p>
+<p>
+  Currently <strong>{{ registrations }}</strong> people have registered
+  to attend {{ event.get_full_name }}.
+</p>
 
-<p>To attend SciPy.in 2009 please <a href="/submit-registration/">register</a></p>
-
+{% if not registration %}
+  <p>
+    To attend {{ event.get_full_name }} please <a href="
+    {% url scipycon_submit_registration params.scope %}">register</a>
+  </p>
+{% endif %}
 
 {% endblock %}
