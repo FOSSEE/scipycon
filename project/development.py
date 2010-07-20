@@ -16,10 +16,11 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     'django.contrib.markup',
     'project.scipycon',
+    'project.scipycon.base',
+    'project.scipycon.proceedings',
+    'project.scipycon.registration',
     'project.scipycon.user',
     'project.scipycon.talk',
-    'project.scipycon.registration',
-    'project.scipycon.proceedings',
     'tagging',
 )
 
