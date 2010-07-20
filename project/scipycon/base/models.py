@@ -1,9 +1,38 @@
 from django.db import models
 
 
+class Event(models.Model):
+    """Data model which holds the data related to the scope or the event.
+    """
+
+    # Different states the Event can be in
+    STATUS_CHOICES = (
+        ('active', 'Active'),
+        ('inactive', 'Inactive'),
+    )
+
+    # Scope of the program, used as a URL prefix
+    scope = models.CharField(max_length=255)
+
+    # Name of the program
+    name = models.CharField(max_length=255)
+
+    # Event specific i.e version of the event
+    turn = models.CharField(max_length=255)
+
+    # Status of the program
+    status = models.CharField(max_length=255, choices=STATUS_CHOICES)
+
+    def __unicode__(self):
+        return '%s %s' % (self.name, self.turn)
+
+
 class Timeline(models.Model):
     """Timeline of the program
     """
+
+    # Event with which this timeline is associated
+    event = models.OneToOneField(Event)
 
     # Start of registration for the program
     registration_start = models.DateTimeField(blank=True, null=True)
@@ -29,31 +58,8 @@ class Timeline(models.Model):
     # End of the actual program
     event_end = models.DateTimeField(blank=True, null=True)
 
-
-class Event(models.Model):
-    """Data model which holds the data related to the scope or the event.
-    """
-
-    # Different states the Event can be in
-    STATUS_CHOICES = (
-        ('active', 'Active'),
-        ('inactive', 'Inactive'),
-    )
-
-    # Scope of the program, used as a URL prefix
-    scope = models.CharField(max_length=255)
-
-    # Name of the program
-    name = models.CharField(max_length=255)
-
-    # Event specific i.e version of the event
-    turn = models.CharField(max_length=255)
-
-    # Time associated with the program
-    timeline = models.OneToOneField(Timeline)
-
-    # Status of the program
-    status = models.CharField(max_length=255, choices=STATUS_CHOICES)
+    def __unicode__(self):
+        return '%s %s' % (self.event.name, self.event.turn)
 
 
 class ScopedBase(models.Model):

@@ -10,7 +10,7 @@ class EventAdmin(admin.ModelAdmin):
     search_fields = ('name', 'turn', 'status',)
     fieldsets = (
         ('Details', {
-            'fields': ('name', 'turn', 'status', 'scope', 'timeline')
+            'fields': ('name', 'turn', 'status', 'scope')
         }),
     )
 
@@ -19,11 +19,11 @@ class TimelineAdmin(admin.ModelAdmin):
     list_display = ('registration_start', 'registration_end', 'cfp_start',
                     'cfp_end', 'accepted_papers_announced',
                     'proceedings_paper_deadline', 'event_start',
-                    'event_end')
+                    'event_end', 'event')
     list_filter = ('registration_start', 'registration_end', 'cfp_start',
                    'cfp_end', 'accepted_papers_announced',
                    'proceedings_paper_deadline', 'event_start',
-                   'event_end')
+                   'event_end', 'event')
     search_fields = ('registration_start', 'registration_end', 'cfp_start',
                      'cfp_end', 'accepted_papers_announced',
                      'proceedings_paper_deadline', 'event_start',
@@ -37,7 +37,7 @@ class TimelineAdmin(admin.ModelAdmin):
                        'proceedings_paper_deadline')
         }),
         ('Event', {
-            'fields': ('event_start', 'event_end')
+            'fields': ('event_start', 'event_end', 'event')
         }),
     )
 
