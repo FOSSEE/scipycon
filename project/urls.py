@@ -1,10 +1,11 @@
+from django.conf import settings
 from django.conf.urls.defaults import include
 from django.conf.urls.defaults import patterns
-from django.conf import settings
+from django.conf.urls.defaults import url
 from django.contrib import admin
 from django.views.generic.simple import direct_to_template
 from django.views.generic.simple import redirect_to
-from django.conf.urls.defaults import *
+
 
 admin.autodiscover()
 
@@ -16,10 +17,10 @@ SCOPE_ARG_PATTERN = r'(?P<scope>%s/%s)' % (
 # Admin
 urlpatterns = patterns('',
     url(r'^$', redirect_to, {'url': '/%s/' % (settings.CURRENT_SCOPE)}),
-    url(r'^%s/$' % (SCOPE_ARG_PATTERN),
-        direct_to_template, {"template": "home.html"}, name='home'),
     (r'^comments/', include('django.contrib.comments.urls')),
     (r'^admin/(.*)', admin.site.root),
+    url(r'^%s/$' % (SCOPE_ARG_PATTERN),
+        direct_to_template, {"template": "home.html"}, name='home'),
 )
 
 # Talks, etc.
@@ -44,8 +45,6 @@ urlpatterns += patterns('project.scipycon.registration.views',
         'submit_registration', name='scipycon_submit_registration'),
     url(r'^%s/edit-registration/(?P<id>\d+)/$' % (SCOPE_ARG_PATTERN),
         'edit_registration', name='scipycon_edit_registration'),
-    url(r'^%s/download_csv/' % (SCOPE_ARG_PATTERN),
-        'download_csv', name="download_csv"),
     )
 
 # Authentication and Profile
