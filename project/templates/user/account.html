@@ -22,8 +22,12 @@
         {% if user.first_name %}
             <span>{{ user.get_full_name }}</span>
         {% else %}
-        <span class="important">No name, please <a 
-            href="{% url scipycon_edit_profile params.scope %}">edit profile</a>.</span>
+        <span class="important">
+          No name, please
+          <a href="{% url scipycon_edit_profile params.scope %}">
+            edit profile
+          </a>.
+        </span>
         {% endif %}
         </td>
         <td rowspan="4">
@@ -65,7 +69,7 @@
 <div id="talks">
   <h2>Your Registration</h2>
 <p>
-  <a href="/edit-registration/{{ registration.id }}/"
+  <a href="{% url scipycon_edit_registration params.scope registration.id %}"
     title="Edit">Edit Registration</a>
   </p>
 </div>
