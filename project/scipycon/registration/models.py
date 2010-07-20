@@ -5,8 +5,6 @@ from project.scipycon.base import models as base_models
 
 from project.scipycon.registration.labels import WIFI_CHOICES
 from project.scipycon.registration.labels import WIFI_HELP
-from project.scipycon.registration.utils import send_confirmation_payment_email
-from project.scipycon.registration.utils import send_banking_fix_email
 
 
 SIZE_CHOICES = (
@@ -14,12 +12,24 @@ SIZE_CHOICES = (
     ('M', 'M'),
     ('L', 'L'),
     ('XL', 'XL'),
+    ('XXL', 'XXL'),
+    )
+
+OCCUPATION_CHOICES = (
+    ('Education: Student', 'Education: Student'),
+    ('Education: Faculty', 'Education: Faculty'),
+    ('Education: Research', 'Education: Research'),
+    ('Education: Other', 'Education: Other'),
+    ('Corporate: Research', 'Corporate: Research'),
+    ('Corporate: Other', 'Corporate: Other'),
+    ('Other', 'Other')
     )
 
 
 class Wifi(base_models.ScopedBase):
     """Defines wifi options at SciPy.in
     """
+
     user = models.ForeignKey(User)
 
     wifi = models.CharField(max_length=50, choices=WIFI_CHOICES,
@@ -35,7 +45,8 @@ class Registration(base_models.ScopedBase):
 
     organisation = models.CharField(max_length=255, blank=True)
 
-    occupation = models.CharField(max_length=255, blank=True)
+    occupation = models.CharField(max_length=255,
+                                  choices=OCCUPATION_CHOICES, blank=True)
 
     city = models.CharField(max_length=255, blank=True)
 
@@ -43,7 +54,7 @@ class Registration(base_models.ScopedBase):
 
     phone_num = models.CharField(max_length=14, blank=True)
 
-    tshirt = models.CharField(max_length=2, choices=SIZE_CHOICES)
+    tshirt = models.CharField(max_length=3, choices=SIZE_CHOICES)
 
     conference = models.BooleanField(default=False)
 

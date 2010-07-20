@@ -1,43 +1,39 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import
-
-#django
 from django import forms
 from django.core.exceptions import ObjectDoesNotExist
 
-#django.contrib
-from django.contrib.auth.models import User
-
-from .models import SIZE_CHOICES
-from .models import Registration
-from .models import Wifi
+from project.scipycon.registration.models import SIZE_CHOICES
+from project.scipycon.registration.models import OCCUPATION_CHOICES
+from project.scipycon.registration.models import Wifi
 
 
 class RegistrationSubmitForm(forms.Form):
-    """PyCon registration form
+    """SciPyCon registration form
     """
-    tshirt = forms.ChoiceField(choices=SIZE_CHOICES, required=True,
-        label=u'T-shirt size', help_text=u'Yes, we all get a t-shirt!')
+    #tshirt = forms.ChoiceField(choices=SIZE_CHOICES, required=True,
+    #    label=u'T-shirt size', help_text=u'Yes, we all get a t-shirt!')
     organisation = forms.CharField(required=True, label=u'Organisation',
         help_text=u'The primary organisation that you are a member of.',
         max_length=255,
         widget=forms.TextInput(attrs={'size':'50'}))
-    occupation = forms.CharField(required=True, label=u'Occupation',
-        help_text=u'Title of your occupation',
-        max_length=255,
-        widget=forms.TextInput(attrs={'size':'50'}))
-    city = forms.CharField(required=True, label=u'City',
-        help_text=u'City of residence',
+    occupation = forms.ChoiceField(choices=OCCUPATION_CHOICES,
+        required=True, label=u'Occupation',
+        help_text=u'Title of your occupation')
+    city = forms.CharField(required=False, label=u'City',
+        help_text=u'Your city of residence',
         max_length=255,
         widget=forms.TextInput(attrs={'size':'50'}))
     postcode = forms.CharField(required=False, label=u'Postcode',
-        help_text=u'This field is optional',
+        help_text=u'PIN Code of your area',
         max_length=10,
         widget=forms.TextInput(attrs={'size':'10'}))
+    phone_num = forms.CharField(required=False, label=u'Phone Number',
+        help_text=u'Phone number. Although optional, please provide it for '
+        'faster correspondence', max_length=14,
+        widget=forms.TextInput(attrs={'size':'20'}))
     allow_contact = forms.BooleanField(required=False, label=u'Contact',
         help_text=u'May organizers of SciPy.in contact you after the event?')
     conference = forms.BooleanField(required=False, label=u'Conference',
-        help_text=u"""Do you intend to attend the SciPy conference?  
+        help_text=u"""Do you intend to attend SciPy.in 2010 conference?  
         Note: Only conference has an registration fee of Rs.200 which you will
         pay on the spot.""")
     tutorial = forms.BooleanField(required=False, label=u'Tutorial',
@@ -45,14 +41,17 @@ class RegistrationSubmitForm(forms.Form):
     sprint = forms.BooleanField(required=False, label=u'Sprint',
         help_text=u'Do you intend to attend the sprints?')
 
-    def demographic_fields(self):
+    def occupation_fields(self):
         return (self['organisation'],
-                self['occupation'],
-                self['city'],
-                self['postcode'])
+                self['occupation'])
+
+    def demographic_fields(self):
+        return (self['city'],
+                self['postcode'],
+                self['phone_num'])
 
     def personal_fields(self):
-        return (self['tshirt'],
+        return (#self['tshirt'],
                 self['conference'],
                 self['tutorial'],
                 self['sprint'],
@@ -61,15 +60,20 @@ class RegistrationSubmitForm(forms.Form):
 
 class RegistrationEditForm(RegistrationSubmitForm):
     id = forms.CharField(widget=forms.HiddenInput)
-    sponsor = forms.CharField(required=False, widget=forms.HiddenInput)
 
 class WifiForm(forms.ModelForm):
     """PyCon wifi form
     """
 
-    def save(self, user):
-        wifi = Wifi(user=user, wifi=self.cleaned_data['wifi'])
+    def save(self, user, scope):
+        try:
+            wifi = Wifi.objects.get(user=user, scope=scope)
+        except ObjectDoesNotExist:
+            wifi = Wifi(user=user, scope=scope)
+
+        wifi.wifi = self.cleaned_data['wifi']
         wifi.save()
+
         return wifi
 
     class Meta:
@@ -109,13 +113,7 @@ IC = (
         ('T-size', 'tshirt'),
         )
 
-SC = (
-    ('all', 'all'),
-    ('S', 'S'),
-    ('M', 'M'),
-    ('L', 'L'),
-    ('XL', 'XL'),
-    )
+
 class RegistrationAdminSelectForm(forms.Form):
     """
     Used to make selection for csv download
@@ -126,7 +124,7 @@ class RegistrationAdminSelectForm(forms.Form):
         label=u'By amount')
     by_party = forms.ChoiceField(choices=HC, required=False,
         label=u'by party')
-    by_tshirt = forms.ChoiceField(choices=SC, required=False,
+    by_tshirt = forms.ChoiceField(choices=SIZE_CHOICES, required=False,
         label=u'by tshirt size')
     order_by = forms.ChoiceField(choices=OC, required=False,
         label=u'order results')
