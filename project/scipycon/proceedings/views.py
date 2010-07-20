@@ -1,5 +1,3 @@
-  # -*- coding: utf-8 -*-
-
 import os
 
 from django.contrib.auth import login
@@ -10,12 +8,12 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
+from project.scipycon.proceedings.booklet import mk_scipy_paper
+from project.scipycon.proceedings.forms import ProceedingsForm
 from project.scipycon.proceedings.models import Paper
 from project.scipycon.user.forms import RegisterForm
 from project.scipycon.user.models import UserProfile
 from project.scipycon.utils import set_message_cookie
-from project.scipycon.proceedings.booklet import mk_scipy_paper
-from project.scipycon.proceedings.forms import ProceedingsForm
 
 
 def handleUploadedFile(proceedings_form_data, rst_file):
@@ -37,7 +35,7 @@ def handleUploadedFile(proceedings_form_data, rst_file):
 
 
 @login_required
-def submit(request, id=None, template='proceedings/submit.html'):
+def submit(request, scope, id=None, template='proceedings/submit.html'):
     """View to submit the proceedings paper.
     """
 
@@ -60,7 +58,8 @@ def submit(request, id=None, template='proceedings/submit.html'):
 
                 login(request, login_form.get_user())
 
-                redirect_to = reverse('scipycon_submit_proceedings')
+                redirect_to = reverse('scipycon_submit_proceedings',
+                                      kwargs={'scope': scope})
                 return set_message_cookie(redirect_to,
                         msg = u'You have been logged in.')
 
@@ -87,13 +86,14 @@ def submit(request, id=None, template='proceedings/submit.html'):
 
                 # Successfully saved. So get back to the edit page.
                 redirect_to = reverse('scipycon_submit_proceedings',
-                                  args=[paper.id])
+                                      args=[paper.id], kwargs={'scope': scope})
                 return set_message_cookie(
                 redirect_to, msg = u'Thanks, your paper has been submitted.')
             else:
                 # This is impossible. Something was wrong so return back
                 # to submit page
-                redirect_to = reverse('scipycon_submit_proceedings')
+                redirect_to = reverse('scipycon_submit_proceedings',
+                                      kwargs={'scope': scope})
                 return set_message_cookie(
                 redirect_to, msg = u'Something is wrong here.')          
     else:
@@ -198,6 +198,6 @@ def show_paper(request, id):
     mk_scipy_paper.mk_abstract_preview(abstract, outfilename, attach_dir)
 
     from django.http import HttpResponse
-    return HttpResponse('Machi')
 
- 
+    # TODO: Return something in the repo
+    return HttpResponse('')
