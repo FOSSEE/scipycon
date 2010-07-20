@@ -1,24 +1,21 @@
-{% extends "base.html" %}
+{% extends "registration/submit-registration.html" %}
 
 {% block title %}Edit Registration{% endblock %}
 
-{% block content %}
-<h1>Edit Registration</h1>
+{% block formheading %}
+  <h1>Edit Registration</h1>
+{% endblock formheading %}
 
-{% include '_errors.html' %}
+{% block overreg %}{% endblock overreg %}
 
-<form action="{% url scipycon_edit_registration id params.scope %}"
-      method="post">
-    <fieldset>
-        <legend>Edit Registration</legend>
-        <table class="scipycon-default">
-            {{ form }}
-        </table>
-        <button class="button left"
-                type="submit">
-            Save Changes
-        </button>
-    </fieldset>
-</form>
-{% endblock content %}
+{% block url_select_login %}
+  "{% url scipycon_edit_registration params.scope 1 %}"
+{% endblock url_select_login %}
 
+{% block url_select_reg %}
+  "{% url scipycon_edit_registration params.scope 1 %}"
+{% endblock url_select_reg %}
+
+{% block formextras %}
+  {{ registration_form.id }}
+{% endblock formextras %}
