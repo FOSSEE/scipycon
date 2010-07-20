@@ -6,99 +6,131 @@
 <h1>My Profile: {{ user.first_name }} {{user.last_name}}</h1>
 
 <table class="scipycon-default">
-    <tr>
-        <td class="label">
-            Username:
-        </td>
-        <td>
-          {{ user.username }}
-        </td>
-    </tr>
-    <tr>
-        <td class="label">
-            Name:
-        </td>
-        <td>
-        {% if user.first_name %}
-            <span>{{ user.get_full_name }}</span>
-        {% else %}
+  <tr>
+    <td class="label">Username:</td>
+    <td>{{ user.username }}</td>
+  </tr>
+  <tr>
+    <td class="label">Name:</td>
+    <td>
+      {% if user.first_name %}
+        <span>{{ user.get_full_name }}</span>
+      {% else %}
         <span class="important">
           No name, please
           <a href="{% url scipycon_edit_profile params.scope %}">
             edit profile
           </a>.
         </span>
-        {% endif %}
-        </td>
-        <td rowspan="4">
-        <div class="picture">
-          <img src="{{ photo }}" width="80" height="80" />
-        </div>
-        </td>
-    </tr>
-    <tr>
-        <td class="label">
-            Email:
-        </td>
-        <td>
-            <a href="mailto:{{ user.email }}">{{ user.email }}</a>
-        </td>
-    </tr>
-    <tr>
-        <td class="label">
-          Url:
-        </td>
-        <td>
-            <a href="{{ profile.url }}" target="_blank">{{ profile.url }}</a>
-        </td>
-    </tr>
-    <tr>
-        <td class="label">
-          About:
-        </td>
-        <td style="width: 40em">
-          {{ profile.about }}
-        </td>
-    </tr>
+      {% endif %}
+    </td>
+    <td rowspan="4">
+      <div class="picture">
+        <img src="{{ photo }}" width="80" height="80" />
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td class="label">Email:</td>
+    <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
+  </tr>
+  <tr>
+    <td class="label">Url:</td>
+    <td>
+      <a href="{{ profile.url }}" target="_blank">{{ profile.url }}</a>
+    </td>
+  </tr>
+  <tr>
+    <td class="label">About:</td>
+    <td style="width: 40em">{{ profile.about }}</td>
+  </tr>
 </table>
-{% if comment %}
-<strong>{{ comment }}</strong>
-{% endif %}
 
 {% if registration %}
-<div id="talks">
-  <h2>Your Registration</h2>
-<p>
-  <a href="{% url scipycon_edit_registration params.scope registration.id %}"
-    title="Edit">Edit Registration</a>
-  </p>
-</div>
+  <div id="talks">
+    <h1>My Registration Details</h1>
+    <table class="scipycon-default">
+      <tr>
+        <td class="label">{{ event.get_full_name }} ID:</td>
+        <td>{{ registration.slug }}</td>
+      </tr>
+      <tr>
+        <td class="label">Attending Conference:</td>
+        <td>{% if registration.conference %}Yes{% else %}No{% endif %}</td>
+      </tr>
+      <tr>
+        <td class="label">Attending Tutorials:</td>
+        <td>{% if registration.tutorial %}Yes{% else %}No{% endif %}</td>
+      </tr>
+      <tr>
+        <td class="label">Attending Sprints:</td>
+        <td>{% if registration.sprint %}Yes{% else %}No{% endif %}</td>
+      </tr>
+      <tr>
+        <td class="label">Organisation:</td>
+        <td>{{ registration.organisation }}</td>
+      </tr>
+      <tr>
+        <td class="label">Occupation:</td>
+        <td>{{ registration.occupation }}</td>
+      </tr>
+      <tr>
+        <td class="label">City:</td>
+        <td>{{ registration.city }}</td>
+      </tr>
+      <tr>
+        <td class="label">Post Code:</td>
+        <td>{{ registration.postcode }}</td>
+      </tr>
+      <tr>
+        <td class="label">Phone Number:</td>
+        <td>{{ registration.phone_num }}</td>
+      </tr>
+      <tr>
+        <td class="label">Allow Contact:</td>
+        <td>{% if registration.allow_contact %}Yes{% else %}No{% endif %}</td>
+      </tr>
+      <tr>
+        <td class="label">Registered On:</td>
+        <td>{{ registration.submitted|date:"jS F Y H:i" }}</td>
+      </tr>
+      <tr>
+        <td class="label">Last Modified On:</td>
+        <td>{{ registration.last_mod|date:"jS F Y H:i" }}</td>
+      </tr>
+    </table>
+    <p>
+      <a href="{% url scipycon_edit_registration params.scope
+          registration.id %}" title="Edit">Edit Registration</a>
+    </p>
+  </div>
 {% endif %}
+
 {% if talks %}
-<div id="talks">
-  <h2>Your Submitted Talks</h2>
-  <table class="scipycon-default" border="1">
-    <th>Title</th>
-    <th>Duration</th>
-    <th>Audience</th>
-    <th>Tags</th>
-    <th>&nbsp;</th>
-{% for talk in talks %}
-<tr>
-<td>{{ talk.title }}</td>
-<td>{{ talk.duration }}</td>
-<td>{{ talk.audience }}</td>
-<td>{{ talk.tags }}</td>
-<td>
-        {% if talk.approved %}
-          <span>Accepted</span>
-        {% else %}
-          <a href="/edit-talk/{{ talk.id }}/" title="Edit">Edit</a>
-        {% endif %}
-</td>
-</tr>
-{% endfor %}
-</table>
-</div>
+  <div id="talks">
+    <h1>My Submitted Talks</h1>
+    <table class="scipycon-default" border="1">
+      <th>Title</th>
+      <th>Duration</th>
+      <th>Audience</th>
+      <th>Tags</th>
+      <th>&nbsp;</th>
+      {% for talk in talks %}
+        <tr>
+          <td>{{ talk.title }}</td>
+          <td>{{ talk.duration }}</td>
+          <td>{{ talk.audience }}</td>
+          <td>{{ talk.tags }}</td>
+          <td>
+            {% if talk.approved %}
+              <span>Accepted</span>
+            {% else %}
+              <a href="/edit-talk/{{ talk.id }}/" title="Edit">Edit</a>
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
 {% endif %}
 {% endblock content %}
