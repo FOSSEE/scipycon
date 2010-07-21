@@ -227,12 +227,7 @@ def submit_registration(request, scope,
 
             wifi = wifi_form.save(registrant, scope_entity)
 
-            # 1. include random password if we are a new user
-            if passwd:
-                send_confirmation(registrant, slug, password=passwd)
-            else:
-            # 2. send user email with registration id
-                send_confirmation(registrant, slug)
+            send_confirmation(registrant, scope_entity)
 
             redirect_to = reverse('scipycon_registrations',
                                   kwargs={'scope': scope})
