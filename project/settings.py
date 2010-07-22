@@ -61,7 +61,7 @@ TEMPLATE_LOADERS = (
 )
 
 TEMPLATE_DIRS = (
-    os.path.join(os.path.dirname(__file__), "templates"),
+    os.path.join(os.path.dirname(__file__), 'templates'),
 )
 
 AUTH_PROFILE_MODULE = 'user.UserProfile'
@@ -76,4 +76,4 @@ DEFAULT_FROM_EMAIL = 'admin@scipy.in'
 
 CURRENT_SCOPE = 'scipyin/2010'
 
-LOGIN_URL = '%s/login' % (CURRENT_SCOPE)
+LOGIN_URL = '/%s/login' % (CURRENT_SCOPE)
