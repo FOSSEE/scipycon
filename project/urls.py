@@ -14,11 +14,15 @@ EVENT_PATTERN_CORE =r'(?:[0-9a-z]|_[0-9a-z])*'
 SCOPE_ARG_PATTERN = r'(?P<scope>%s/%s)' % (
     PROGRAM_PATTERN_CORE, EVENT_PATTERN_CORE) 
 
+sitemaps = {}
+
 # Admin
 urlpatterns = patterns('',
-    url(r'^$', redirect_to, {'url': '/%s/' % (settings.CURRENT_SCOPE)}),
-    (r'^comments/', include('django.contrib.comments.urls')),
     (r'^admin/(.*)', admin.site.root),
+    (r'^comments/', include('django.contrib.comments.urls')),
+    (r'^robots\.txt$', include('robots.urls')),
+    (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
+    url(r'^$', redirect_to, {'url': '/%s/' % (settings.CURRENT_SCOPE)}),
     url(r'^%s/$' % (SCOPE_ARG_PATTERN),
         direct_to_template, {"template": "home.html"}, name='home'),
 )

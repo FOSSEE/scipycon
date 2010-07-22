@@ -4,7 +4,7 @@ from project.settings import *
 DEBUG=True
 TEMPLATE_DEBUG=DEBUG
 
-SITE_ID = 1
+SITE_ID = 2
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -15,6 +15,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.flatpages',
     'django.contrib.markup',
+    'django.contrib.sitemaps',
     'project.scipycon',
     'project.scipycon.base',
     'project.scipycon.proceedings',
@@ -22,6 +23,7 @@ INSTALLED_APPS = (
     'project.scipycon.user',
     'project.scipycon.talk',
     'tagging',
+    'robots',
 )
 
 DATABASE_ENGINE = 'sqlite3'

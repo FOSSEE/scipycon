@@ -3,7 +3,7 @@ from project.settings import *
 DEBUG=False
 TEMPLATE_DEBUG=DEBUG
 
-SITE_ID = 1 
+SITE_ID = 3
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -14,6 +14,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.flatpages',
     'django.contrib.markup',
+    'django.contrib.sitemaps',
     'project.scipycon',
     'project.scipycon.base',
     'project.scipycon.proceedings',
@@ -21,6 +22,7 @@ INSTALLED_APPS = (
     'project.scipycon.talk',
     'project.scipycon.user',
     'tagging',
+    'robots',
 )
 
 DATABASE_ENGINE = 'mysql'
