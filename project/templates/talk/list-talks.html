@@ -14,16 +14,14 @@
     <th>Topic</th>
     <th>Duration</th>
     <th>Audience type</th>
-    <th>Edit</th>
   </tr>
   {% for talk in talk_list %}
     <tr>
-      <td>{{ talk.title }}</td>
+      <td><u><a href="/{{ params.scope }}/edit-talk/{{ talk.id }}/">{{ talk.title }}</a></u></td>
       <td>{{ talk.contact }}</td>
       <td>{{ talk.topic }}</td>
       <td>{{ talk.duration }}</td>
       <td>{{ talk.audience }}</td>
-      <td><u><a href="/edit-talk/{{ talk.id }}/">Edit</a></u></td>
     </tr>
   {% endfor %}
 </table>
