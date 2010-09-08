@@ -6,7 +6,7 @@
 <h1>Edit Talk</h1>
 
 {% include '_errors.html' %}
-<form action="{% url scipycon_edit_talk id params.scope %}" method="post">
+<form action="{% url scipycon_edit_talk params.scope id %}" method="post">
     <fieldset>
       <legend>Edit Talk</legend>
       <table class="scipycon-default">
