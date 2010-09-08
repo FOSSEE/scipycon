@@ -11,6 +11,7 @@ from PIL import Image
 
 from tagging.models import Tag
 
+from project.scipycon.base.models import Event
 from project.scipycon.talk.models import Talk
 from project.scipycon.talk.forms import TalkSubmitForm
 from project.scipycon.talk.forms import TalkEditForm
@@ -23,10 +24,29 @@ from project.scipycon.user.forms import RegisterForm
 from project.scipycon.user.utils import scipycon_createuser
 
 
-def list_talks(request, scope):
-    objects = Talk.objects.filter(approved=True)
-    extra_context = dict(count=objects.count())
-    return object_list(request, objects, extra_context=extra_context)
+@login_required
+def list_my_talks(request, scope, template_name='talk/list-talks.html'):
+    """Lists all the talks for the user.
+    """
+
+    scope_entity = Event.objects.get(scope=scope)
+
+    user = request.user
+    if user.is_authenticated():
+        try:
+            profile = user.get_profile()
+        except:
+            profile, new = UserProfile.objects.get_or_create(
+                user=user, scope=scope_entity)
+            if new:
+                profile.save()
+
+    my_talks = user.talk_set.all()
+
+    return render_to_response(template_name, RequestContext(request, {
+        'params': {'scope': scope},
+        'talk_list': my_talks,
+    }))
 
 def talk(request, scope, id):
     objects = Talk.objects.filter(approved=True)
@@ -63,16 +83,14 @@ def edit_talk(request, scope, id, template_name='talk/edit-talk.html'):
             talk.contact = form.data.get('contact')
             talk.title = form.data.get('title')
             talk.abstract = form.data.get('abstract')
-#            talk.outline = form.data.get('outline')
             talk.topic = form.data.get('topic')
-#            talk.topic_other = form.data.get('topic_other')
             talk.duration = form.data.get('duration')
             talk.audience = form.data.get('audience')
-#            talk.audience_other = form.data.get('audience_other')
-#            talk.tags = form.data.get('tags')
             talk.save()
+
             # Saved.. redirect
-            redirect_to = reverse('scipycon_account', kwargs={'scope': scope})
+            redirect_to = reverse('scipycon_edit_talk', 
+                                  kwargs={'scope': scope, 'id': talk.id})
             return set_message_cookie(redirect_to,
                     msg = u'Your changes have been saved.')
     else:
@@ -82,31 +100,28 @@ def edit_talk(request, scope, id, template_name='talk/edit-talk.html'):
                                     'contact' : talk.contact,
                                     'title' : talk.title,
                                     'abstract' : talk.abstract,
-#                                    'outline' : talk.outline,
                                     'topic' : talk.topic,
-#                                    'topic_other' : talk.topic_other,
                                     'duration' : talk.duration,
                                     'audience' : talk.audience,
-#                                    'audience_other' : talk.audience_other,
-#                                    'tags' : talk.tags,
             })
 
-    return render_to_response(template_name, RequestContext(request, locals()))
+    context = locals()
+    context['params'] = {'scope': scope}
+
+    return render_to_response(template_name, RequestContext(request, context))
 
 @login_required()
 def submit_talk(request, scope, template_name='talk/submit-talk.html'):
     """Allows user to edit profile
     """
 
-    from project.scipycon.base.models import Event
+    scope_entity = Event.objects.get(scope=scope)
 
     user = request.user
     if user.is_authenticated():
         try:
             profile = user.get_profile()
         except:
-            scope_entity = Event.objects.get(scope=scope)
-
             profile, new = UserProfile.objects.get_or_create(
                 user=user, scope=scope_entity)
             if new:
@@ -142,6 +157,7 @@ def submit_talk(request, scope, template_name='talk/submit-talk.html'):
                 title = talk_form.data.get('title')
                 talk = Talk.objects.create(
                     slug = slugify(title),
+                    scope = scope_entity,
                     speaker = User.objects.get(pk=user.id),
                     authors_bio = talk_form.data.get('authors_bio'),
                     contact = talk_form.data.get('contact'),
@@ -155,8 +171,8 @@ def submit_talk(request, scope, template_name='talk/submit-talk.html'):
                     )
                 talk.save()
                 # Saved, ... redirect back to account
-                redirect_to = reverse('scipycon_account',
-                                      kwargs={'scope': scope})
+                redirect_to = reverse('scipycon_edit_talk', 
+                                      kwargs={'scope': scope, 'id': talk.id})
                 return set_message_cookie(redirect_to,
                         msg = u'Thanks, your talk has been submitted.')
             else:
@@ -172,6 +188,7 @@ def submit_talk(request, scope, template_name='talk/submit-talk.html'):
 
 
     return render_to_response(template_name, RequestContext(request, {
+        'params': {'scope': scope},
         'talk_form': talk_form,
         'register_form' : register_form,
         'message' : message,
@@ -185,5 +202,6 @@ def list_talks(request, scope, template_name='talk/list-all-talks.html'):
     talks = Talk.objects.filter(approved=True)
 
     return render_to_response(template_name, RequestContext(request, {
+        'params': {'scope': scope},
         'talk_list': talks,
     }))
