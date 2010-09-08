@@ -15,10 +15,10 @@ DURATION_CHOICES = (
     )
 
 AUDIENCE_CHOICES = (
-    ('nonprogrammers', 'non-programmer'),
-    ('beginers', 'beginning programmer'),
-    ('intermediate', 'intermediate programmer'),
-    ('advanced', 'advanced programmer'),
+    ('nonprogrammers', 'Non Programmer'),
+    ('beginers', 'Beginner Programmer'),
+    ('intermediate', 'Intermediate Programmer'),
+    ('advanced', 'Advanced Programmer'),
     )
 
 
