@@ -292,7 +292,7 @@ div.picture img
     font-size: 0.8em;
     float: right;
     margin: 0;
-    padding: 0 2em 0 0;
+    padding: 0 0 0 94%;
 }
 
 #right h2
