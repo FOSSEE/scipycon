@@ -24,12 +24,12 @@
             Sprint Plan &amp; Schedule
           </a>
         </li>
+         -->
         <li>
           <a href="/{{ params.scope }}/talks-cfp/speakers/">
             Speakers
           </a>
         </li>
-         -->
         {% if user.is_authenticated and user.talk_set.all %}
           <li><a href="/{{ params.scope }}/my-talks">My talks</a></li>
         {% endif %}
