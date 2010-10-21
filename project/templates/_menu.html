@@ -62,7 +62,7 @@
           -->
       </ul>
     </li>
-    <li><a href="/{% url scipycon_publicity params.scope %}">Publicity</a></li>
+    <li><a href="/{{ params.scope }}/publicity/">Publicity</a></li>
     {% if user.is_staff %}
     <li><a href="/{{ params.scope }}/howto/">HowTo</a></li>
     {% endif %}
