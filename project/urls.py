@@ -119,6 +119,9 @@ urlpatterns += patterns('',
     url(r'^%s/about/fees/$' % (SCOPE_ARG_PATTERN),
         direct_to_template, {"template": "about/fees.html"},
         name='scipycon_fees'),
+    url(r'^%s/organizers/$' % (SCOPE_ARG_PATTERN),
+        direct_to_template, {"template": "about/organizers.html"},
+        name='scipycon_organizers'),
 
     )
 
