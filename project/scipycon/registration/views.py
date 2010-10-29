@@ -227,7 +227,7 @@ def submit_registration(request, scope,
 
             wifi = wifi_form.save(registrant, scope_entity)
 
-            send_confirmation(registrant, scope_entity)
+            send_confirmation(registrant, scope_entity,password=passwd)
 
             redirect_to = reverse('scipycon_registrations',
                                   kwargs={'scope': scope})

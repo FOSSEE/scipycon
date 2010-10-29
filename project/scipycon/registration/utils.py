@@ -1,7 +1,7 @@
 from django.core.mail import EmailMessage
 
 
-def send_confirmation(registrant, event):
+def send_confirmation(registrant, event ,password=None):
 
     message = EmailMessage()
     message.subject = u'Registration to %s' % (event.get_full_name())
@@ -10,7 +10,7 @@ def send_confirmation(registrant, event):
 
     details = {'name': registrant.get_full_name(),
                'username': registrant.username,
-               'password': registrant.password,
+               'password': password,
                'event_name': event.get_full_name(),
                'event_scope': event.scope,
             }
