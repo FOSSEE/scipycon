@@ -2,11 +2,13 @@
   <ul>
     <li><a href="/{{ params.scope }}/">Home</a></li>
     <li><a href="/{{ params.scope }}/submit-registration/">Registration</a></li>
-        <ul><li>
-          <a href="/{{ params.scope }}/about/fees/">
-            Fees
-          </a>
-        </li></ul>
+    <li>
+      <ul>
+	<li>
+	  <a href="/{{ params.scope }}/about/fees/">Fees</a>
+	</li>
+      </ul>
+    </li>
     <li>
       Talks & CfP
       <ul>
@@ -19,52 +21,52 @@
           </a>
         </li>
         <!--
-        <li>
-          <a href="/{{ params.scope }}/talks-cfp/tutorial/">
+            <li>
+              <a href="/{{ params.scope }}/talks-cfp/tutorial/">
             Tutorial Schedule
-          </a>
-        </li>
+              </a>
+            </li>
         <li>
           <a href="/{{ params.scope }}/talks-cfp/sprint/">
             Sprint Plan &amp; Schedule
           </a>
         </li>
-         -->
+        -->
         <li>
           <a href="/{{ params.scope }}/talks-cfp/speakers/">
             Invited Speakers
           </a>
         </li>
         {% if user.is_authenticated and user.talk_set.all %}
-          <li><a href="/{{ params.scope }}/my-talks">My talks</a></li>
+        <li><a href="/{{ params.scope }}/my-talks">My talks</a></li>
         {% endif %}
-
+	
       </ul>
     </li>
     <li>
       About
       <ul>
         <!--
-        <li>
-          <a href="/{{ params.scope }}/about/accommodation/">
-            Accommodation
-          </a>
-        </li>
+            <li>
+              <a href="/{{ params.scope }}/about/accommodation/">
+		Accommodation
+              </a>
+            </li>
         <li>
           <a href="/{{ params.scope }}/about/food/">
             Food
           </a>
         </li>
-          -->
+        -->
         <li><a href="/{{ params.scope }}/about/venue/">The Venue</a></li>
         <li><a href="{% url scipycon_city params.scope %}">Host City - Hyderabad</a></li>
         <!--
-        <li>
-          <a href="/{{ params.scope }}/about/reaching/">
-            Reaching the venue
-          </a>
-        </li>
-          -->
+            <li>
+              <a href="/{{ params.scope }}/about/reaching/">
+		Reaching the venue
+              </a>
+            </li>
+            -->
       </ul>
     </li>
     <li><a href="/{{ params.scope }}/publicity/">Publicity</a></li>
