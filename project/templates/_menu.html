@@ -2,6 +2,11 @@
   <ul>
     <li><a href="/{{ params.scope }}/">Home</a></li>
     <li><a href="/{{ params.scope }}/submit-registration/">Registration</a></li>
+        <ul><li>
+          <a href="/{{ params.scope }}/about/fees/">
+            Fees
+          </a>
+        </li></ul>
     <li>
       Talks & CfP
       <ul>
@@ -27,7 +32,7 @@
          -->
         <li>
           <a href="/{{ params.scope }}/talks-cfp/speakers/">
-            Inivited Speakers
+            Invited Speakers
           </a>
         </li>
         {% if user.is_authenticated and user.talk_set.all %}
