@@ -65,6 +65,11 @@
 
       <fieldset>
         <legend>Details</legend>
+        <strong>SciPy.in has a registration fee and nominal charges for
+        accommodation of out station students and teachers. Please
+        make sure you read the details before you register.
+        <a href="{% url scipycon_fees params.scope %}">Click here</a>
+        for details.</strong>
         <table class="scipycon-default required">
           {% for field in registration_form.personal_fields %}
             <tr class="{% cycle odd,even %}">

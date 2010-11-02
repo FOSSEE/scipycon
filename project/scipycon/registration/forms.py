@@ -33,9 +33,7 @@ class RegistrationSubmitForm(forms.Form):
     allow_contact = forms.BooleanField(required=False, label=u'Contact',
         help_text=u'May organizers of SciPy.in contact you after the event?')
     conference = forms.BooleanField(required=False, label=u'Conference',
-        help_text=u"""Do you intend to attend SciPy.in 2010 conference?  
-        Note: Only conference has an registration fee of Rs.200 which you will
-        pay on the spot.""")
+        help_text=u"""Do you intend to attend SciPy.in 2010 conference?""")
     tutorial = forms.BooleanField(required=False, label=u'Tutorial',
         help_text=u'Do you intend to attend the tutorials?')
     sprint = forms.BooleanField(required=False, label=u'Sprint',
