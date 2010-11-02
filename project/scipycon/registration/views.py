@@ -252,3 +252,26 @@ def submit_registration(request, scope,
         'message' : message,
         'login_form' : login_form
     }))
+
+
+@login_required
+def regstats(request, scope,
+             template_name='registration/regstats.html'):
+    """View that gives the statistics of registrants.
+    """
+
+    if not request.user.is_staff:
+        redirect_to = reverse('scipycon_login', kwargs={'scope': scope})
+
+
+    q = Registration.objects.all()
+    conf_num = q.filter(conference=True).count()
+    tut_num = q.filter(tutorial=True).count()
+    sprint_num = q.filter(sprint=True).count()
+
+    return render_to_response(template_name, RequestContext(request,
+        {'params': {'scope': scope},
+         'conf_num': conf_num, 
+         'tut_num': tut_num,
+         'sprint_num': sprint_num,
+         }))
