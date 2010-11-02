@@ -9,8 +9,8 @@ from django.views.generic.simple import redirect_to
 
 admin.autodiscover()
 
-PROGRAM_PATTERN_CORE = r'[a-z](?:[0-9a-z]|_[0-9a-z])*'
-EVENT_PATTERN_CORE =r'(?:[0-9a-z]|_[0-9a-z])*' 
+PROGRAM_PATTERN_CORE = r'scipyin'
+EVENT_PATTERN_CORE =r'2010' 
 SCOPE_ARG_PATTERN = r'(?P<scope>%s/%s)' % (
     PROGRAM_PATTERN_CORE, EVENT_PATTERN_CORE) 
 
