@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Registration Statistics{% endblock %}
+
+{% block content %}
+<h1>Registration Statistics</h1>
+
+<table class="scipycon-default-border">
+<tr>
+ <th>Event</th>
+ <th>Number of people registered</th>
+</tr>
+<tr>
+ <td>Conference</td>
+ <td>{{ conf_num }}</td>
+</tr>
+<tr>
+ <td>Tutorials</td>
+ <td>{{ tut_num }}</td>
+</tr>
+<tr>
+ <td>Sprint</td>
+ <td>{{ sprint_num }}</td>
+</tr>
+</table>
+{% endblock content %}
