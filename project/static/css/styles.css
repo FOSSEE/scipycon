@@ -113,6 +113,32 @@ table.scipycon-default th
     padding: 4px 6px;
 }
 
+table.scipycon-default-border
+{
+    border-width: 2px;
+    border-spacing: 2px;
+    border-style: outset;
+    border-color: gray;
+    border-collapse: separate;
+}
+
+table.scipycon-default-border td
+{
+    border-width: 1px;
+    padding: 5px 15px;
+    border-style: inset;
+    border-color: gray;
+}
+
+table.scipycon-default-border th
+{
+    border-width: 1px;
+    border-style: inset;
+    border-color: gray;
+    font-weight: bold;
+    padding: 4px 6px;
+}
+
 table.scipycon-default a
 {
     text-decoration: none;
