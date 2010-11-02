@@ -252,3 +252,67 @@ def submit_registration(request, scope,
         'message' : message,
         'login_form' : login_form
     }))
+
+
+@login_required
+def regstats(request, scope,
+                 template_name='registration/regstats.html'):
+    """View that gives the statistics of registrants.
+    """
+    from project.scipycon.registration.forms import RegistrationAdminSelectForm
+    if not request.user.is_staff:
+        redirect_to = reverse('scipycon_login', kwargs={'scope': scope})
+
+    if request.method == "POST":
+        form = RegistrationAdminSelectForm(request.POST)
+        if form.is_valid():
+            conference = form.cleaned_data['by_conference']
+            tutorial = form.cleaned_data['by_tutorial']
+            sprint = form.cleaned_data['by_sprint']
+            include = form.cleaned_data['include']
+
+            q = Registration.objects.all()
+            q = q.filter(conference=conference)
+            q = q.filter(tutorial=tutorial)
+            q = q.filter(sprint=sprint)
+
+            q = q.order_by('registrant__email')
+
+            query = q.query
+            results = list(q)
+
+            if include == []:
+                # default to include all fields
+                include = [i[0] for i in IC]
+            if results:
+                response = HttpResponse(mimetype='text/csv')
+                response['Content-Disposition'] = 'attachment; filename=registrations.csv'
+                output = csv.writer(response)
+                output.writerow([h for h in include])
+                for row in results:
+                    conference = row.conference == True and 'yes' or 'no'
+                    tutorial = row.tutorial == True and 'yes' or 'no'
+                    sprint = row.sprint == True and 'yes' or 'no'
+                    wrow = []
+                    if 'Name' in include:
+                        wrow.append(
+                            row.registrant.get_full_name().encode('utf-8'))
+                    if 'Email' in include:
+                        wrow.append(row.registrant.email.encode('utf-8'))
+                    if 'Organisation' in include:
+                        wrow.append(row.organisation.encode('utf-8'))
+                    if 'Conference' in include:
+                        wrow.append(conference)
+                    if 'Tutorial' in include:
+                        wrow.append(tutorial)
+                    if 'Sprint' in include:
+                        wrow.append(sprint)
+                    output.writerow(wrow)
+                return response
+            else:
+                no_results = u'No results found for the query'
+
+    else:
+        form = RegistrationAdminSelectForm()
+    return render_to_response(template_name, RequestContext(request,
+        locals()))
