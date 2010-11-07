@@ -3,6 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from project.scipycon.registration.models import SIZE_CHOICES
 from project.scipycon.registration.models import OCCUPATION_CHOICES
+from project.scipycon.registration.models import Accommodation
 from project.scipycon.registration.models import Wifi
 
 
@@ -77,6 +78,54 @@ class WifiForm(forms.ModelForm):
     class Meta:
         model = Wifi
         fields = ('wifi',)
+
+
+class AccommodationForm(forms.ModelForm):
+    """PyCon Accommodation form
+    """
+
+    def save(self, user, scope):
+        try:
+            acco = Accommodation.objects.get(user=user, scope=scope)
+        except ObjectDoesNotExist:
+            acco = Accommodation(user=user, scope=scope)
+
+        sex = self.cleaned_data['sex']
+        accommodation_required = self.cleaned_data['accommodation_required']
+        accommodation_days = self.cleaned_data['accommodation_days']
+
+        acco.sex = sex
+        acco.accommodation_required = accommodation_required
+        acco.accommodation_days = accommodation_days if (
+            accommodation_days) else 0
+
+        acco.save()
+
+        return acco
+
+    def clean(self):
+        """Makes sure that accommodation form is correct, i.e. sex
+        and number of days required are filled in when the accommodation
+        is required.
+        """
+        cleaned = self.cleaned_data
+
+        sex = self.cleaned_data['sex']
+        accommodation_required = self.cleaned_data['accommodation_required']
+        accommodation_days = self.cleaned_data['accommodation_days']
+
+        if accommodation_required and (not sex or not accommodation_days
+            or accommodation_days == 0):
+            raise forms.ValidationError(
+                u"If accommodation is required both gender and number of "
+                "days for which accommodation is required is mandatory.")
+
+        return super(AccommodationForm, self).clean()
+
+    class Meta:
+        model = Accommodation
+        fields = ('accommodation_required', 'sex', 'accommodation_days')
+
 
 PC = (
         ('all', 'all'),
