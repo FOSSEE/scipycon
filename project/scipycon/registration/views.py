@@ -11,7 +11,9 @@ from django.template import RequestContext
 from project.scipycon.base.models import Event
 from project.scipycon.registration.forms import RegistrationEditForm
 from project.scipycon.registration.forms import RegistrationSubmitForm
+from project.scipycon.registration.forms import AccommodationForm
 from project.scipycon.registration.forms import WifiForm
+from project.scipycon.registration.models import Accommodation
 from project.scipycon.registration.models import Registration
 from project.scipycon.registration.models import Wifi
 from project.scipycon.registration.utils import send_confirmation
@@ -52,8 +54,16 @@ def edit_registration(request, scope, id,
     """Allows users that submitted a registration to edit it.
     """
 
+    scope_entity = Event.objects.get(scope=scope)
+
     reg = Registration.objects.get(pk=id)
     wifi = Wifi.objects.get(user=reg.registrant)
+
+    # TODO: This is an ugly hack to add accommodation form
+    # details at later stage for SciPy.in 2010. This must be
+    # removed for SciPy.in 2011
+    acco, created = Accommodation.objects.get_or_create(user=reg.registrant,
+                                                        scope=scope_entity)
 
     if reg.registrant != request.user:
         redirect_to = reverse('scipycon_account', kwargs={'scope': scope})
@@ -66,8 +76,10 @@ def edit_registration(request, scope, id,
     if request.method == 'POST':
         registration_form = RegistrationEditForm(data=request.POST)
         wifi_form = WifiForm(data=request.POST)
+        acco_form = AccommodationForm(data=request.POST)
 
-        if registration_form.is_valid() and wifi_form.is_valid():
+        if (registration_form.is_valid() and wifi_form.is_valid() and
+            acco_form.is_valid()):
             reg.organisation = registration_form.data.get('organisation')
             reg.occupation = registration_form.data.get('occupation')
             reg.city = registration_form.data.get('city')
@@ -85,16 +97,13 @@ def edit_registration(request, scope, id,
             reg.save()
 
             wifi = wifi_form.save(reg.registrant, reg.scope)
+            acco = acco_form.save(reg.registrant, reg.scope)
 
             # Saved.. redirect
             redirect_to = reverse('scipycon_account', kwargs={'scope': scope})
 
             return set_message_cookie(redirect_to,
                 msg = u'Your changes have been saved.')
-        else:
-            import logging
-            logging.error(registration_form.data)
-            raise "Bow Bow"
     else:
         registration_form = RegistrationEditForm(initial={
             'id' : id,
@@ -114,13 +123,21 @@ def edit_registration(request, scope, id,
             'scope': wifi.scope,
             'wifi': wifi.wifi
             })
+        acco_form = AccommodationForm(initial={
+            'user': acco.user,
+            'scope': acco.scope,
+            'sex': acco.sex,
+            'accommodation_required': acco.accommodation_required,
+            'accommodation_days': acco.accommodation_days,
+            })
 
     return render_to_response(
         template_name, RequestContext(request, {
         'params': {'scope': scope},
         'registration': {'id': id},
         'registration_form': registration_form,
-        'wifi_form': wifi_form}))
+        'wifi_form': wifi_form,
+        'acco_form': acco_form}))
 
 def submit_registration(request, scope,
         template_name='registration/submit-registration.html'):
@@ -157,6 +174,7 @@ def submit_registration(request, scope,
         registration_form = RegistrationSubmitForm(data=request.POST)
         registrant_form = RegistrantForm(data=request.POST)
         wifi_form = WifiForm(data=request.POST)
+        acco_form = AccommodationForm(data=request.POST)
 
         if request.POST.get('action', None) == 'login':
             login_form = AuthenticationForm(data=request.POST)
@@ -191,7 +209,8 @@ def submit_registration(request, scope,
         else:
             newuser = user
 
-        if registration_form.is_valid() and newuser and wifi_form.is_valid():
+        if (registration_form.is_valid() and newuser and wifi_form.is_valid()
+            and acco_form.is_valid()):
             allow_contact = registration_form.cleaned_data.get(
                 'allow_contact') and True or False
             conference = registration_form.cleaned_data.get(
@@ -226,6 +245,7 @@ def submit_registration(request, scope,
             reg.save()
 
             wifi = wifi_form.save(registrant, scope_entity)
+            acco = acco_form.save(registrant, scope_entity)
 
             send_confirmation(registrant, scope_entity,password=passwd)
 
@@ -239,6 +259,7 @@ def submit_registration(request, scope,
         registration_form = RegistrationSubmitForm()
         registrant_form = RegistrantForm()
         wifi_form = WifiForm()
+        acco_form = AccommodationForm()
 
     login_form = AuthenticationForm()
 
@@ -248,6 +269,7 @@ def submit_registration(request, scope,
         'registration_form': registration_form,
         'registrant_form' : registrant_form,
         'over_reg' : reg_count >= REG_TOTAL and True or False,
+        'acco_form': acco_form,
         'wifi_form' : wifi_form,
         'message' : message,
         'login_form' : login_form
