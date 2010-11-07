@@ -25,6 +25,11 @@ OCCUPATION_CHOICES = (
     ('Other', 'Other')
     )
 
+SEX_CHOICES = (
+    ('Male', 'Male'),
+    ('Female', 'Female'),
+    ('Other', 'Other')
+    )
 
 class Wifi(base_models.ScopedBase):
     """Defines wifi options at SciPy.in
@@ -34,6 +39,27 @@ class Wifi(base_models.ScopedBase):
 
     wifi = models.CharField(max_length=50, choices=WIFI_CHOICES,
                             help_text=WIFI_HELP, verbose_name="Laptop")
+
+
+class Accommodation(base_models.ScopedBase):
+    """Defines accommodation information for SciPy.in
+    """
+
+    user = models.ForeignKey(User)
+
+    sex = models.CharField(max_length=50, choices=SEX_CHOICES,
+                           verbose_name="Gender",
+                           blank=True, null=True)
+
+    accommodation_required = models.BooleanField(
+        default=False, blank=True,
+        verbose_name="Accommodation required",
+        help_text="Check if you need accommodation.")
+
+    accommodation_days = models.IntegerField(
+        default=0, blank=True,
+        verbose_name="Number of days",
+        help_text="Number of days the accommodation is required for?")
 
 
 class Registration(base_models.ScopedBase):
