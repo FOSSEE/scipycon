@@ -31,6 +31,12 @@ SEX_CHOICES = (
     ('Other', 'Other')
     )
 
+PAYMENT_MODE_CHOICES = (
+    (),
+    (),
+    ()
+    )
+
 class Wifi(base_models.ScopedBase):
     """Defines wifi options at SciPy.in
     """
@@ -104,3 +110,11 @@ class Registration(base_models.ScopedBase):
         return 'Registration for user: <%s %s> %s' % (
             self.registrant.first_name,
             self.registrant.last_name, self.registrant.email)
+
+
+class Payment(base_models.ScopedBase):
+    """Defines payment information for SciPy.in registrants
+    """
+
+    user = models.ForeignKey(User)
+
