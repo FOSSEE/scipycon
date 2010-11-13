@@ -28,7 +28,6 @@ OCCUPATION_CHOICES = (
 SEX_CHOICES = (
     ('Male', 'Male'),
     ('Female', 'Female'),
-    ('Other', 'Other')
     )
 
 class Wifi(base_models.ScopedBase):
