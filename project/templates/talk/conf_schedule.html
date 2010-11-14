@@ -15,9 +15,11 @@
 </thead>
 <tbody>
 <tr><td>9:00-9:30</td><td>Inauguration</td><td></td><td></td></tr>
-<tr><td>9:30-10:30</td><td>Keynote - 1</td><td>Perry Greenfield</td><td><a href="#sec-3">How Python Slithered into Astronomy</a></td></tr>
+<tr><td>9:30-10:30</td><td>Keynote</td><td>Perry Greenfield</td><td><a href="#sec-3">How Python Slithered into Astronomy</a></td></tr>
 <tr><td>10:30-10:45</td><td>Tea Break</td><td></td><td></td></tr>
-<tr><td>10:45-13:15</td><td>Talks</td><td></td><td></td></tr>
+<tr><td>10:45-11:30</td><td>Special Talk 1</td><td>Fernando Perez</td><td><a href="#sec-4">IPython : Beyond the Simple Shell</a></td></tr>
+<tr><td>11:30-12:00</td><td>Invited Talk 1</td><td>Asokan Pichai</td><td><a href="#sec-5">Teaching Programming with Python</a></td></tr>
+<tr><td>12:00-13:15</td><td>Talks</td><td></td><td></td></tr>
 <tr><td>13:15-14:15</td><td>Lunch</td><td></td><td></td></tr>
 <tr><td>14:15-14:45</td><td>Lightning Talks</td><td></td><td></td></tr>
 <tr><td>14:45-15:55</td><td>Talks</td><td></td><td></td></tr>
@@ -36,10 +38,10 @@
 <tr><th scope="col">Time</th><th scope="col">Agenda</th><th scope="col">Speaker</th><th scope="col">Title</th></tr>
 </thead>
 <tbody>
-<tr><td>9:00-10:00</td><td>Invited Talk 1</td><td>John Hunter</td><td><a href="#sec-4">matplotlib: Beyond the simple plot</a></td></tr>
-<tr><td>10:00-10:30</td><td>Talks</td><td></td><td></td></tr>
-<tr><td>10:30-10:45</td><td>Tea Break</td><td></td><td></td></tr>
-<tr><td>10:45-13:15</td><td>Talks</td><td></td><td></td></tr>
+<tr><td>9:00-10:00</td><td>Special Talk 2</td><td>John Hunter</td><td><a href="#sec-6">matplotlib: Beyond the simple plot</a></td></tr>
+<tr><td>10:00-10:45</td><td>Invited Talk 2</td><td>Prabhu Ramachandran</td><td><a href="#sec-7">Mayavi : Bringing Data to Life</a></td></tr>
+<tr><td>10:45-11:00</td><td>Tea Break</td><td></td><td></td></tr>
+<tr><td>11:00-13:15</td><td>Talks</td><td></td><td></td></tr>
 <tr><td>13:15-14:15</td><td>Lunch</td><td></td><td></td></tr>
 <tr><td>14:15-14:45</td><td>Lightning Talks</td><td></td><td></td></tr>
 <tr><td>14:45-15:55</td><td>Talks</td><td></td><td></td></tr>
@@ -71,17 +73,80 @@ scientific Python and where future work is needed, and why Python is
 so well suited for scientific software.
 </p>
 
-<h2 id="sec-4">Invited Talk 1 </h2>
 
-<p>John Hunter
+<h2 id="sec-4">Special Talk 1 </h2>
+
+<p>Fernando Perez
 </p>
 
 <h3 id="sec-4_1">Title </h3>
 
-<p>matplotlib: Beyond the simple plot
+<p>IPython : Beyond the Simple Shell
 </p>
 
 <h3 id="sec-4_2">Talk/Paper Abstract: </h3>
+
+<p>IPython is a widely used system for interactive computing in Python
+that extends the capabilities of the Python shell with operating
+system access, powerful object introspection, customizable "magic"
+commands and many more features.  It also contains a set of tools to
+control parallel computations via high-level interfaces that can be
+used either interactively or in long-running batch mode.
+
+In this talk I will outline some of the main features of IPython as it
+has been widely adopted by the scientific Python user base, and will
+then focus on recent developments.  Using the high performance ZeroMQ
+networking library, we have recently restructured IPython to decouple
+the kernel executing user code from the control interface.  This
+allows us to expose multiple clients with different capabilities,
+including a terminal-based one, a rich Qt client and a web-based one
+with full matplotlib support. In conjunction with the new HTML5
+matplotlib backend, this architecture opens the door for a rich
+web-based environment for interactive, collaborative and parallel
+computing.  
+
+There is much interesting development to be done on this front, and I
+hope to encourage participants at the sprints during the conference to
+join this effort.
+
+</p>
+
+<h2 id="sec-5">Invited Talk 1 </h2>
+
+<p>Asokan Pichai
+</p>
+
+<h3 id="sec-5_1">Title </h3>
+
+<p>Teaching Programming with Python
+</p>
+
+<h3 id="sec-5_2">Talk/Paper Abstract: </h3>
+
+<p>As a trainer I have been engaged a lot for teaching fresh Software
+Engineers and software job aspirants. Before starting on the language,
+platform specific areas I teach a part I refer to as Problem Solving
+and Programming Logic. I have used Python for this portion of training
+in the last 12+years. In this talk I wish to share my experiences and
+approaches.
+
+This talk is intended at Teachers, Trainers, Python Evangelists, and
+HR Managers [if they lose their way and miraculously find themselves in SciPy :-)]
+
+</p>
+
+
+<h2 id="sec-6">Special Talk 1 </h2>
+
+<p>John Hunter
+</p>
+
+<h3 id="sec-6_1">Title </h3>
+
+<p>matplotlib: Beyond the simple plot
+</p>
+
+<h3 id="sec-6_2">Talk/Paper Abstract: </h3>
 
 <p>matplotlib, a python package for making sophisticated publication
 quality 2D graphics, and some 3D, has long supported a wide variety
@@ -98,4 +163,37 @@ combination with the new HTML5 IPython front-end under development,
 will enable an interactive Python shell with interactive graphics in
 a web browser.
 </p>
+
+
+<h2 id="sec-7">Invited Talk 2 </h2>
+
+<p>Prabhu Ramachandran
+</p>
+
+<h3 id="sec-7_1">Title </h3>
+
+<p>Mayavi : Bringing Data to Life
+</p>
+
+<h3 id="sec-7_2">Talk/Paper Abstract: </h3>
+
+<p>Mayavi is a powerful 3D plotting package implemented in Python.  It
+includes both a standalone user interface along with a powerful yet
+simple scripting interface.  The key feature of Mayavi though is that it
+allows a Python user to rapidly visualize data in the form of NumPy
+arrays.  Apart from these basic features, Mayavi has some advanced
+features.  These include, automatic script recording, embedding into a
+custom user dialog and application.  Mayavi can also be run in an
+offscreen mode and be embedded in a sage notebook
+(http://www.sagemath.org).
+
+We will first rapidly demonstrate these key features of Mayavi.  We will
+then discuss some of the underlying technologies like enthought.traits,
+traitsUI and TVTK that form the basis of Mayavi.  The objective of this
+is to demonstrate the wide range of capabilities that both Mayavi and
+its underlying technologies provide the Python programmer.
+
+</p>
+
+
 {% endblock content %}
