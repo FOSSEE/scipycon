@@ -4,6 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from project.scipycon.registration.models import SIZE_CHOICES
 from project.scipycon.registration.models import OCCUPATION_CHOICES
 from project.scipycon.registration.models import Accommodation
+from project.scipycon.registration.models import Payment
 from project.scipycon.registration.models import Wifi
 
 
@@ -125,6 +126,49 @@ class AccommodationForm(forms.ModelForm):
     class Meta:
         model = Accommodation
         fields = ('accommodation_required', 'sex', 'accommodation_days')
+
+
+class PaymentForm(forms.ModelForm):
+    """SciPyCon Payment form
+    """
+
+    def save(self, user, scope):
+        try:
+            payment = Payment.objects.get(user=user, scope=scope)
+        except ObjectDoesNotExist:
+            payment = Payment(user=user, scope=scope)
+
+        paid = self.cleaned_data['paid']
+        type = self.cleaned_data['type']
+        details = self.cleaned_data['details']
+
+        payment.paid = paid
+        payment.type = type
+        payment.details = details
+
+        payment.save()
+
+        return payment
+
+    def clean(self):
+        """Makes sure that payment form is correct, i.e. type and details
+        are filled in when the required fees is paid.
+        """
+
+        paid = self.cleaned_data['paid']
+        type = self.cleaned_data['type']
+        details = self.cleaned_data['details']
+
+        if paid and (not type or not details):
+            raise forms.ValidationError(
+                u"If you have already paid the fee it is mandatory to "
+                "fill in the type and mandatory fields.")
+
+        return super(PaymentForm, self).clean()
+
+    class Meta:
+        model = Payment
+        fields = ('paid', 'type', 'type')
 
 
 PC = (
