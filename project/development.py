@@ -27,7 +27,7 @@ INSTALLED_APPS = (
 )
 
 DATABASE_ENGINE = 'sqlite3'
-DATABASE_NAME = 'scipycon.db'
+DATABASE_NAME = 'scipyconpayment.db'
 DATABASE_USER = ''
 DATABASE_PASSWORD = ''
 
