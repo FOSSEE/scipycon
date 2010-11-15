@@ -32,9 +32,9 @@ SEX_CHOICES = (
     )
 
 PAYMENT_MODE_CHOICES = (
-    (),
-    (),
-    ()
+    ('Cheque', 'Cheque'),
+    ('Demand Draft(DD)', 'Demand Draft(DD)'),
+    ('Net Banking', 'Net Banking')
     )
 
 class Wifi(base_models.ScopedBase):
@@ -118,3 +118,13 @@ class Payment(base_models.ScopedBase):
 
     user = models.ForeignKey(User)
 
+    type = models.CharField(max_length=25, choices=PAYMENT_MODE_CHOICES,
+                            verbose_name="Type", blank=True, null=True)
+
+    details = models.CharField(
+        max_length=255, verbose_name="Details",
+        help_text="If you made the payment using a cheque or a DD please "
+        "provide the number on the cheque or DD. If you made the payment "
+        "via Net Banking please provide the last four digits of the account "
+        "number and the name of the account holder from which the transfer "
+        "was made.", blank=True, null=True)
