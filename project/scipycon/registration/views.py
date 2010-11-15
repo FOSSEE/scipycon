@@ -302,7 +302,9 @@ def regstats(request, scope,
 
     if not request.user.is_staff:
         redirect_to = reverse('scipycon_login', kwargs={'scope': scope})
-
+        return set_message_cookie(
+            redirect_to, msg = u'You must be a staff on this website to '
+            'access this page.')
 
     q = Registration.objects.all()
     conf_num = q.filter(conference=True).count()
