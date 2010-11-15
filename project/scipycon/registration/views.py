@@ -62,8 +62,8 @@ def edit_registration(request, scope, id,
     # TODO: This is an ugly hack to add accommodation form
     # details at later stage for SciPy.in 2010. This must be
     # removed for SciPy.in 2011
-    acco, created = Accommodation.objects.get_or_create(user=reg.registrant,
-                                                        scope=scope_entity)
+    acco, acco_created = Accommodation.objects.get_or_create(
+        user=reg.registrant, scope=scope_entity)
 
     if reg.registrant != request.user:
         redirect_to = reverse('scipycon_account', kwargs={'scope': scope})
