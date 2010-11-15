@@ -61,7 +61,7 @@ class RegistrationEditForm(RegistrationSubmitForm):
     id = forms.CharField(widget=forms.HiddenInput)
 
 class WifiForm(forms.ModelForm):
-    """PyCon wifi form
+    """SciPyCon wifi form
     """
 
     def save(self, user, scope):
@@ -81,7 +81,7 @@ class WifiForm(forms.ModelForm):
 
 
 class AccommodationForm(forms.ModelForm):
-    """PyCon Accommodation form
+    """SciPyCon Accommodation form
     """
 
     def save(self, user, scope):
