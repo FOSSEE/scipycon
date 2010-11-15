@@ -118,6 +118,10 @@ class Payment(base_models.ScopedBase):
 
     user = models.ForeignKey(User)
 
+    paid = models.BooleanField(
+        default=False, blank=True, verbose_name="Amount paid",
+        help_text="Check this box if you have already paid the fees.")
+
     type = models.CharField(max_length=25, choices=PAYMENT_MODE_CHOICES,
                             verbose_name="Type", blank=True, null=True)
 
