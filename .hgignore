@@ -39,4 +39,5 @@ project/media/user/*
 project/static/media
 project/scipycon/user/*.pyc
 apache/*
+*.db
 
