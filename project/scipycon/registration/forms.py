@@ -168,7 +168,7 @@ class PaymentForm(forms.ModelForm):
 
     class Meta:
         model = Payment
-        fields = ('paid', 'type', 'type')
+        fields = ('paid', 'type', 'details')
 
 
 PC = (
