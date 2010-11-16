@@ -9,11 +9,11 @@
 {% block overreg %}{% endblock overreg %}
 
 {% block url_select_login %}
-  "{% url scipycon_edit_registration params.scope 1 %}"
+  "{% url scipycon_edit_registration params.scope registration.id %}"
 {% endblock url_select_login %}
 
 {% block url_select_reg %}
-  "{% url scipycon_edit_registration params.scope 1 %}"
+  "{% url scipycon_edit_registration params.scope registration.id %}"
 {% endblock url_select_reg %}
 
 {% block formextras %}

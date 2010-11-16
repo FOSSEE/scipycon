@@ -56,7 +56,7 @@ def edit_registration(request, scope, id,
 
     scope_entity = Event.objects.get(scope=scope)
 
-    reg = Registration.objects.get(pk=id)
+    reg = Registration.objects.get(pk=int(id))
     wifi = Wifi.objects.get(user=reg.registrant)
 
     # TODO: This is an ugly hack to add accommodation form
