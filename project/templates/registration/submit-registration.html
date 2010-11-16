@@ -19,6 +19,20 @@
         $('#id_sex').removeAttr('disabled');
       }
     });
+
+    if (!$('#id_paid').is(':checked')) {
+        $('#id_type').attr('disabled', 'disabled');
+        $('#id_details').attr('disabled', 'disabled');
+      }
+      $('#id_paid').change(function() {
+        if (!$('#id_paid').is(':checked')) {
+          $('#id_type').attr('disabled', 'disabled');
+          $('#id_details').attr('disabled', 'disabled');
+        } else {
+          $('#id_type').removeAttr('disabled');
+          $('#id_details').removeAttr('disabled');
+        }
+      });
   });
 
 
