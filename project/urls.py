@@ -51,8 +51,10 @@ urlpatterns += patterns('project.scipycon.registration.views',
         'submit_registration', name='scipycon_submit_registration'),
     url(r'^%s/edit-registration/(?P<id>\d+)/$' % (SCOPE_ARG_PATTERN),
         'edit_registration', name='scipycon_edit_registration'),
-    url(r'^%s/regstats/'% (SCOPE_ARG_PATTERN),
+    url(r'^%s/regstats/$'% (SCOPE_ARG_PATTERN),
         'regstats', name="scipycon_regstats"),
+    url(r'^%s/manage_payments/$'% (SCOPE_ARG_PATTERN),
+        'manage_payments', name="scipycon_manage_payments"),
     )
 
 # Authentication and Profile
