@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Payments - {% endblock %}
+
+{% block content %}
+<h1>Manage Payments</h1>
+
+<form action="" method="post">
+
+  <fieldset>
+    <legend>Payment Details</legend>
+    <table class="scipycon-default">
+      {% for registrant in registrants %}
+      <tr class="{% cycle odd,even %}">
+        <th>
+          <label for="id_{{ registrant.registrant.id }}_label">
+            {{ registrant.registrant.get_full_name }}
+          </label>
+        </th>
+        <td>
+          {{ field.errors }}
+          <input id="user_id_{{ registrant.registrant.id }}"
+          name="registrant_id_{{ registrant.registrant.id }}"
+          type="checkbox" name="paid"
+          {% if registrant.registrant.payment_set.get.paid %}
+          checked=checked
+          {% endif %}
+          /><br />
+        </td>
+      </tr>
+      {% endfor %}
+      <tr>
+        <th>
+        <button class="button left" type="submit">Submit Payment Status</button>
+        </th>
+      </tr>
+    </table>
+  </fieldset>
+
+</form>
+{% endblock content %}
