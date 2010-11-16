@@ -317,3 +317,56 @@ def regstats(request, scope,
          'tut_num': tut_num,
          'sprint_num': sprint_num,
          }))
+
+
+@login_required
+def manage_payments(request, scope,
+                    template_name='registration/manage_payments.html'):
+    """View that gives a form to manage payments.
+    """
+
+    if not request.user.is_superuser:
+        redirect_to = reverse('scipycon_login', kwargs={'scope': scope})
+        return set_message_cookie(
+            redirect_to, msg = u'You must be an admin on this website to '
+            'access this page.')
+
+    message = None
+
+    scope_entity = Event.objects.get(scope=scope)
+
+    if request.method == 'POST':
+        post_data = request.POST
+        list_user_ids = []
+        for user_id_string in post_data:
+            id_str_list = user_id_string.split('_')
+            if (len(id_str_list) == 3 and id_str_list[0] == 'registrant' and
+              id_str_list[1] == 'id'):
+                id = int(id_str_list[2])
+                reg_user = User.objects.get(pk=id)
+
+                payment, created = reg_user.payment_set.get_or_create(
+                  user=reg_user, scope=scope_entity)
+
+                payment.paid = True
+                payment.save()
+
+                list_user_ids.append(id)
+
+        # This is done to unset for the confirmation for users for whom
+        # mistakenly confirmation was set.
+        # (TODO) This is a very expensive operation, any better solution
+        # will be appreciated.
+        unpaid_users = User.objects.exclude(pk__in=list_user_ids)
+        for user in unpaid_users:
+            payment, created = user.payment_set.get_or_create(
+              user=user, scope=scope_entity)
+            payment.paid = False
+            payment.save()
+
+    registrants = Registration.objects.all()
+
+    return render_to_response(template_name, RequestContext(request,
+        {'params': {'scope': scope},
+         'registrants': registrants,
+         }))
