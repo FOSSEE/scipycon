@@ -132,6 +132,10 @@ class PaymentForm(forms.ModelForm):
     """SciPyCon Payment form
     """
 
+    paid = forms.BooleanField(
+        required=False, label="Amount paid",
+        help_text="Check this box if you have already paid the fees.")
+
     def save(self, user, scope):
         try:
             payment = Payment.objects.get(user=user, scope=scope)
@@ -142,7 +146,6 @@ class PaymentForm(forms.ModelForm):
         type = self.cleaned_data['type']
         details = self.cleaned_data['details']
 
-        payment.paid = paid
         payment.type = type
         payment.details = details
 
