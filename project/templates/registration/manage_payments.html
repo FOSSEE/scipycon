@@ -13,7 +13,11 @@
       {% for registrant in registrants %}
       <tr class="{% cycle odd,even %}">
         <th>
-          <label for="id_{{ registrant.registrant.id }}_label">
+          <label
+            {% if registrant.registrant.payment_set.get.type or registrant.registrant.payment_set.get.details and not registrant.registrant.payment_set.get.confirmed %}
+            class="alert"
+            {% endif %}
+          for="id_{{ registrant.registrant.id }}_label">
             {{ registrant.registrant.get_full_name }}
           </label>
         </th>
@@ -22,7 +26,7 @@
           <input id="user_id_{{ registrant.registrant.id }}"
           name="registrant_id_{{ registrant.registrant.id }}"
           type="checkbox" name="paid"
-          {% if registrant.registrant.payment_set.get.paid %}
+          {% if registrant.registrant.payment_set.get.confirmed %}
           checked=checked
           {% endif %}
           /><br />
