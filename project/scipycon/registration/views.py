@@ -139,7 +139,7 @@ def edit_registration(request, scope, id,
         payment_form = PaymentForm(initial={
             'user': payment.user,
             'scope': payment.scope,
-            'paid': payment.paid,
+            'paid': payment.type or payment.details,
             'type': payment.type,
             'details': payment.details,
             })
@@ -348,7 +348,7 @@ def manage_payments(request, scope,
                 payment, created = reg_user.payment_set.get_or_create(
                   user=reg_user, scope=scope_entity)
 
-                payment.paid = True
+                payment.confirmed = True
                 payment.save()
 
                 list_user_ids.append(id)
@@ -361,7 +361,7 @@ def manage_payments(request, scope,
         for user in unpaid_users:
             payment, created = user.payment_set.get_or_create(
               user=user, scope=scope_entity)
-            payment.paid = False
+            payment.confirmed = False
             payment.save()
 
     registrants = Registration.objects.all()
