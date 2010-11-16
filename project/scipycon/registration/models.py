@@ -127,8 +127,9 @@ class Payment(base_models.ScopedBase):
 
     details = models.CharField(
         max_length=255, verbose_name="Details",
-        help_text="If you made the payment using a cheque or a DD please "
-        "provide the number on the cheque or DD. If you made the payment "
-        "via Net Banking please provide the last four digits of the account "
-        "number and the name of the account holder from which the transfer "
-        "was made.", blank=True, null=True)
+        help_text="If the payment mode was cheque or DD please provide "
+        "the <font color='red'>cheque or DD number and the name of the bank "
+        "and branch</font>.<br/> If the payment mode was Net Banking please "
+        "provide the <font color='red'>last four digits of the account "
+        "number  and the name of the account holder</font> from which the "
+        "transfer was made.", blank=True, null=True)
