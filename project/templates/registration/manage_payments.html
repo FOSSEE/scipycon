@@ -14,9 +14,11 @@
       <tr class="{% cycle odd,even %}">
         <th>
           <label
-            {% if registrant.registrant.payment_set.get.type or registrant.registrant.payment_set.get.details and not registrant.registrant.payment_set.get.confirmed %}
-            class="alert"
-            {% endif %}
+          {% if registrant.registrant.payment_set.get.type or registrant.registrant.payment_set.get.details %}
+          {% if not registrant.registrant.payment_set.get.confirmed %}
+          class="alert"
+          {% endif %}
+          {% endif %}
           for="id_{{ registrant.registrant.id }}_label">
             {{ registrant.registrant.get_full_name }}
           </label>
