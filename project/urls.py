@@ -9,8 +9,8 @@ from django.views.generic.simple import redirect_to
 
 admin.autodiscover()
 
-PROGRAM_PATTERN_CORE = r'scipyin'
-EVENT_PATTERN_CORE =r'2010' 
+PROGRAM_PATTERN_CORE = r'[a-z](?:[0-9a-z]|_[0-9a-z])*'
+EVENT_PATTERN_CORE =r'(?:[0-9a-z]|_[0-9a-z])*' 
 SCOPE_ARG_PATTERN = r'(?P<scope>%s/%s)' % (
     PROGRAM_PATTERN_CORE, EVENT_PATTERN_CORE) 
 
@@ -71,7 +71,9 @@ urlpatterns += patterns('project.scipycon.user.views',
         'edit_profile', name='scipycon_edit_profile'),
     url(r'^%s/get-usernames/$' % (SCOPE_ARG_PATTERN),
         'get_usernames', name='scipycon_get_usernames'),
-    )
+    url(r'^%s/get-user-dump/$' % (SCOPE_ARG_PATTERN),
+        'get_user_dump', name='scipycon_get_usernames'))
+    
 
 # Proceedings
 urlpatterns += patterns('project.scipycon.proceedings.views',
