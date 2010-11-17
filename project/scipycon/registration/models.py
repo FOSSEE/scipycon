@@ -78,3 +78,8 @@ class Registration(base_models.ScopedBase):
         return 'Registration for user: <%s %s> %s' % (
             self.registrant.first_name,
             self.registrant.last_name, self.registrant.email)
+
+
+class Payment(base_models.ScopedBase):
+    """ Defines Payment Details of Users """
+    pass
