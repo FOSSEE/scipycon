@@ -2,6 +2,29 @@
 
 {% block title %}Submit Registration{% endblock %}
 
+{% block addscripts %}
+  <script type="text/javascript">
+
+  $(document).ready(function(){
+    if (!$('#id_accommodation_required').is(':checked')) {
+      $('#id_accommodation_days').attr('disabled', 'disabled');
+      $('#id_sex').attr('disabled', 'disabled');
+    }
+    $('#id_accommodation_required').change(function() {
+      if (!$('#id_accommodation_required').is(':checked')) {
+        $('#id_accommodation_days').attr('disabled', 'disabled');
+        $('#id_sex').attr('disabled', 'disabled');
+      } else {
+        $('#id_accommodation_days').removeAttr('disabled');
+        $('#id_sex').removeAttr('disabled');
+      }
+    });
+  });
+
+
+  </script>
+{% endblock addscripts %}
+
 {% block content %}
     {% block formheading %}
       <h1>Submit Registration</h1>
@@ -113,6 +136,13 @@
               </td>
             </tr>
           {% endfor %}
+        </table>
+      </fieldset>
+
+      <fieldset>
+        <legend>Accommodation</legend>
+        <table class="scipycon-default">
+          {{ acco_form }}
         </table>
       </fieldset>
 
