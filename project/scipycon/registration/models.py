@@ -30,6 +30,7 @@ SEX_CHOICES = (
     ('Female', 'Female'),
     )
 
+
 class Wifi(base_models.ScopedBase):
     """Defines wifi options at SciPy.in
     """
@@ -38,6 +39,17 @@ class Wifi(base_models.ScopedBase):
 
     wifi = models.CharField(max_length=50, choices=WIFI_CHOICES,
                             help_text=WIFI_HELP, verbose_name="Laptop")
+
+    registration_id = models.CharField(
+        max_length=255, verbose_name="Identification Number",
+        help_text="- Provide the serial or identification number at the "
+        "back of your laptop using which your laptop can be uniquely "
+        "identified. Ex: 8BDB8FB (Service Tag on Dell Laptops).<br /> - "
+        "This is for security reasons and will be used while you enter and "
+        "leave the venue.<br /> - Please don't provide the model number "
+        "like Dell Inspiron 1545. There may be many laptops of that model "
+        "and hence your laptop cannot be uniquely identified.",
+        blank=True, null=True)
 
 
 class Accommodation(base_models.ScopedBase):
