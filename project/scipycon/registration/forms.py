@@ -72,13 +72,14 @@ class WifiForm(forms.ModelForm):
             wifi = Wifi(user=user, scope=scope)
 
         wifi.wifi = self.cleaned_data['wifi']
+        wifi.registration_id = self.cleaned_data['registration_id']
         wifi.save()
 
         return wifi
 
     class Meta:
         model = Wifi
-        fields = ('wifi',)
+        fields = ('wifi', 'registration_id')
 
 
 class AccommodationForm(forms.ModelForm):

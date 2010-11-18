@@ -47,7 +47,7 @@ class TalkSubmitForm(forms.Form):
         required=False,
         widget=forms.TextInput(attrs={'size':'50'}))
     duration = forms.ChoiceField(choices=DURATION_CHOICES, required=True,
-        label=u'Preferred timeslot', help_text=u'Select preferred time slot')
+        label=u'Preferred time slot', help_text=u'Select preferred time slot')
     audience = forms.ChoiceField(choices=AUDIENCE_CHOICES, label=u'Intended audience',
         help_text=u'Select one of the available options or enter other type of intended audience')
 #    audience_other = forms.CharField(label=u'Other intended audience',

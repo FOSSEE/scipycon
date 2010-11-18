@@ -58,7 +58,7 @@ def edit_registration(request, scope, id,
 
     scope_entity = Event.objects.get(scope=scope)
 
-    reg = Registration.objects.get(pk=id)
+    reg = Registration.objects.get(pk=int(id))
     wifi = Wifi.objects.get(user=reg.registrant)
 
     # TODO: This is an ugly hack to add accommodation and payment forms
@@ -127,7 +127,8 @@ def edit_registration(request, scope, id,
         wifi_form = WifiForm(initial={
             'user': wifi.user,
             'scope': wifi.scope,
-            'wifi': wifi.wifi
+            'wifi': wifi.wifi,
+            'registration_id': wifi.registration_id
             })
         acco_form = AccommodationForm(initial={
             'user': acco.user,
@@ -263,7 +264,7 @@ def submit_registration(request, scope,
             acco = acco_form.save(registrant, scope_entity)
             payment = payment_form.save(registrant, scope_entity)
 
-            send_confirmation(registrant, scope_entity,password=passwd)
+            send_confirmation(registrant, scope_entity, password=passwd)
 
             redirect_to = reverse('scipycon_registrations',
                                   kwargs={'scope': scope})

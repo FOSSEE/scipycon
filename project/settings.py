@@ -7,6 +7,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+DEBUG=False
 DATABASE_HOST = ''
 DATABASE_PORT = ''
 
@@ -77,3 +78,29 @@ DEFAULT_FROM_EMAIL = 'admin@scipy.in'
 CURRENT_SCOPE = 'scipyin/2010'
 
 LOGIN_URL = '/%s/login' % (CURRENT_SCOPE)
+
+DATABASE_ENGINE = 'sqlite3'
+DATABASE_NAME = 'scipycon.db'
+DATABASE_USER = ''
+DATABASE_PASSWORD = ''
+
+INSTALLED_APPS = (
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.comments',
+    'django.contrib.sessions',
+    'django.contrib.admin',
+    'django.contrib.sites',
+    'django.contrib.flatpages',
+    'django.contrib.markup',
+    'django.contrib.sitemaps',
+    'project.scipycon',
+    'project.scipycon.base',
+    'project.scipycon.proceedings',
+    'project.scipycon.registration',
+    'project.scipycon.user',
+    'project.scipycon.talk',
+    'tagging',
+    'robots',
+)
+

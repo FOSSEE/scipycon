@@ -29,6 +29,11 @@ from project.scipycon.user.utils import handle_uploaded_photo
 from project.scipycon.user.utils import scipycon_createuser
 from project.scipycon.utils import set_message_cookie
 
+#User_dump Http404 Error
+from django.http import Http404
+#for user_dump creation
+from project.scipycon.registration.models import Accommodation
+
 
 @login_required
 def account(request, scope, template_name="user/account.html"):
@@ -277,3 +282,40 @@ def get_usernames(request, scope):
     json_response = {'results': results}
 
     return HttpResponse(json.dumps(json_response))
+
+
+@login_required
+def get_user_dump(request, scope,template_name='user/dump.html'):
+    """ Gets a general dump of user related info
+    """
+    print request.user.is_staff
+    if request.user.is_staff:
+        qs=Registration.objects.all()
+        rows=[]    
+        for obj in qs:
+            row = {}
+            row['first_name'] = obj.registrant.first_name
+            row['last_name'] = obj.registrant.last_name
+            try:
+                accomodation_require = Accommodation.objects.filter(user__username=obj.registrant.username)[0]
+                row['sex'] = accomodation_require.sex
+            except:
+                row['sex'] = '-'
+            row['city'] = obj.city
+            row['organization'] = obj.organisation
+            row['occupation'] = obj.occupation
+            row['conference'] = obj.conference 
+            row['sprint'] = obj.sprint
+            row['tutorial'] = obj.tutorial
+            try:
+                wifi_require = Wifi.objects.filter(user__username=obj.registrant.username)[0]
+                row['wifi'] = wifi_require.wifi
+            except:
+                row['wifi']='Wifi Unspecified'
+            rows.append(row)
+        return render_to_response(template_name, RequestContext(request, {
+                    'rows':  rows}))
+                    
+
+    else:
+            raise Http404
