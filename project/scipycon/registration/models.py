@@ -128,7 +128,9 @@ class Payment(base_models.ScopedBase):
         max_length=255, verbose_name="Details",
         help_text="If the payment mode was cheque or DD please provide "
         "the <font color='red'>cheque or DD number and the name of the bank "
-        "and branch</font>.<br/> If the payment mode was Net Banking please "
-        "provide the <font color='red'>last four digits of the account "
-        "number  and the name of the account holder</font> from which the "
-        "transfer was made.", blank=True, null=True)
+        "and branch</font>. Example: 4536234, SBI, IIT Powai, Mumbai.<br/> "
+        "If the payment mode was Net Banking please provide the <font "
+        "color='red'>last four digits of the account number and the name "
+        "of the account holder and the bank name</font> from which the "
+        "transfer was made. Example: 8804, Harish Chandra",
+        blank=True, null=True)
