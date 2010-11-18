@@ -53,22 +53,19 @@ def speaker_sponsorship():
                                 from_email='admin@scipy.in')
 
 
-def delegate_remainder():
-    """Sends a mail to each speaker whose talk has been accepted
-    informing them about the their sponsorship.
+def delegate_remainder(template=None):
+    """Sends a mail to each delegate about the template content specified.
     """
 
-    regs = User.objects.all()
-
-    template = 'notifications/reminder_mail.html'
+    regs = Registration.objects.all()
 
     for reg in regs:
-        subject = 'SciPy.in 2009: Remainder and details'
+        subject = 'SciPy.in 2010: Registration updates required for confirmation'
         message = loader.render_to_string(
-            template, dictionary={'name': reg.username})
+            template, dictionary={'name': reg.registrant.get_full_name()})
 
-        reg.email_user(subject=subject, message=message,
-                       from_email='madhusudancs@gmail.com')
+        reg.registrant.email_user(subject=subject, message=message,
+                                  from_email='info@scipy.in')
 
 
 def delegate_about_event():
