@@ -31,6 +31,9 @@ from project.scipycon.utils import set_message_cookie
 
 #User_dump Http404 Error
 from django.http import Http404
+#for user_dump creation
+from project.scipycon.registration.models import Accommodation
+
 
 @login_required
 def account(request, scope, template_name="user/account.html"):
@@ -297,7 +300,7 @@ def get_user_dump(request, scope,template_name='user/dump.html'):
                 accomodation_require = Accommodation.objects.filter(user__username=obj.registrant.username)[0]
                 row['sex'] = accomodation_require.sex
             except:
-                row['sex'] = 'Acco. Unspecified'
+                row['sex'] = '-'
             row['city'] = obj.city
             row['organization'] = obj.organisation
             row['occupation'] = obj.occupation
