@@ -23,7 +23,6 @@ INSTALLED_APPS = (
     'project.scipycon.user',
     'tagging',
     'robots',
-    'south',
 )
 
 DATABASE_ENGINE = 'mysql'
