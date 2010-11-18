@@ -28,7 +28,7 @@ INSTALLED_APPS = (
 )
 
 DATABASE_ENGINE = 'sqlite3'
-DATABASE_NAME = 'scipyconpayment.db'
+DATABASE_NAME = 'scipycon.db'
 DATABASE_USER = ''
 DATABASE_PASSWORD = ''
 
@@ -36,4 +36,3 @@ EMAIL_HOST = 'localhost'
 EMAIL_PORT = '1025'
 # print to standard output:
 # python -m smtpd -n -c DebuggingServer localhost:1025
-
