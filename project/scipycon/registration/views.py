@@ -121,7 +121,8 @@ def edit_registration(request, scope, id,
         wifi_form = WifiForm(initial={
             'user': wifi.user,
             'scope': wifi.scope,
-            'wifi': wifi.wifi
+            'wifi': wifi.wifi,
+            'registration_id': wifi.registration_id
             })
         acco_form = AccommodationForm(initial={
             'user': acco.user,
