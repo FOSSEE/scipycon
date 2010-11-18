@@ -4,6 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from project.scipycon.registration.models import SIZE_CHOICES
 from project.scipycon.registration.models import OCCUPATION_CHOICES
 from project.scipycon.registration.models import Accommodation
+from project.scipycon.registration.models import Payment
 from project.scipycon.registration.models import Wifi
 
 
@@ -61,7 +62,7 @@ class RegistrationEditForm(RegistrationSubmitForm):
     id = forms.CharField(widget=forms.HiddenInput)
 
 class WifiForm(forms.ModelForm):
-    """PyCon wifi form
+    """SciPyCon wifi form
     """
 
     def save(self, user, scope):
@@ -71,17 +72,18 @@ class WifiForm(forms.ModelForm):
             wifi = Wifi(user=user, scope=scope)
 
         wifi.wifi = self.cleaned_data['wifi']
+        wifi.registration_id = self.cleaned_data['registration_id']
         wifi.save()
 
         return wifi
 
     class Meta:
         model = Wifi
-        fields = ('wifi',)
+        fields = ('wifi', 'registration_id')
 
 
 class AccommodationForm(forms.ModelForm):
-    """PyCon Accommodation form
+    """SciPyCon Accommodation form
     """
 
     def save(self, user, scope):
@@ -125,6 +127,52 @@ class AccommodationForm(forms.ModelForm):
     class Meta:
         model = Accommodation
         fields = ('accommodation_required', 'sex', 'accommodation_days')
+
+
+class PaymentForm(forms.ModelForm):
+    """SciPyCon Payment form
+    """
+
+    paid = forms.BooleanField(
+        required=False, label="Amount paid",
+        help_text="Check this box if you have already paid the fees.")
+
+    def save(self, user, scope):
+        try:
+            payment = Payment.objects.get(user=user, scope=scope)
+        except ObjectDoesNotExist:
+            payment = Payment(user=user, scope=scope)
+
+        paid = self.cleaned_data['paid']
+        type = self.cleaned_data['type']
+        details = self.cleaned_data['details']
+
+        payment.type = type
+        payment.details = details
+
+        payment.save()
+
+        return payment
+
+    def clean(self):
+        """Makes sure that payment form is correct, i.e. type and details
+        are filled in when the required fees is paid.
+        """
+
+        paid = self.cleaned_data['paid']
+        type = self.cleaned_data['type']
+        details = self.cleaned_data['details']
+
+        if paid and (not type or not details):
+            raise forms.ValidationError(
+                u"If you have already paid the fee it is mandatory to "
+                "fill in the type and mandatory fields.")
+
+        return super(PaymentForm, self).clean()
+
+    class Meta:
+        model = Payment
+        fields = ('paid', 'type', 'details')
 
 
 PC = (

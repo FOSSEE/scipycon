@@ -584,3 +584,8 @@ ol li {
     margin-left: 5em;
     text-align: justify;
 }
+
+label.alert {
+    font-size: 1.2em;
+    color: #ff0000;
+}

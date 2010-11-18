@@ -12,8 +12,10 @@ from project.scipycon.base.models import Event
 from project.scipycon.registration.forms import RegistrationEditForm
 from project.scipycon.registration.forms import RegistrationSubmitForm
 from project.scipycon.registration.forms import AccommodationForm
+from project.scipycon.registration.forms import PaymentForm
 from project.scipycon.registration.forms import WifiForm
 from project.scipycon.registration.models import Accommodation
+from project.scipycon.registration.models import Payment
 from project.scipycon.registration.models import Registration
 from project.scipycon.registration.models import Wifi
 from project.scipycon.registration.utils import send_confirmation
@@ -59,11 +61,13 @@ def edit_registration(request, scope, id,
     reg = Registration.objects.get(pk=int(id))
     wifi = Wifi.objects.get(user=reg.registrant)
 
-    # TODO: This is an ugly hack to add accommodation form
-    # details at later stage for SciPy.in 2010. This must be
-    # removed for SciPy.in 2011
-    acco, created = Accommodation.objects.get_or_create(user=reg.registrant,
-                                                        scope=scope_entity)
+    # TODO: This is an ugly hack to add accommodation and payment forms
+    # details at later stage for SciPy.in 2010. This must be removed for
+    # SciPy.in 2011
+    acco, acco_created = Accommodation.objects.get_or_create(
+        user=reg.registrant, scope=scope_entity)
+    payment, payment_created = Payment.objects.get_or_create(
+        user=reg.registrant, scope=scope_entity)
 
     if reg.registrant != request.user:
         redirect_to = reverse('scipycon_account', kwargs={'scope': scope})
@@ -77,9 +81,10 @@ def edit_registration(request, scope, id,
         registration_form = RegistrationEditForm(data=request.POST)
         wifi_form = WifiForm(data=request.POST)
         acco_form = AccommodationForm(data=request.POST)
+        payment_form = PaymentForm(data=request.POST)
 
         if (registration_form.is_valid() and wifi_form.is_valid() and
-            acco_form.is_valid()):
+            acco_form.is_valid() and payment_form.is_valid()):
             reg.organisation = registration_form.data.get('organisation')
             reg.occupation = registration_form.data.get('occupation')
             reg.city = registration_form.data.get('city')
@@ -98,6 +103,7 @@ def edit_registration(request, scope, id,
 
             wifi = wifi_form.save(reg.registrant, reg.scope)
             acco = acco_form.save(reg.registrant, reg.scope)
+            payment = payment_form.save(reg.registrant, reg.scope)
 
             # Saved.. redirect
             redirect_to = reverse('scipycon_account', kwargs={'scope': scope})
@@ -121,7 +127,8 @@ def edit_registration(request, scope, id,
         wifi_form = WifiForm(initial={
             'user': wifi.user,
             'scope': wifi.scope,
-            'wifi': wifi.wifi
+            'wifi': wifi.wifi,
+            'registration_id': wifi.registration_id
             })
         acco_form = AccommodationForm(initial={
             'user': acco.user,
@@ -130,6 +137,13 @@ def edit_registration(request, scope, id,
             'accommodation_required': acco.accommodation_required,
             'accommodation_days': acco.accommodation_days,
             })
+        payment_form = PaymentForm(initial={
+            'user': payment.user,
+            'scope': payment.scope,
+            'paid': payment.type or payment.details,
+            'type': payment.type,
+            'details': payment.details,
+            })
 
     return render_to_response(
         template_name, RequestContext(request, {
@@ -137,7 +151,8 @@ def edit_registration(request, scope, id,
         'registration': {'id': id},
         'registration_form': registration_form,
         'wifi_form': wifi_form,
-        'acco_form': acco_form}))
+        'acco_form': acco_form,
+        'payment_form': payment_form}))
 
 def submit_registration(request, scope,
         template_name='registration/submit-registration.html'):
@@ -175,6 +190,7 @@ def submit_registration(request, scope,
         registrant_form = RegistrantForm(data=request.POST)
         wifi_form = WifiForm(data=request.POST)
         acco_form = AccommodationForm(data=request.POST)
+        payment_form = PaymentForm(data=request.POST)
 
         if request.POST.get('action', None) == 'login':
             login_form = AuthenticationForm(data=request.POST)
@@ -210,7 +226,7 @@ def submit_registration(request, scope,
             newuser = user
 
         if (registration_form.is_valid() and newuser and wifi_form.is_valid()
-            and acco_form.is_valid()):
+            and acco_form.is_valid() and payment_form.is_valid()):
             allow_contact = registration_form.cleaned_data.get(
                 'allow_contact') and True or False
             conference = registration_form.cleaned_data.get(
@@ -246,7 +262,10 @@ def submit_registration(request, scope,
 
             wifi = wifi_form.save(registrant, scope_entity)
             acco = acco_form.save(registrant, scope_entity)
+            payment = payment_form.save(registrant, scope_entity)
+
             send_confirmation(registrant, scope_entity, password=passwd)
+
             redirect_to = reverse('scipycon_registrations',
                                   kwargs={'scope': scope})
             return set_message_cookie(redirect_to,
@@ -258,6 +277,7 @@ def submit_registration(request, scope,
         registrant_form = RegistrantForm()
         wifi_form = WifiForm()
         acco_form = AccommodationForm()
+        payment_form = PaymentForm()
 
     login_form = AuthenticationForm()
 
@@ -268,6 +288,7 @@ def submit_registration(request, scope,
         'registrant_form' : registrant_form,
         'over_reg' : reg_count >= REG_TOTAL and True or False,
         'acco_form': acco_form,
+        'payment_form': payment_form,
         'wifi_form' : wifi_form,
         'message' : message,
         'login_form' : login_form
@@ -282,7 +303,9 @@ def regstats(request, scope,
 
     if not request.user.is_staff:
         redirect_to = reverse('scipycon_login', kwargs={'scope': scope})
-
+        return set_message_cookie(
+            redirect_to, msg = u'You must be a staff on this website to '
+            'access this page.')
 
     q = Registration.objects.all()
     conf_num = q.filter(conference=True).count()
@@ -294,4 +317,57 @@ def regstats(request, scope,
          'conf_num': conf_num, 
          'tut_num': tut_num,
          'sprint_num': sprint_num,
+         }))
+
+
+@login_required
+def manage_payments(request, scope,
+                    template_name='registration/manage_payments.html'):
+    """View that gives a form to manage payments.
+    """
+
+    if not request.user.is_superuser:
+        redirect_to = reverse('scipycon_login', kwargs={'scope': scope})
+        return set_message_cookie(
+            redirect_to, msg = u'You must be an admin on this website to '
+            'access this page.')
+
+    message = None
+
+    scope_entity = Event.objects.get(scope=scope)
+
+    if request.method == 'POST':
+        post_data = request.POST
+        list_user_ids = []
+        for user_id_string in post_data:
+            id_str_list = user_id_string.split('_')
+            if (len(id_str_list) == 3 and id_str_list[0] == 'registrant' and
+              id_str_list[1] == 'id'):
+                id = int(id_str_list[2])
+                reg_user = User.objects.get(pk=id)
+
+                payment, created = reg_user.payment_set.get_or_create(
+                  user=reg_user, scope=scope_entity)
+
+                payment.confirmed = True
+                payment.save()
+
+                list_user_ids.append(id)
+
+        # This is done to unset for the confirmation for users for whom
+        # mistakenly confirmation was set.
+        # (TODO) This is a very expensive operation, any better solution
+        # will be appreciated.
+        unpaid_users = User.objects.exclude(pk__in=list_user_ids)
+        for user in unpaid_users:
+            payment, created = user.payment_set.get_or_create(
+              user=user, scope=scope_entity)
+            payment.confirmed = False
+            payment.save()
+
+    registrants = Registration.objects.all()
+
+    return render_to_response(template_name, RequestContext(request,
+        {'params': {'scope': scope},
+         'registrants': registrants,
          }))

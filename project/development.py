@@ -24,6 +24,7 @@ INSTALLED_APPS = (
     'project.scipycon.talk',
     'tagging',
     'robots',
+    'south',
 )
 
 DATABASE_ENGINE = 'sqlite3'
@@ -35,4 +36,3 @@ EMAIL_HOST = 'localhost'
 EMAIL_PORT = '1025'
 # print to standard output:
 # python -m smtpd -n -c DebuggingServer localhost:1025
-

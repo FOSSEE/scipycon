@@ -19,6 +19,20 @@
         $('#id_sex').removeAttr('disabled');
       }
     });
+
+    if (!$('#id_paid').is(':checked')) {
+        $('#id_type').attr('disabled', 'disabled');
+        $('#id_details').attr('disabled', 'disabled');
+      }
+      $('#id_paid').change(function() {
+        if (!$('#id_paid').is(':checked')) {
+          $('#id_type').attr('disabled', 'disabled');
+          $('#id_details').attr('disabled', 'disabled');
+        } else {
+          $('#id_type').removeAttr('disabled');
+          $('#id_details').removeAttr('disabled');
+        }
+      });
   });
 
 
@@ -143,6 +157,13 @@
         <legend>Accommodation</legend>
         <table class="scipycon-default">
           {{ acco_form }}
+        </table>
+      </fieldset>
+
+      <fieldset>
+        <legend>Payment</legend>
+        <table class="scipycon-default">
+          {{ payment_form }}
         </table>
       </fieldset>
 
