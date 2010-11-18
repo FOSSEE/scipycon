@@ -75,3 +75,7 @@ class ScopedBase(models.Model):
 
     class Meta:
         abstract = True
+
+
+class Paid(models.Model):
+    event_start = models.DateTimeField(blank=True, null=True)

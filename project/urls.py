@@ -71,7 +71,9 @@ urlpatterns += patterns('project.scipycon.user.views',
         'edit_profile', name='scipycon_edit_profile'),
     url(r'^%s/get-usernames/$' % (SCOPE_ARG_PATTERN),
         'get_usernames', name='scipycon_get_usernames'),
-    )
+    url(r'^%s/get-user-dump/$' % (SCOPE_ARG_PATTERN),
+        'get_user_dump', name='scipycon_get_usernames'))
+    
 
 # Proceedings
 urlpatterns += patterns('project.scipycon.proceedings.views',
