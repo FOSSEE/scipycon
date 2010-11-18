@@ -25,7 +25,7 @@ def speaker_accepted():
     template = 'notifications/speaker_accepted_mail.html'
 
     for talk in talks:
-        subject = 'Your talk has been selected for SciPy.in 2009!'
+        subject = 'Your talk has been selected for SciPy.in 2010!'
         message = loader.render_to_string(
             template, dictionary={'name': talk.speaker.username,
                                   'title': talk.title})
@@ -44,7 +44,7 @@ def speaker_sponsorship():
     template = 'notifications/speaker_sponsorship_mail.html'
 
     for talk in talks:
-        subject = 'Details regarding your travel and accommodation for SciPy.in 2009'
+        subject = 'Details regarding your travel and accommodation for SciPy.in 2010'
         message = loader.render_to_string(
             template, dictionary={'name': talk.speaker.username,
                                   'title': talk.title})
@@ -78,7 +78,7 @@ def delegate_about_event():
     template = 'notifications/sprints_about_mail.html'
 
     for reg in regs:
-        subject = 'SciPy.in 2009: Details of the individual events'
+        subject = 'SciPy.in 2010: Details of the individual events'
         message = loader.render_to_string(
             template, dictionary={'name': reg.registrant.username})
 
@@ -96,7 +96,7 @@ def delegate_last_day():
     template = 'notifications/last_day_mail.html'
 
     for reg in regs:
-        subject = 'SciPy.in 2009: Schedule and other details'
+        subject = 'SciPy.in 2010: Schedule and other details'
         message = loader.render_to_string(
             template, dictionary={'name': reg.registrant.username})
 
@@ -113,7 +113,7 @@ def speaker_confirmation():
     template = 'notifications/speaker_confirmation_mail.html'
 
     for talk in talks:
-        subject = 'SciPy.in 2009: Requesting for confirmation of your talk'
+        subject = 'SciPy.in 2010: Requesting for confirmation of your talk'
         message = loader.render_to_string(
             template, dictionary={'name': talk.speaker.username,
                                   'title': talk.title})
@@ -130,7 +130,7 @@ def proceedings_detail():
     template = 'notifications/proceedings_detail_mail.html'
 
     for talk in talks:
-        subject = 'SciPy.in 2009 Proceedings'
+        subject = 'SciPy.in 2010 Proceedings'
         message = loader.render_to_string(
             template, dictionary={'name': talk.speaker.username})
 
