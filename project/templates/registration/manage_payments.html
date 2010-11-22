@@ -10,6 +10,12 @@
   <fieldset>
     <legend>Payment Details</legend>
     <table class="scipycon-default">
+      <tr>
+        <th>Full Name</th>
+        <th>Confirmed</th>
+        <th>Payment Mode</th>
+        <th>Details</th>
+      </tr>
       {% for registrant in registrants %}
       <tr class="{% cycle odd,even %}">
         <th>
@@ -33,6 +39,8 @@
           {% endif %}
           /><br />
         </td>
+        <td>{{ registrant.registrant.payment_set.get.type }}</td>
+        <td>{{ registrant.registrant.payment_set.get.details }}</td>
       </tr>
       {% endfor %}
       <tr>
