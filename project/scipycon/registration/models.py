@@ -131,7 +131,7 @@ class Payment(base_models.ScopedBase):
 
     confirmed = models.BooleanField(
         default=False, blank=True)
-
+  
     type = models.CharField(max_length=25, choices=PAYMENT_MODE_CHOICES,
                             verbose_name="Type", blank=True, null=True)
 
