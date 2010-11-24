@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response
+from django.template import loader
 from django.template import RequestContext
 
 from project.scipycon.base.models import Event
@@ -339,6 +340,10 @@ def manage_payments(request, scope,
     if request.method == 'POST':
         post_data = request.POST
         list_user_ids = []
+
+        mail_subject = 'SciPy.in 2010: Confirmation of fee payment'
+        mail_template = 'notifications/payment_confirmation2010.html'
+
         for user_id_string in post_data:
             id_str_list = user_id_string.split('_')
             if (len(id_str_list) == 3 and id_str_list[0] == 'registrant' and
@@ -352,6 +357,11 @@ def manage_payments(request, scope,
                 payment.confirmed = True
                 payment.save()
 
+                mail_message = loader.render_to_string(
+                    mail_template,
+                    dictionary={'name': reg_user.get_full_name(),})
+                reg_user.email_user(mail_subject, mail_message,
+                                    from_email='admin@scipy.in')
                 list_user_ids.append(id)
 
         # This is done to unset for the confirmation for users for whom
