@@ -143,5 +143,5 @@ class Payment(base_models.ScopedBase):
         "If the payment mode was Net Banking please provide the <font "
         "color='red'>last four digits of the account number and the name "
         "of the account holder and the bank name</font> from which the "
-        "transfer was made. Example: 8804, Harish Chandra",
+        "transfer was made. Example: 8804, Harish Chandra, SBI",
         blank=True, null=True)
