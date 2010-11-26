@@ -143,6 +143,9 @@ urlpatterns += patterns('',
     url(r'^%s/about/dates/$' % (SCOPE_ARG_PATTERN),
         direct_to_template, {"template": "about/important_dates.html"},
         name='scipycon_imp_dates'),
+    url(r'^%s/about/sponsors/$' % (SCOPE_ARG_PATTERN),
+        direct_to_template, {"template": "about/sponsors.html"},
+        name='scipycon_sponsors'),
     )
 
 # Password reset
