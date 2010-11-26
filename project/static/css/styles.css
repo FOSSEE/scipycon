@@ -589,3 +589,7 @@ label.alert {
     font-size: 1.2em;
     color: #ff0000;
 }
+
+ul.entry {
+  font-size: 1.2em;
+}
