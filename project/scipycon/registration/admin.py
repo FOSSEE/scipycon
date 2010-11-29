@@ -5,6 +5,8 @@ from __future__ import absolute_import
 from django.contrib import admin
 
 #scipycon
+from .models import Accommodation
+from .models import Payment
 from .models import Registration
 from .models import Wifi
 
@@ -41,4 +43,16 @@ class WifiAdmin(admin.ModelAdmin):
     list_filter = ('wifi',)
 
 admin.site.register(Wifi, WifiAdmin)
+
+class AccommodationAdmin(admin.ModelAdmin):
+    list_display = ('user', 'sex', 'accommodation_required',
+                    'accommodation_days')
+
+admin.site.register(Accommodation, AccommodationAdmin)
+
+class PaymentAdmin(admin.ModelAdmin):
+    list_display = ('user', 'confirmed', 'acco_confirmed')
+
+admin.site.register(Payment, PaymentAdmin)
+
 

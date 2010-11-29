@@ -1,3 +1,6 @@
+import datetime
+import time
+
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
@@ -344,35 +347,103 @@ def manage_payments(request, scope,
         mail_subject = 'SciPy.in 2010: Confirmation of fee payment'
         mail_template = 'notifications/payment_confirmation2010.html'
 
-        for user_id_string in post_data:
-            id_str_list = user_id_string.split('_')
-            if (len(id_str_list) == 3 and id_str_list[0] == 'registrant' and
-              id_str_list[1] == 'id'):
-                id = int(id_str_list[2])
-                reg_user = User.objects.get(pk=id)
+        def parse_form():
+            """Helper function that gets the User ID from the
+            form name
+            """
 
-                payment, created = reg_user.payment_set.get_or_create(
-                  user=reg_user, scope=scope_entity)
+            confirmed_ids = []
+            acco_ids = []
+            date_ids = {}
 
-                payment.confirmed = True
-                payment.save()
+            for name_string in post_data:
+                id_str_list = name_string.split('_')
+                if (len(id_str_list) == 3 and id_str_list[1] == 'id'):
+                    if id_str_list[0] == 'confirmed':
+                        confirmed_ids.append(int(id_str_list[2]))
+                    if id_str_list[0] == 'acco':
+                        acco_ids.append(int(id_str_list[2]))
+                    if id_str_list[0] == 'date':
+                        date_str = post_data.get(name_string, None)
+                        if date_str:
+                            date_ids[int(id_str_list[2])] = post_data.get(
+                              name_string, '')
 
-                mail_message = loader.render_to_string(
-                    mail_template,
-                    dictionary={'name': reg_user.get_full_name(),})
-                reg_user.email_user(mail_subject, mail_message,
-                                    from_email='admin@scipy.in')
-                list_user_ids.append(id)
+            return confirmed_ids, acco_ids, date_ids
 
-        # This is done to unset for the confirmation for users for whom
-        # mistakenly confirmation was set.
-        # (TODO) This is a very expensive operation, any better solution
-        # will be appreciated.
-        unpaid_users = User.objects.exclude(pk__in=list_user_ids)
-        for user in unpaid_users:
+        confirmed_ids, acco_ids, date_ids = parse_form()
+
+        confirmed_users = set(User.objects.filter(id__in=confirmed_ids))
+        acco_users = set(User.objects.filter(id__in=acco_ids))
+
+        # Users for whom both registration and accommodation is confirmed
+        for user in confirmed_users & acco_users:
             payment, created = user.payment_set.get_or_create(
               user=user, scope=scope_entity)
-            payment.confirmed = False
+
+            payment.confirmed = True
+            payment.acco_confirmed = True
+            payment.save()
+
+            if not payment.confirmed_mail and not payment.acco_confirmed_mail:
+                mail_message = loader.render_to_string(
+                  mail_template,
+                  dictionary={'name': user.get_full_name(),
+                            'acco': True,
+                            'reg': True})
+                user.email_user(mail_subject, mail_message,
+                                from_email='admin@scipy.in')
+                payment.confirmed_mail =True
+                payment.acco_confirmed_mail = True
+                payment.save()
+
+        # Users for whom only registration is confirmed
+        for user in confirmed_users - acco_users:
+            payment, created = user.payment_set.get_or_create(
+              user=user, scope=scope_entity)
+
+            payment.confirmed = True
+            payment.save()
+
+            if not payment.confirmed_mail:
+                mail_message = loader.render_to_string(
+                  mail_template,
+                  dictionary={'name': user.get_full_name(),
+                          'reg': True})
+                user.email_user(mail_subject, mail_message,
+                                from_email='admin@scipy.in')
+                payment.confirmed_mail =True
+                payment.save()
+
+        # Users for whom only accommodation is confirmed
+        for user in acco_users - confirmed_users:
+            payment, created = user.payment_set.get_or_create(
+              user=user, scope=scope_entity)
+
+            payment.acco_confirmed = True
+            payment.save()
+
+            if not payment.acco_confirmed_mail:
+                mail_message = loader.render_to_string(
+                  mail_template,
+                  dictionary={'name': user.get_full_name(),
+                          'acco': True})
+                user.email_user(mail_subject, mail_message,
+                                from_email='admin@scipy.in')
+                payment.acco_confirmed_mail = True
+                payment.save()
+
+        # Users for whom fee payment date is updated
+        for id in date_ids:
+            user = User.objects.get(id=id)
+            payment, created = user.payment_set.get_or_create(
+              user=user, scope=scope_entity)
+
+            time_format = "%m/%d/%Y"
+            date = datetime.datetime.fromtimestamp(time.mktime(
+              time.strptime(date_ids[id], time_format)))
+
+            payment.date_confirmed = date
             payment.save()
 
     registrants = Registration.objects.all()

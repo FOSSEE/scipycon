@@ -2,6 +2,19 @@
 
 {% block title %}Manage Payments - {% endblock %}
 
+{% block addscripts %}
+  <script type="text/javascript">
+
+  $(document).ready(function(){
+    {% for registrant in registrants %}
+      $("#date_id_{{ registrant.registrant.id }}").datepicker();
+    {% endfor %}
+    
+  });
+
+  </script>
+{% endblock addscripts %}
+
 {% block content %}
 <h1>Manage Payments</h1>
 
@@ -33,8 +46,8 @@
         </th>
         <td>
           {{ field.errors }}
-          <input id="user_id_{{ registrant.registrant.id }}"
-          name="registrant_id_{{ registrant.registrant.id }}"
+          <input id="confirmed_id_{{ registrant.registrant.id }}"
+          name="confirmed_id_{{ registrant.registrant.id }}"
           type="checkbox" name="registration_confirmed"
           {% if registrant.registrant.payment_set.get.confirmed %}
           checked=checked
@@ -43,19 +56,23 @@
         </td>
         <td>
           {{ field.errors }}
-          <input id="user_id_{{ registrant.registrant.id }}"
-          name="registrant_id_{{ registrant.registrant.id }}"
-          type="checkbox" name="accommodation_confirmed"
-          {% if registrant.registrant.payment_set.get.acc_confirmed %}
+          <input id="acco_id_{{ registrant.registrant.id }}"
+          name="acco_id_{{ registrant.registrant.id }}"
+          type="checkbox"
+          {% if registrant.registrant.payment_set.get.acco_confirmed %}
           checked=checked
           {% endif %}
           /><br />
         </td>
         <td>
           {{ field.errors }}
-          <input id="user_id_{{ registrant.registrant.id }}"
-          name="registrant_id_{{ registrant.registrant.id }}"
-          type="text" name="date_of_payment"/><br />
+          <input id="date_id_{{ registrant.registrant.id }}"
+          name="date_id_{{ registrant.registrant.id }}"
+          type="text"
+          {% if registrant.registrant.payment_set.get.date_confirmed %}
+          value="{{ registrant.registrant.payment_set.get.date_confirmed|date:"m/d/Y" }}"
+          {% endif %}
+          /><br />
         </td>
         <td>{{ registrant.registrant.payment_set.get.type }}</td>
         <td>{{ registrant.registrant.payment_set.get.details }}</td>

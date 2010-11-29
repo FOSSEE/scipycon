@@ -134,7 +134,15 @@ class Payment(base_models.ScopedBase):
 
     acco_confirmed = models.BooleanField(
         default=False, blank=True)
-  
+
+    date_confirmed = models.DateTimeField(blank=True, null=True)
+
+    confirmed_mail = models.BooleanField(
+        default=False, blank=True)
+
+    acco_confirmed_mail = models.BooleanField(
+        default=False, blank=True)
+
     type = models.CharField(max_length=25, choices=PAYMENT_MODE_CHOICES,
                             verbose_name="Type", blank=True, null=True)
 
