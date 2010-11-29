@@ -12,7 +12,9 @@
     <table class="scipycon-default">
       <tr>
         <th>Full Name</th>
-        <th>Confirmed</th>
+        <th>Reg. Confirmed</th>
+        <th>Accommodation. Confirmed</th>
+        <th>Date of Payment</th>
         <th>Payment Mode</th>
         <th>Details</th>
       </tr>
@@ -33,11 +35,27 @@
           {{ field.errors }}
           <input id="user_id_{{ registrant.registrant.id }}"
           name="registrant_id_{{ registrant.registrant.id }}"
-          type="checkbox" name="paid"
+          type="checkbox" name="registration_confirmed"
           {% if registrant.registrant.payment_set.get.confirmed %}
           checked=checked
           {% endif %}
           /><br />
+        </td>
+        <td>
+          {{ field.errors }}
+          <input id="user_id_{{ registrant.registrant.id }}"
+          name="registrant_id_{{ registrant.registrant.id }}"
+          type="checkbox" name="accommodation_confirmed"
+          {% if registrant.registrant.payment_set.get.acc_confirmed %}
+          checked=checked
+          {% endif %}
+          /><br />
+        </td>
+        <td>
+          {{ field.errors }}
+          <input id="user_id_{{ registrant.registrant.id }}"
+          name="registrant_id_{{ registrant.registrant.id }}"
+          type="text" name="date_of_payment"/><br />
         </td>
         <td>{{ registrant.registrant.payment_set.get.type }}</td>
         <td>{{ registrant.registrant.payment_set.get.details }}</td>

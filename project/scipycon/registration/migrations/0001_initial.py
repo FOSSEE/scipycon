@@ -14,6 +14,7 @@ class Migration(SchemaMigration):
             ('scope', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['base.Event'])),
             ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
             ('wifi', self.gf('django.db.models.fields.CharField')(max_length=50)),
+            ('registration_id', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True)),
         ))
         db.send_create_signal('registration', ['Wifi'])
 
@@ -52,6 +53,17 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal('registration', ['Registration'])
 
+        # Adding model 'Payment'
+        db.create_table('registration_payment', (
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('scope', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['base.Event'])),
+            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
+            ('confirmed', self.gf('django.db.models.fields.BooleanField')(default=False)),
+            ('type', self.gf('django.db.models.fields.CharField')(max_length=25, null=True, blank=True)),
+            ('details', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True)),
+        ))
+        db.send_create_signal('registration', ['Payment'])
+
 
     def backwards(self, orm):
         
@@ -63,6 +75,9 @@ class Migration(SchemaMigration):
 
         # Deleting model 'Registration'
         db.delete_table('registration_registration')
+
+        # Deleting model 'Payment'
+        db.delete_table('registration_payment')
 
 
     models = {
@@ -119,6 +134,15 @@ class Migration(SchemaMigration):
             'sex': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"})
         },
+        'registration.payment': {
+            'Meta': {'object_name': 'Payment'},
+            'confirmed': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'details': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'scope': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['base.Event']"}),
+            'type': ('django.db.models.fields.CharField', [], {'max_length': '25', 'null': 'True', 'blank': 'True'}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"})
+        },
         'registration.registration': {
             'Meta': {'object_name': 'Registration'},
             'allow_contact': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
@@ -144,6 +168,7 @@ class Migration(SchemaMigration):
         'registration.wifi': {
             'Meta': {'object_name': 'Wifi'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'registration_id': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
             'scope': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['base.Event']"}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"}),
             'wifi': ('django.db.models.fields.CharField', [], {'max_length': '50'})
