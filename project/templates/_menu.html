@@ -97,6 +97,8 @@
     <li><a href="/{{ params.scope }}/about/sponsors/">Sponsors</a></li>
     {% if user.is_staff %}
     <li><a href="/{{ params.scope }}/regstats/">Registration Statistics</a></li>
+    {% endif %}
+    {% if user.is_superuser %}
     <li><a href="/{{ params.scope }}/manage_payments/">Manage Payments</a></li>
     {% endif %}
   </ul>
