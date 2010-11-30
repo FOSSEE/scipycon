@@ -24,7 +24,7 @@ INSTALLED_APPS = (
     'project.scipycon.talk',
     'tagging',
     'robots',
-    #'south',
+    'south',
 )
 
 DATABASE_ENGINE = 'sqlite3'
