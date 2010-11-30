@@ -73,17 +73,17 @@ class Accommodation(base_models.ScopedBase):
         verbose_name="Accommodation required",
         help_text="Check if you need accommodation.")
 
-    accomodation_on_1st = models.BooleanField(default=False, 
+    accommodation_on_1st = models.BooleanField(default=False, 
                                               verbose_name="First day")
-    accomodation_on_2nd = models.BooleanField(default=False, 
+    accommodation_on_2nd = models.BooleanField(default=False, 
                                               verbose_name="Second day")
-    accomodation_on_3rd = models.BooleanField(default=False, 
+    accommodation_on_3rd = models.BooleanField(default=False, 
                                               verbose_name="Third day")
-    accomodation_on_4th = models.BooleanField(default=False, 
+    accommodation_on_4th = models.BooleanField(default=False, 
                                               verbose_name="Fourth day")
-    accomodation_on_5th = models.BooleanField(default=False, 
+    accommodation_on_5th = models.BooleanField(default=False, 
                                               verbose_name="Fifth day")
-    accomodation_on_6th = models.BooleanField(default=False, 
+    accommodation_on_6th = models.BooleanField(default=False, 
                                               verbose_name="Sixth day")
 
     accommodation_days = models.IntegerField(
