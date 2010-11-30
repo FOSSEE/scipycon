@@ -94,12 +94,26 @@ class AccommodationForm(forms.ModelForm):
 
         sex = self.cleaned_data['sex']
         accommodation_required = self.cleaned_data['accommodation_required']
-        accommodation_days = self.cleaned_data['accommodation_days']
+        accommodation_days = sum(filter([a1, a2, a3, a4, a5, a6]))
+
+        a1 = self.cleaned_data['accomodation_on_1st']
+        a2 = self.cleaned_data['accomodation_on_2nd']
+        a3 = self.cleaned_data['accomodation_on_3rd']
+        a4 = self.cleaned_data['accomodation_on_4th']
+        a5 = self.cleaned_data['accomodation_on_5th']
+        a6 = self.cleaned_data['accomodation_on_6th']
 
         acco.sex = sex
         acco.accommodation_required = accommodation_required
-        acco.accommodation_days = accommodation_days if (
-            accommodation_days) else 0
+        acco.accommodation_days = accomodation_days
+
+        acco.accomodation_on_1st = a1
+        acco.accomodation_on_2nd = a2
+        acco.accomodation_on_3rd = a3
+        acco.accomodation_on_4th = a4
+        acco.accomodation_on_5th = a5
+        acco.accomodation_on_6th = a6
+
 
         acco.save()
 
@@ -114,19 +128,35 @@ class AccommodationForm(forms.ModelForm):
 
         sex = self.cleaned_data['sex']
         accommodation_required = self.cleaned_data['accommodation_required']
-        accommodation_days = self.cleaned_data['accommodation_days']
 
-        if accommodation_required and (not sex or not accommodation_days
-            or accommodation_days == 0):
+        a1 = self.cleaned_data['accomodation_on_1st']
+        a2 = self.cleaned_data['accomodation_on_2nd']
+        a3 = self.cleaned_data['accomodation_on_3rd']
+        a4 = self.cleaned_data['accomodation_on_4th']
+        a5 = self.cleaned_data['accomodation_on_5th']
+        a6 = self.cleaned_data['accomodation_on_6th']
+
+        selected_a_date = any([a1, a2, a3, a4, a5, a6])
+
+        if accommodation_required and (not sex or not selected_a_date):
+            #or accommodation_days == 0):
             raise forms.ValidationError(
-                u"If accommodation is required both gender and number of "
-                "days for which accommodation is required is mandatory.")
+                u"If accommodation is required please specify gender and" 
+                " select the days number for which accommodation is required.")
 
         return super(AccommodationForm, self).clean()
 
     class Meta:
         model = Accommodation
-        fields = ('accommodation_required', 'sex', 'accommodation_days')
+        fields = ('accommodation_required',
+                  'sex', 
+                  'accomodation_on_1st',
+                  'accomodation_on_2nd',
+                  'accomodation_on_3rd',
+                  'accomodation_on_4th',
+                  'accomodation_on_5th',
+                  'accomodation_on_6th',
+                 )
 
 
 class PaymentForm(forms.ModelForm):

@@ -7,16 +7,32 @@
 
   $(document).ready(function(){
     if (!$('#id_accommodation_required').is(':checked')) {
-      $('#id_accommodation_days').attr('disabled', 'disabled');
       $('#id_sex').attr('disabled', 'disabled');
+      $('#id_accomodation_on_1st').attr('disabled', 'disabled');
+      $('#id_accomodation_on_2nd').attr('disabled', 'disabled');
+      $('#id_accomodation_on_3rd').attr('disabled', 'disabled');
+      $('#id_accomodation_on_4th').attr('disabled', 'disabled');
+      $('#id_accomodation_on_5th').attr('disabled', 'disabled');
+      $('#id_accomodation_on_6th').attr('disabled', 'disabled');
     }
     $('#id_accommodation_required').change(function() {
       if (!$('#id_accommodation_required').is(':checked')) {
-        $('#id_accommodation_days').attr('disabled', 'disabled');
         $('#id_sex').attr('disabled', 'disabled');
+        $('#id_accomodation_on_1st').attr('disabled', 'disabled');
+        $('#id_accomodation_on_2nd').attr('disabled', 'disabled');
+        $('#id_accomodation_on_3rd').attr('disabled', 'disabled');
+        $('#id_accomodation_on_4th').attr('disabled', 'disabled');
+        $('#id_accomodation_on_5th').attr('disabled', 'disabled');
+        $('#id_accomodation_on_6th').attr('disabled', 'disabled');
       } else {
-        $('#id_accommodation_days').removeAttr('disabled');
-        $('#id_sex').removeAttr('disabled');
+      $('#id_accommodation_days').removeAttr('disabled');
+      $('#id_sex').removeAttr('disabled');
+      $('#id_accomodation_on_1st').removeAttr('disabled', 'disabled');
+      $('#id_accomodation_on_2nd').removeAttr('disabled', 'disabled');
+      $('#id_accomodation_on_3rd').removeAttr('disabled', 'disabled');
+      $('#id_accomodation_on_4th').removeAttr('disabled', 'disabled');
+      $('#id_accomodation_on_5th').removeAttr('disabled', 'disabled');
+      $('#id_accomodation_on_6th').removeAttr('disabled', 'disabled');
       }
     });
 
