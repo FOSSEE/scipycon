@@ -139,7 +139,12 @@ def edit_registration(request, scope, id,
             'scope': acco.scope,
             'sex': acco.sex,
             'accommodation_required': acco.accommodation_required,
-            'accommodation_days': acco.accommodation_days,
+            'accommodation_on_1st': acco.accommodation_on_1st,
+            'accommodation_on_2nd': acco.accommodation_on_2nd,
+            'accommodation_on_3rd': acco.accommodation_on_3rd,
+            'accommodation_on_4th': acco.accommodation_on_4th,
+            'accommodation_on_5th': acco.accommodation_on_5th,
+            'accommodation_on_6th': acco.accommodation_on_6th,
             })
         payment_form = PaymentForm(initial={
             'user': payment.user,
