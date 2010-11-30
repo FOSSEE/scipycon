@@ -94,7 +94,6 @@ class AccommodationForm(forms.ModelForm):
 
         sex = self.cleaned_data['sex']
         accommodation_required = self.cleaned_data['accommodation_required']
-        accommodation_days = sum(filter([a1, a2, a3, a4, a5, a6]))
 
         a1 = self.cleaned_data['accommodation_on_1st']
         a2 = self.cleaned_data['accommodation_on_2nd']
@@ -103,16 +102,18 @@ class AccommodationForm(forms.ModelForm):
         a5 = self.cleaned_data['accommodation_on_5th']
         a6 = self.cleaned_data['accommodation_on_6th']
 
+        accommodation_days = [a1, a2, a3, a4, a5, a6].count(True)
+
         acco.sex = sex
         acco.accommodation_required = accommodation_required
-        acco.accommodation_days = _days
+        acco.accommodation_days = accommodation_days
 
-        acco._on_1st = a1
-        acco._on_2nd = a2
-        acco._on_3rd = a3
-        acco._on_4th = a4
-        acco._on_5th = a5
-        acco._on_6th = a6
+        acco.accommodation_on_1st = a1
+        acco.accommodation_on_2nd = a2
+        acco.accommodation_on_3rd = a3
+        acco.accommodation_on_4th = a4
+        acco.accommodation_on_5th = a5
+        acco.accommodation_on_6th = a6
 
 
         acco.save()
@@ -129,12 +130,12 @@ class AccommodationForm(forms.ModelForm):
         sex = self.cleaned_data['sex']
         accommodation_required = self.cleaned_data['accommodation_required']
 
-        a1 = self.cleaned_data['_on_1st']
-        a2 = self.cleaned_data['_on_2nd']
-        a3 = self.cleaned_data['_on_3rd']
-        a4 = self.cleaned_data['_on_4th']
-        a5 = self.cleaned_data['_on_5th']
-        a6 = self.cleaned_data['_on_6th']
+        a1 = self.cleaned_data['accommodation_on_1st']
+        a2 = self.cleaned_data['accommodation_on_2nd']
+        a3 = self.cleaned_data['accommodation_on_3rd']
+        a4 = self.cleaned_data['accommodation_on_4th']
+        a5 = self.cleaned_data['accommodation_on_5th']
+        a6 = self.cleaned_data['accommodation_on_6th']
 
         selected_a_date = any([a1, a2, a3, a4, a5, a6])
 
@@ -150,12 +151,12 @@ class AccommodationForm(forms.ModelForm):
         model = Accommodation
         fields = ('accommodation_required',
                   'sex', 
-                  '_on_1st',
-                  '_on_2nd',
-                  '_on_3rd',
-                  '_on_4th',
-                  '_on_5th',
-                  '_on_6th',
+                  'accommodation_on_1st',
+                  'accommodation_on_2nd',
+                  'accommodation_on_3rd',
+                  'accommodation_on_4th',
+                  'accommodation_on_5th',
+                  'accommodation_on_6th',
                  )
 
 
