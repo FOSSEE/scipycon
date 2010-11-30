@@ -74,7 +74,9 @@ urlpatterns += patterns('project.scipycon.user.views',
     url(r'^%s/get-usernames/$' % (SCOPE_ARG_PATTERN),
         'get_usernames', name='scipycon_get_usernames'),
     url(r'^%s/get-user-dump/$' % (SCOPE_ARG_PATTERN),
-        'get_user_dump', name='scipycon_get_usernames'))
+        'get_user_dump', name='scipycon_get_usernames'),
+    url(r'^%s/badge/$' % (SCOPE_ARG_PATTERN),
+        'badge', name='scipycon_badge'))
     
 
 # Proceedings

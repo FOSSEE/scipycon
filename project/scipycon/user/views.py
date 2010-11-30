@@ -34,6 +34,11 @@ from django.http import Http404
 #for user_dump creation
 from project.scipycon.registration.models import Accommodation
 
+#Pdf badge generation
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import cm
+from reportlab.platypus import  Image as reportlabImage
+
 
 @login_required
 def account(request, scope, template_name="user/account.html"):
@@ -319,3 +324,51 @@ def get_user_dump(request, scope,template_name='user/dump.html'):
 
     else:
             raise Http404
+
+
+@login_required
+def badge(request,scope):
+    # Create the HttpResponse object with the appropriate PDF headers.
+    response = HttpResponse(mimetype='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename=scipybadge.pdf'
+
+    # Create the PDF object, using the response object as its "file."
+    c = canvas.Canvas(response)
+
+    ref=5*cm
+    # Draw things on the PDF. Here's where the PDF generation happens.
+    # See the ReportLab documentation for the full list of functionality.
+    c.rect(ref,ref,9.45*cm,6.45*cm)
+
+    im = reportlabImage("project/static/img/scipyshiny_small.png", width=1.75*cm, height=1.75*cm)
+    im.drawOn(c,(ref+0.8*cm),(ref+4.5*cm))
+    c.setFont('Helvetica', 6)
+    c.drawString((ref+1.0*cm),(ref+4.4*cm),'scipy.in 2010') 
+    c.drawString((ref+1.1*cm),(ref+4.2*cm),'Hyderabad') 
+
+    c.setFont('Helvetica', 12)
+    print request.user.id
+    reg_obj=Registration.objects.get(registrant=request.user.id)
+
+    c.drawString((ref+5*cm),(ref+5*cm),str(reg_obj.slug)) 
+    c.setFont('Helvetica-Bold', 14)
+    c.drawString((ref+0.6*cm),(ref+3.5*cm),str(request.user.get_full_name()))
+    c.setFont('Helvetica', 10)
+    c.drawString((ref+2.8*cm),(ref+2.8*cm),reg_obj.organisation)
+    c.setFont('Helvetica', 10)
+    try:
+        c.drawString((ref+2.8*cm),(ref+2.3*cm),reg_obj.occupation.split(':')[1])
+    except IndexError:
+        c.drawString((ref+2.8*cm),(ref+2.3*cm),reg_obj.occupation)
+        
+    c.setFont('Helvetica', 10)
+    c.drawString((ref+2.8*cm),(ref+1.8*cm),reg_obj.city)
+    c.setFont('Helvetica', 10)
+    c.drawString((ref+2.8*cm),(ref+1*cm),'Delegate')
+
+
+    
+    # Close the PDF object cleanly, and we're done.
+    c.showPage()
+    c.save()
+    return response
