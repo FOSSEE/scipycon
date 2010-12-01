@@ -1,109 +1,118 @@
-# encoding: utf-8
-import datetime
+
 from south.db import db
-from south.v2 import SchemaMigration
 from django.db import models
+from project.scipycon.registration.models import *
 
-class Migration(SchemaMigration):
-
+class Migration:
+    
     def forwards(self, orm):
         
         # Adding model 'Wifi'
         db.create_table('registration_wifi', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('scope', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['base.Event'])),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
-            ('wifi', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('registration_id', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True)),
+            ('id', orm['registration.Wifi:id']),
+            ('scope', orm['registration.Wifi:scope']),
+            ('user', orm['registration.Wifi:user']),
+            ('wifi', orm['registration.Wifi:wifi']),
+            ('registration_id', orm['registration.Wifi:registration_id']),
         ))
         db.send_create_signal('registration', ['Wifi'])
-
+        
         # Adding model 'Accommodation'
         db.create_table('registration_accommodation', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('scope', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['base.Event'])),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
-            ('sex', self.gf('django.db.models.fields.CharField')(max_length=50, null=True, blank=True)),
-            ('accommodation_required', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('accommodation_days', self.gf('django.db.models.fields.IntegerField')(default=0, blank=True)),
+            ('id', orm['registration.Accommodation:id']),
+            ('scope', orm['registration.Accommodation:scope']),
+            ('user', orm['registration.Accommodation:user']),
+            ('sex', orm['registration.Accommodation:sex']),
+            ('accommodation_required', orm['registration.Accommodation:accommodation_required']),
+            ('accommodation_on_1st', orm['registration.Accommodation:accommodation_on_1st']),
+            ('accommodation_on_2nd', orm['registration.Accommodation:accommodation_on_2nd']),
+            ('accommodation_on_3rd', orm['registration.Accommodation:accommodation_on_3rd']),
+            ('accommodation_on_4th', orm['registration.Accommodation:accommodation_on_4th']),
+            ('accommodation_on_5th', orm['registration.Accommodation:accommodation_on_5th']),
+            ('accommodation_on_6th', orm['registration.Accommodation:accommodation_on_6th']),
+            ('accommodation_days', orm['registration.Accommodation:accommodation_days']),
         ))
         db.send_create_signal('registration', ['Accommodation'])
-
-        # Adding model 'Registration'
-        db.create_table('registration_registration', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('scope', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['base.Event'])),
-            ('slug', self.gf('django.db.models.fields.SlugField')(max_length=50, db_index=True)),
-            ('registrant', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
-            ('organisation', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('occupation', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('city', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('postcode', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('phone_num', self.gf('django.db.models.fields.CharField')(max_length=14, blank=True)),
-            ('tshirt', self.gf('django.db.models.fields.CharField')(max_length=3)),
-            ('conference', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('tutorial', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('sprint', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('final_conference', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('final_tutorial', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('final_sprint', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('allow_contact', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('submitted', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('last_mod', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
-        ))
-        db.send_create_signal('registration', ['Registration'])
-
+        
         # Adding model 'Payment'
         db.create_table('registration_payment', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('scope', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['base.Event'])),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
-            ('confirmed', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('type', self.gf('django.db.models.fields.CharField')(max_length=25, null=True, blank=True)),
-            ('details', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True)),
+            ('id', orm['registration.Payment:id']),
+            ('scope', orm['registration.Payment:scope']),
+            ('user', orm['registration.Payment:user']),
+            ('confirmed', orm['registration.Payment:confirmed']),
+            ('acco_confirmed', orm['registration.Payment:acco_confirmed']),
+            ('date_confirmed', orm['registration.Payment:date_confirmed']),
+            ('confirmed_mail', orm['registration.Payment:confirmed_mail']),
+            ('acco_confirmed_mail', orm['registration.Payment:acco_confirmed_mail']),
+            ('type', orm['registration.Payment:type']),
+            ('details', orm['registration.Payment:details']),
         ))
         db.send_create_signal('registration', ['Payment'])
-
-
+        
+        # Adding model 'Registration'
+        db.create_table('registration_registration', (
+            ('id', orm['registration.Registration:id']),
+            ('scope', orm['registration.Registration:scope']),
+            ('slug', orm['registration.Registration:slug']),
+            ('registrant', orm['registration.Registration:registrant']),
+            ('organisation', orm['registration.Registration:organisation']),
+            ('occupation', orm['registration.Registration:occupation']),
+            ('city', orm['registration.Registration:city']),
+            ('postcode', orm['registration.Registration:postcode']),
+            ('phone_num', orm['registration.Registration:phone_num']),
+            ('tshirt', orm['registration.Registration:tshirt']),
+            ('conference', orm['registration.Registration:conference']),
+            ('tutorial', orm['registration.Registration:tutorial']),
+            ('sprint', orm['registration.Registration:sprint']),
+            ('final_conference', orm['registration.Registration:final_conference']),
+            ('final_tutorial', orm['registration.Registration:final_tutorial']),
+            ('final_sprint', orm['registration.Registration:final_sprint']),
+            ('allow_contact', orm['registration.Registration:allow_contact']),
+            ('submitted', orm['registration.Registration:submitted']),
+            ('last_mod', orm['registration.Registration:last_mod']),
+        ))
+        db.send_create_signal('registration', ['Registration'])
+        
+    
+    
     def backwards(self, orm):
         
         # Deleting model 'Wifi'
         db.delete_table('registration_wifi')
-
+        
         # Deleting model 'Accommodation'
         db.delete_table('registration_accommodation')
-
-        # Deleting model 'Registration'
-        db.delete_table('registration_registration')
-
+        
         # Deleting model 'Payment'
         db.delete_table('registration_payment')
-
-
+        
+        # Deleting model 'Registration'
+        db.delete_table('registration_registration')
+        
+    
+    
     models = {
         'auth.group': {
-            'Meta': {'object_name': 'Group'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '80'}),
             'permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'})
         },
         'auth.permission': {
-            'Meta': {'ordering': "('content_type__app_label', 'content_type__model', 'codename')", 'unique_together': "(('content_type', 'codename'),)", 'object_name': 'Permission'},
+            'Meta': {'unique_together': "(('content_type', 'codename'),)"},
             'codename': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contenttypes.ContentType']"}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         },
         'auth.user': {
-            'Meta': {'object_name': 'User'},
             'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
             'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Group']", 'symmetrical': 'False', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True', 'blank': 'True'}),
+            'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
+            'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
             'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
             'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
@@ -111,7 +120,6 @@ class Migration(SchemaMigration):
             'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
         },
         'base.event': {
-            'Meta': {'object_name': 'Event'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'scope': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
@@ -119,24 +127,32 @@ class Migration(SchemaMigration):
             'turn': ('django.db.models.fields.CharField', [], {'max_length': '255'})
         },
         'contenttypes.contenttype': {
-            'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
+            'Meta': {'unique_together': "(('app_label', 'model'),)", 'db_table': "'django_content_type'"},
             'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
         'registration.accommodation': {
-            'Meta': {'object_name': 'Accommodation'},
             'accommodation_days': ('django.db.models.fields.IntegerField', [], {'default': '0', 'blank': 'True'}),
-            'accommodation_required': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'accommodation_on_1st': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
+            'accommodation_on_2nd': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
+            'accommodation_on_3rd': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
+            'accommodation_on_4th': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
+            'accommodation_on_5th': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
+            'accommodation_on_6th': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
+            'accommodation_required': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'scope': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['base.Event']"}),
             'sex': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"})
         },
         'registration.payment': {
-            'Meta': {'object_name': 'Payment'},
-            'confirmed': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'acco_confirmed': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
+            'acco_confirmed_mail': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
+            'confirmed': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
+            'confirmed_mail': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
+            'date_confirmed': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'details': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'scope': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['base.Event']"}),
@@ -144,13 +160,12 @@ class Migration(SchemaMigration):
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"})
         },
         'registration.registration': {
-            'Meta': {'object_name': 'Registration'},
-            'allow_contact': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'allow_contact': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
             'city': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            'conference': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'final_conference': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'final_sprint': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'final_tutorial': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'conference': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
+            'final_conference': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
+            'final_sprint': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
+            'final_tutorial': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'last_mod': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
             'occupation': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
@@ -160,13 +175,12 @@ class Migration(SchemaMigration):
             'registrant': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"}),
             'scope': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['base.Event']"}),
             'slug': ('django.db.models.fields.SlugField', [], {'max_length': '50', 'db_index': 'True'}),
-            'sprint': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'sprint': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
             'submitted': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'tshirt': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
-            'tutorial': ('django.db.models.fields.BooleanField', [], {'default': 'False'})
+            'tutorial': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'})
         },
         'registration.wifi': {
-            'Meta': {'object_name': 'Wifi'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'registration_id': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
             'scope': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['base.Event']"}),
@@ -174,5 +188,5 @@ class Migration(SchemaMigration):
             'wifi': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         }
     }
-
+    
     complete_apps = ['registration']

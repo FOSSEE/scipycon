@@ -38,6 +38,7 @@ from project.scipycon.registration.models import Accommodation
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import cm
 from reportlab.platypus import  Image as reportlabImage
+from django.core.exceptions import ObjectDoesNotExist
 
 
 @login_required
@@ -338,34 +339,41 @@ def badge(request,scope):
     ref=5*cm
     # Draw things on the PDF. Here's where the PDF generation happens.
     # See the ReportLab documentation for the full list of functionality.
-    c.rect(ref,ref,9.45*cm,6.45*cm)
+    c.rect(ref,ref,9*cm,6*cm)
 
     im = reportlabImage("project/static/img/scipyshiny_small.png", width=1.75*cm, height=1.75*cm)
-    im.drawOn(c,(ref+0.8*cm),(ref+4.5*cm))
+    im.drawOn(c,(ref+0.8*cm),(ref+4.3*cm))
     c.setFont('Helvetica', 6)
-    c.drawString((ref+1.0*cm),(ref+4.4*cm),'scipy.in 2010') 
-    c.drawString((ref+1.1*cm),(ref+4.2*cm),'Hyderabad') 
+    c.drawString((ref+1.0*cm),(ref+4.2*cm),'scipy.in 2010') 
+    c.drawString((ref+1.1*cm),(ref+4.0*cm),'Hyderabad') 
 
-    c.setFont('Helvetica', 12)
+    c.setFont('Helvetica', 14)
     print request.user.id
     reg_obj=Registration.objects.get(registrant=request.user.id)
-
-    c.drawString((ref+5*cm),(ref+5*cm),str(reg_obj.slug)) 
+    c.drawString((ref+3.4*cm),(ref+4.9*cm),str(reg_obj.slug)) 
+    
     c.setFont('Helvetica-Bold', 14)
-    c.drawString((ref+0.6*cm),(ref+3.5*cm),str(request.user.get_full_name()))
+    c.drawString((ref+0.6*cm),(ref+3.4*cm),str(request.user.get_full_name()))
     c.setFont('Helvetica', 10)
-    c.drawString((ref+2.8*cm),(ref+2.8*cm),reg_obj.organisation)
+    c.drawString((ref+2.8*cm),(ref+2.7*cm),reg_obj.organisation)
     c.setFont('Helvetica', 10)
     try:
-        c.drawString((ref+2.8*cm),(ref+2.3*cm),reg_obj.occupation.split(':')[1])
+        c.drawString((ref+2.8*cm),(ref+2.2*cm),reg_obj.occupation.split(':')[1])
     except IndexError:
         c.drawString((ref+2.8*cm),(ref+2.3*cm),reg_obj.occupation)
         
     c.setFont('Helvetica', 10)
-    c.drawString((ref+2.8*cm),(ref+1.8*cm),reg_obj.city)
+    c.drawString((ref+2.8*cm),(ref+1.7*cm),reg_obj.city)
     c.setFont('Helvetica', 10)
-    c.drawString((ref+2.8*cm),(ref+1*cm),'Delegate')
-
+    c.drawString((ref+2.8*cm),(ref+1*cm),'Participant')
+    
+   
+    try:
+        wifi_obj=Wifi.objects.get(user=request.user.id)
+        c.setFont('Helvetica', 10)
+        c.drawString((ref+5.6*cm),(ref+0.5*cm),wifi_obj.registration_id)
+    except :
+        pass
 
     
     # Close the PDF object cleanly, and we're done.
