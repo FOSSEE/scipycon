@@ -3,6 +3,12 @@
 {% block title %}My Profile{% endblock %}
 
 {% block content %}
+
+
+{% if registration %}
+   <h2>Please get your badges for scipy.in 2010 <a href="/{{ params.scope }}/badge/">here</a></h2>
+{% endif %}
+
 <h1>My Profile: {{ user.first_name }} {{user.last_name}}</h1>
 
 <table class="scipycon-default">
