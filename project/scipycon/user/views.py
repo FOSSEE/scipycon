@@ -352,11 +352,11 @@ def badge(request,scope):
     reg_obj=Registration.objects.get(registrant=request.user.id)
     c.drawString((ref+3.4*cm),(ref+4.9*cm),str(reg_obj.slug)) 
     
-    c.setFont('Helvetica-Bold', 14)
+    c.setFont('Helvetica-Bold', 15)
     c.drawString((ref+0.6*cm),(ref+3.4*cm),str(request.user.get_full_name()))
-    c.setFont('Helvetica', 10)
+    c.setFont('Helvetica', 11)
     c.drawString((ref+2.8*cm),(ref+2.7*cm),reg_obj.organisation)
-    c.setFont('Helvetica', 10)
+    c.setFont('Helvetica', 11)
     try:
         c.drawString((ref+2.8*cm),(ref+2.2*cm),reg_obj.occupation.split(':')[1])
     except IndexError:
