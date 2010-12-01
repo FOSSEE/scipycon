@@ -130,7 +130,7 @@
             {% if talk.approved %}
               <span>Accepted</span>
             {% else %}
-              <a href="/edit-talk/{{ talk.id }}/" title="Edit">Edit</a>
+              <a href="/{{ params.scope }}/edit-talk/{{ talk.id }}/" title="Edit">Edit</a>
             {% endif %}
           </td>
         </tr>
