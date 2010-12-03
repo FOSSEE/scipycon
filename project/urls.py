@@ -158,6 +158,8 @@ urlpatterns += patterns('django.contrib.auth.views',
      url(r'^password-reset-complete/$', 'password_reset_complete'),
 )
 
+handler404 = 'django.views.defaults.page_not_found'
+
 # Serve static files in DEBUG = True mode
 if settings.DEBUG:
     urlpatterns += patterns('',
