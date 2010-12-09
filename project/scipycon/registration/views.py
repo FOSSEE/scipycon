@@ -405,7 +405,7 @@ def regstats_download(request, scope):
 
     output = csv.writer(response)
 
-    output.writerow(['Name', 'City',
+    output.writerow(['Name', 'Gender', 'City',
                      'Registration Fees Paid',
                      'Attending Conference',
                      'Attending Tutorial',
@@ -422,21 +422,24 @@ def regstats_download(request, scope):
     regs = Registration.objects.all()
     for reg in regs:
         row = []
-        row.append('"%"' % reg.registrant.get_full_name())
-        row.append(reg.city)
+
         payment, create = reg.registrant.payment_set.get_or_create(
           user=reg.registrant, scope=reg.scope)
+        acco, created = reg.registrant.accommodation_set.get_or_create(
+          user=reg.registrant, scope=reg.scope)
+        wifi, create = reg.registrant.wifi_set.get_or_create(
+          user=reg.registrant, scope=reg.scope)
+
+        row.append('"%"' % reg.registrant.get_full_name())
+        row.append(acco.sex)
+        row.append(reg.city)
         row.append('Yes' if payment.confirmed else 'No')
         row.append('Yes' if reg.conference else 'No')
         row.append('Yes' if reg.tutorial else 'No')
         row.append('Yes' if reg.sprint else 'No')
-        wifi, create = reg.registrant.wifi_set.get_or_create(
-          user=reg.registrant, scope=reg.scope)
         row.append(wifi.registration_id)
         row.append('Yes' if payment.acco_confirmed
            else 'No')
-        acco, created = reg.registrant.accommodation_set.get_or_create(
-          user=reg.registrant, scope=reg.scope)
         row.append('Yes' if acco.accommodation_on_1st else 'No')
         row.append('Yes' if acco.accommodation_on_2nd else 'No')
         row.append('Yes' if acco.accommodation_on_3rd else 'No')
