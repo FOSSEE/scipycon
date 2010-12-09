@@ -380,7 +380,7 @@ def regstats_download(request, scope):
     regs = Registration.objects.all()
     for reg in regs:
         row = []
-        row.append(reg.registrant.get_full_name())
+        row.append('"%"' % reg.registrant.get_full_name())
         row.append(reg.city)
         payment, create = reg.registrant.payment_set.get_or_create(
           user=reg.registrant, scope=reg.scope)
