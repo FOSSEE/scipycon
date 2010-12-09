@@ -430,7 +430,7 @@ def regstats_download(request, scope):
         wifi, create = reg.registrant.wifi_set.get_or_create(
           user=reg.registrant, scope=reg.scope)
 
-        row.append('"%"' % reg.registrant.get_full_name())
+        row.append('"%s"' % reg.registrant.get_full_name())
         row.append(acco.sex)
         row.append(reg.city)
         row.append('Yes' if payment.confirmed else 'No')
