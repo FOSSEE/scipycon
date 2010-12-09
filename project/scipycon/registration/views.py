@@ -327,51 +327,55 @@ def regstats(request, scope,
     acco_q = Accommodation.objects.all()
     male = acco_q.filter(sex='Male').count()
     female = acco_q.filter(sex='Female').count()
-    acco_days = []
-    acco_male = []
-    acco_female= []
 
     # Day 1 details
-    acco_days.append(acco_q.filter(accommodation_on_1st=True).count())
-    acco_male.append(acco_q.filter(
-      accommodation_on_1st=True).filter(sex='Male').count())
-    acco_female.append(acco_q.filter(
-      accommodation_on_1st=True).filter(sex='Female').count())
+    day1 = acco_q.filter(accommodation_on_1st=True)
+    acco_1 = {
+       'total': day1.count(),
+       'male': day1.filter(sex='Male').count(),
+       'female': day1.filter(sex='Female').count()
+       }
 
     # Day 2 details
-    acco_days.append(acco_q.filter(accommodation_on_2nd=True).count())
-    acco_male.append(acco_q.filter(
-      accommodation_on_2nd=True).filter(sex='Male').count())
-    acco_female.append(acco_q.filter(
-      accommodation_on_2nd=True).filter(sex='Female').count())
+    day2 = acco_q.filter(accommodation_on_2nd=True)
+    acco_2 = {
+       'total': day2.count(),
+       'male': day2.filter(sex='Male').count(),
+       'female': day2.filter(sex='Female').count()
+       }
 
     # Day 3 details
-    acco_days.append(acco_q.filter(accommodation_on_3rd=True).count())
-    acco_male.append(acco_q.filter(
-      accommodation_on_3rd=True).filter(sex='Male').count())
-    acco_female.append(acco_q.filter(
-      accommodation_on_3rd=True).filter(sex='Female').count())
+    day3 = acco_q.filter(accommodation_on_3rd=True)
+    acco_3 = {
+       'total': day3.count(),
+       'male': day3.filter(sex='Male').count(),
+       'female': day3.filter(sex='Female').count()
+       }
 
     # Day 4 details
-    acco_days.append(acco_q.filter(accommodation_on_4th=True).count())
-    acco_male.append(acco_q.filter(
-      accommodation_on_4th=True).filter(sex='Male').count())
-    acco_female.append(acco_q.filter(
-      accommodation_on_4th=True).filter(sex='Female').count())
+    day4 = acco_q.filter(accommodation_on_4th=True)
+    acco_4 = {
+       'total': day4.count(),
+       'male': day4.filter(sex='Male').count(),
+       'female': day4.filter(sex='Female').count()
+       }
+
 
     # Day 5 details
-    acco_days.append(acco_q.filter(accommodation_on_5th=True).count())
-    acco_male.append(acco_q.filter(
-      accommodation_on_5th=True).filter(sex='Male').count())
-    acco_female.append(acco_q.filter(
-      accommodation_on_5th=True).filter(sex='Female').count())
+    day5 = acco_q.filter(accommodation_on_5th=True)
+    acco_5 = {
+       'total': day5.count(),
+       'male': day5.filter(sex='Male').count(),
+       'female': day5.filter(sex='Female').count()
+       }
 
     # Day 6 details
-    acco_days.append(acco_q.filter(accommodation_on_6th=True).count())
-    acco_male.append(acco_q.filter(
-      accommodation_on_6th=True).filter(sex='Male').count())
-    acco_female.append(acco_q.filter(
-      accommodation_on_6th=True).filter(sex='Female').count())
+    day6 = acco_q.filter(accommodation_on_6th=True)
+    acco_6 = {
+       'total': day6.count(),
+       'male': day6.filter(sex='Male').count(),
+       'female': day6.filter(sex='Female').count()
+       }
 
     return render_to_response(template_name, RequestContext(request,
         {'params': {'scope': scope},
@@ -380,9 +384,7 @@ def regstats(request, scope,
          'sprint_num': sprint_num,
          'male': male,
          'female':female,
-         'acco_days': acco_days,
-         'acco_male': acco_male,
-         'acco_female': acco_female,
+         'acco_days': [acco_1, acco_2, acco_3, acco_4, acco_5, acco_6],
          }))
 
 @login_required

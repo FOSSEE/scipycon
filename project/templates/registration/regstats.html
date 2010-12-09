@@ -32,20 +32,8 @@
 </tr>
 {% for acco in acco_days %}
   <tr>
-   <td>Accommodation on {{ forloop.counter|add:"11" }}</td>
-   <td>{{ acco }}</td>
-  </tr>
- {% endfor %}
- {% for acco_m in acco_male %}
-  <tr>
-   <td>Accommodation on {{ forloop.counter|add:"11" }}(Male)</td>
-   <td>{{ acco_m }}</td>
-  </tr>
- {% endfor %}
- {% for acco_f in acco_female %}
-  <tr>
-   <td>Accommodation on {{ forloop.counter|add:"11" }}(Female)</td>
-   <td>{{ acco_f }}</td>
+   <td>Accommodation requested on {{ forloop.counter|add:"11" }}th night</td>
+   <td>{{ acco.total }} (Male: {{ acco.male }} Female: {{ acco.female }})</td>
   </tr>
  {% endfor %}
 </table>
