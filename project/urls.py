@@ -53,6 +53,8 @@ urlpatterns += patterns('project.scipycon.registration.views',
         'edit_registration', name='scipycon_edit_registration'),
     url(r'^%s/regstats/$'% (SCOPE_ARG_PATTERN),
         'regstats', name="scipycon_regstats"),
+    url(r'^%s/regstats/download$'% (SCOPE_ARG_PATTERN),
+        'regstats_download', name="scipycon_regstats_download"),
     url(r'^%s/manage_payments/$'% (SCOPE_ARG_PATTERN),
         'manage_payments', name="scipycon_manage_payments"),
     )

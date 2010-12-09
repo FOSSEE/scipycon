@@ -22,5 +22,16 @@
  <td>Sprint</td>
  <td>{{ sprint_num }}</td>
 </tr>
+{% for acco in acco_days %}
+  <tr>
+   <td>Accommodation on {{ forloop.counter|add:"11" }}</td>
+   <td>{{ acco }}</td>
+  </tr>
+ {% endfor %}
 </table>
+
+
+To download PDF
+<a href="{% url scipycon_regstats_download params.scope %}">here</a>
+
 {% endblock content %}
