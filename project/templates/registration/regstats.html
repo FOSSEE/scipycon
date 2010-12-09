@@ -22,6 +22,14 @@
  <td>Sprint</td>
  <td>{{ sprint_num }}</td>
 </tr>
+<tr>
+ <td>Male participants requesting accommodation</td>
+ <td>{{ male }}</td>
+</tr>
+<tr>
+ <td>Female participants requesting accommodation</td>
+ <td>{{ female }}</td>
+</tr>
 {% for acco in acco_days %}
   <tr>
    <td>Accommodation on {{ forloop.counter|add:"11" }}</td>

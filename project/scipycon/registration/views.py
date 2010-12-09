@@ -325,6 +325,8 @@ def regstats(request, scope,
     sprint_num = reg_q.filter(sprint=True).count()
 
     acco_q = Accommodation.objects.all()
+    male = acco_q.filter(sex='Male').count()
+    female = acco_q.filter(sex='Female').count()
     acco_days = []
     acco_days.append(acco_q.filter(accommodation_on_1st=True).count())
     acco_days.append(acco_q.filter(accommodation_on_2nd=True).count())
@@ -339,6 +341,8 @@ def regstats(request, scope,
          'tut_num': tut_num,
          'sprint_num': sprint_num,
          'acco_days': acco_days,
+         'male': male,
+         'female':female,
          }))
 
 @login_required
