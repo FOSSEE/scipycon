@@ -359,7 +359,7 @@ def regstats_download(request, scope):
 
     output = csv.writer(response)
 
-    output.writerow(['Name', 'City'
+    output.writerow(['Name', 'City',
                      'Registration Fees Paid',
                      'Attending Conference',
                      'Attending Tutorial',
