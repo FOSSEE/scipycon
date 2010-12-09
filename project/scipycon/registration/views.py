@@ -328,21 +328,61 @@ def regstats(request, scope,
     male = acco_q.filter(sex='Male').count()
     female = acco_q.filter(sex='Female').count()
     acco_days = []
+    acco_male = []
+    acco_female= []
+
+    # Day 1 details
     acco_days.append(acco_q.filter(accommodation_on_1st=True).count())
+    acco_male.append(acco_q.filter(
+      accommodation_on_1st=True).filter(sex='Male').count())
+    acco_female.append(acco_q.filter(
+      accommodation_on_1st=True).filter(sex='Female').count())
+
+    # Day 2 details
     acco_days.append(acco_q.filter(accommodation_on_2nd=True).count())
+    acco_male.append(acco_q.filter(
+      accommodation_on_2nd=True).filter(sex='Male').count())
+    acco_female.append(acco_q.filter(
+      accommodation_on_2nd=True).filter(sex='Female').count())
+
+    # Day 3 details
     acco_days.append(acco_q.filter(accommodation_on_3rd=True).count())
+    acco_male.append(acco_q.filter(
+      accommodation_on_3rd=True).filter(sex='Male').count())
+    acco_female.append(acco_q.filter(
+      accommodation_on_3rd=True).filter(sex='Female').count())
+
+    # Day 4 details
     acco_days.append(acco_q.filter(accommodation_on_4th=True).count())
+    acco_male.append(acco_q.filter(
+      accommodation_on_4th=True).filter(sex='Male').count())
+    acco_female.append(acco_q.filter(
+      accommodation_on_4th=True).filter(sex='Female').count())
+
+    # Day 5 details
     acco_days.append(acco_q.filter(accommodation_on_5th=True).count())
+    acco_male.append(acco_q.filter(
+      accommodation_on_5th=True).filter(sex='Male').count())
+    acco_female.append(acco_q.filter(
+      accommodation_on_5th=True).filter(sex='Female').count())
+
+    # Day 6 details
     acco_days.append(acco_q.filter(accommodation_on_6th=True).count())
+    acco_male.append(acco_q.filter(
+      accommodation_on_6th=True).filter(sex='Male').count())
+    acco_female.append(acco_q.filter(
+      accommodation_on_6th=True).filter(sex='Female').count())
 
     return render_to_response(template_name, RequestContext(request,
         {'params': {'scope': scope},
          'conf_num': conf_num, 
          'tut_num': tut_num,
          'sprint_num': sprint_num,
-         'acco_days': acco_days,
          'male': male,
          'female':female,
+         'acco_days': acco_days,
+         'acco_male': acco_male,
+         'acco_female': acco_female,
          }))
 
 @login_required
