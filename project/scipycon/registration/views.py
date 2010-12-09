@@ -378,12 +378,13 @@ def regstats_download(request, scope):
         row = []
         row.append(reg.registrant.get_full_name())
         row.append(reg.city)
-        row.append('Yes' if reg.registrant.payment_set.get().confirmed
-           else 'No')
+        payment, create = reg.registrant.payment_set.get_or_create()
+        row.append('Yes' if payment.confirmed else 'No')
         row.append('Yes' if reg.conference else 'No')
         row.append('Yes' if reg.tutorial else 'No')
         row.append('Yes' if reg.sprint else 'No')
-        row.append(reg.registrant.wifi_set.get().registration_id)
+        wifi, create = reg.registrant.wifi_set.get_or_create()
+        row.append(wifi.registration_id)
         row.append('Yes' if reg.registrant.payment_set.get().acco_confirmed
            else 'No')
         acco, created = reg.registrant.accommodation_set.get_or_create()
