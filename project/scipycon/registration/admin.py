@@ -18,11 +18,8 @@ class RegistrationAdmin(admin.ModelAdmin):
                     'sprint', 'allow_contact')
     fieldsets = (
         ('Details', {
-            'fields': ('full_name', 'phone_num', 'slug',
-                       'laptop', 'slug', 'email', 'city',
-                       'organisation', 'occupation', 'postcode',
-                       'tshirt', 'conference', 'tutorial',
-                       'sprint', 'allow_contact')
+            'fields': ('slug', 'registrant', 'organisation', 'occupation',
+                'city', 'tshirt')
         }),
         ('Information', {
             'fields': ('allow_contact',),
