@@ -10,9 +10,17 @@ __authors__ = [
 
 from django.template import loader
 from django.contrib.auth.models import User
+from django.utils.translation import ugettext
 
 from project.scipycon.registration.models import Registration
 from project.scipycon.talk.models import Talk
+
+
+DEF_REMAINDER_REGISTRATION_PAGE_SUBJECT = ugettext(
+  'SciPy.in 2010: Registration updates required for confirmation')
+
+DEF_REMAINDER_ACCO_CONTACT_SUBJECT = ugettext(
+   'SciPy.in 2010: Contact details, registration page and other updates')
 
 
 def speaker_accepted():
@@ -60,7 +68,7 @@ def delegate_remainder(template=None):
     regs = Registration.objects.all()
 
     for reg in regs:
-        subject = 'SciPy.in 2010: Registration updates required for confirmation'
+        subject = DEF_REMAINDER_ACCO_CONTACT_SUBJECT
         message = loader.render_to_string(
             template, dictionary={'name': reg.registrant.get_full_name()})
 
