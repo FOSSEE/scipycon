@@ -419,7 +419,8 @@ def regstats_download(request, scope):
                      'Accommodation on 16th night',
                      'Accommodation on 17th night'])
 
-    regs = Registration.objects.all()
+    regs = Registration.objects.order_by(
+      'registrant__first_name', 'registrant__last_name')
     for reg in regs:
         row = []
 
