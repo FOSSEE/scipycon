@@ -53,6 +53,8 @@ urlpatterns += patterns('project.scipycon.registration.views',
         'edit_registration', name='scipycon_edit_registration'),
     url(r'^%s/regstats/$'% (SCOPE_ARG_PATTERN),
         'regstats', name="scipycon_regstats"),
+    url(r'^%s/regstats/download$'% (SCOPE_ARG_PATTERN),
+        'regstats_download', name="scipycon_regstats_download"),
     url(r'^%s/manage_payments/$'% (SCOPE_ARG_PATTERN),
         'manage_payments', name="scipycon_manage_payments"),
     )
@@ -157,6 +159,8 @@ urlpatterns += patterns('django.contrib.auth.views',
      url(r'^password-reset-confirm/(?P<uidb36>[-\w]*)/(?P<token>[-\w]*)$', 'password_reset_confirm'),
      url(r'^password-reset-complete/$', 'password_reset_complete'),
 )
+
+handler404 = 'django.views.defaults.page_not_found'
 
 # Serve static files in DEBUG = True mode
 if settings.DEBUG:

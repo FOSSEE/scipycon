@@ -11,10 +11,11 @@ from .models import Registration
 from .models import Wifi
 
 class RegistrationAdmin(admin.ModelAdmin):
-    list_display = ('registrant', 'full_name', 'laptop', 'slug',
-            'email', 'city', 'organisation', 'occupation',
-            'postcode', 'tshirt', 'conference', 'tutorial',
-            'sprint', 'allow_contact')
+    list_display = ('registrant', 'full_name', 'phone_num', 
+                    'laptop', 'slug', 'email', 'city',
+                    'organisation', 'occupation', 'postcode',
+                    'tshirt', 'conference', 'tutorial',
+                    'sprint', 'allow_contact')
     fieldsets = (
         ('Details', {
             'fields': ('slug', 'registrant', 'organisation', 'occupation',

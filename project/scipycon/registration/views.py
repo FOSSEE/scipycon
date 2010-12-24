@@ -1,3 +1,4 @@
+import csv
 import datetime
 import time
 
@@ -8,6 +9,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import loader
 from django.template import RequestContext
@@ -316,17 +319,138 @@ def regstats(request, scope,
             redirect_to, msg = u'You must be a staff on this website to '
             'access this page.')
 
-    q = Registration.objects.all()
-    conf_num = q.filter(conference=True).count()
-    tut_num = q.filter(tutorial=True).count()
-    sprint_num = q.filter(sprint=True).count()
+    reg_q = Registration.objects.all()
+    conf_num = reg_q.filter(conference=True).count()
+    tut_num = reg_q.filter(tutorial=True).count()
+    sprint_num = reg_q.filter(sprint=True).count()
+
+    acco_q = Accommodation.objects.all()
+    male = acco_q.filter(sex='Male').count()
+    female = acco_q.filter(sex='Female').count()
+
+    # Day 1 details
+    day1 = acco_q.filter(accommodation_on_1st=True)
+    acco_1 = {
+       'total': day1.count(),
+       'male': day1.filter(sex='Male').count(),
+       'female': day1.filter(sex='Female').count()
+       }
+
+    # Day 2 details
+    day2 = acco_q.filter(accommodation_on_2nd=True)
+    acco_2 = {
+       'total': day2.count(),
+       'male': day2.filter(sex='Male').count(),
+       'female': day2.filter(sex='Female').count()
+       }
+
+    # Day 3 details
+    day3 = acco_q.filter(accommodation_on_3rd=True)
+    acco_3 = {
+       'total': day3.count(),
+       'male': day3.filter(sex='Male').count(),
+       'female': day3.filter(sex='Female').count()
+       }
+
+    # Day 4 details
+    day4 = acco_q.filter(accommodation_on_4th=True)
+    acco_4 = {
+       'total': day4.count(),
+       'male': day4.filter(sex='Male').count(),
+       'female': day4.filter(sex='Female').count()
+       }
+
+
+    # Day 5 details
+    day5 = acco_q.filter(accommodation_on_5th=True)
+    acco_5 = {
+       'total': day5.count(),
+       'male': day5.filter(sex='Male').count(),
+       'female': day5.filter(sex='Female').count()
+       }
+
+    # Day 6 details
+    day6 = acco_q.filter(accommodation_on_6th=True)
+    acco_6 = {
+       'total': day6.count(),
+       'male': day6.filter(sex='Male').count(),
+       'female': day6.filter(sex='Female').count()
+       }
 
     return render_to_response(template_name, RequestContext(request,
         {'params': {'scope': scope},
          'conf_num': conf_num, 
          'tut_num': tut_num,
          'sprint_num': sprint_num,
+         'male': male,
+         'female':female,
+         'acco_days': [acco_1, acco_2, acco_3, acco_4, acco_5, acco_6],
          }))
+
+@login_required
+def regstats_download(request, scope):
+    """Sends a downloadable PDF for registration statistics
+    """
+
+    if not request.user.is_staff:
+        redirect_to = reverse('scipycon_login')
+        return HttpResponseRedirect(redirect_to)
+
+    filename = 'regstats%s.csv' % datetime.datetime.strftime(
+      datetime.datetime.now(), '%Y%m%d%H%M%S')
+
+    response = HttpResponse(mimetype='text/csv')
+    response['Content-Disposition'] = 'attachment; filename=%s' % (
+      filename)
+
+    output = csv.writer(response)
+
+    output.writerow(['Name', 'Gender', 'City',
+                     'Registration Fees Paid',
+                     'Attending Conference',
+                     'Attending Tutorial',
+                     'Attending Sprint',
+                     'Laptop Identification Number',
+                     'Accommodation Fees Paid',
+                     'Accommodation on 12th night',
+                     'Accommodation on 13th night',
+                     'Accommodation on 14th night',
+                     'Accommodation on 15th night',
+                     'Accommodation on 16th night',
+                     'Accommodation on 17th night'])
+
+    regs = Registration.objects.order_by(
+      'registrant__first_name', 'registrant__last_name')
+    for reg in regs:
+        row = []
+
+        payment, create = reg.registrant.payment_set.get_or_create(
+          user=reg.registrant, scope=reg.scope)
+        acco, created = reg.registrant.accommodation_set.get_or_create(
+          user=reg.registrant, scope=reg.scope)
+        wifi, create = reg.registrant.wifi_set.get_or_create(
+          user=reg.registrant, scope=reg.scope)
+
+        row.append('"%s"' % reg.registrant.get_full_name())
+        row.append(acco.sex)
+        row.append(reg.city)
+        row.append('Yes' if payment.confirmed else 'No')
+        row.append('Yes' if reg.conference else 'No')
+        row.append('Yes' if reg.tutorial else 'No')
+        row.append('Yes' if reg.sprint else 'No')
+        row.append(wifi.registration_id)
+        row.append('Yes' if payment.acco_confirmed
+           else 'No')
+        row.append('Yes' if acco.accommodation_on_1st else 'No')
+        row.append('Yes' if acco.accommodation_on_2nd else 'No')
+        row.append('Yes' if acco.accommodation_on_3rd else 'No')
+        row.append('Yes' if acco.accommodation_on_4th else 'No')
+        row.append('Yes' if acco.accommodation_on_5th else 'No')
+        row.append('Yes' if acco.accommodation_on_6th else 'No')
+        output.writerow(row)
+
+    #output.writerow()
+    return response
 
 
 @login_required

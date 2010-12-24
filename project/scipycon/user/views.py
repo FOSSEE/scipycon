@@ -329,6 +329,9 @@ def get_user_dump(request, scope,template_name='user/dump.html'):
 
 @login_required
 def badge(request,scope):
+
+    from django.conf import settings
+
     # Create the HttpResponse object with the appropriate PDF headers.
     response = HttpResponse(mimetype='application/pdf')
     response['Content-Disposition'] = 'attachment; filename=scipybadge.pdf'
@@ -341,7 +344,8 @@ def badge(request,scope):
     # See the ReportLab documentation for the full list of functionality.
     c.rect(ref,ref,9*cm,6*cm)
 
-    im = reportlabImage("project/static/img/scipyshiny_small.png", width=1.75*cm, height=1.75*cm)
+    img_path = os.path.join(settings.STATIC_ROOT, 'img', 'scipyshiny_small.png')
+    im = reportlabImage(img_path, width=1.75*cm, height=1.75*cm)
     im.drawOn(c,(ref+0.8*cm),(ref+4.3*cm))
     c.setFont('Helvetica', 6)
     c.drawString((ref+1.0*cm),(ref+4.2*cm),'scipy.in 2010') 
