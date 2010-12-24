@@ -6,7 +6,7 @@
 
 
 {% if registration %}
-   <h2>Please get your badges for scipy.in 2010 <a href="/{{ params.scope }}/badge/">here</a></h2>
+   <h2>Please get your badges for scipy.in 2010 <a href="{{ params.scope }}/badge/">here</a></h2>
 {% endif %}
 
 <h1>My Profile: {{ user.first_name }} {{user.last_name}}</h1>
@@ -130,7 +130,7 @@
             {% if talk.approved %}
               <span>Accepted</span>
             {% else %}
-              <a href="/{{ params.scope }}/edit-talk/{{ talk.id }}/" title="Edit">Edit</a>
+              <a href="/edit-talk/{{ talk.id }}/" title="Edit">Edit</a>
             {% endif %}
           </td>
         </tr>
