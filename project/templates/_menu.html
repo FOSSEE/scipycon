@@ -1,6 +1,11 @@
 <div id="left-inner">
   <ul>
     <li><a href="/{{ params.scope }}/">Home</a></li>
+    <li>
+      <a href="{% url scipycon_download_slides params.scope %}">
+        Download Slides <font color="red">(New)</font>
+      </a>
+    </li>
     <li><a href="/{{ params.scope }}/submit-registration/">Registration</a></li>
     <li>
       <ul>

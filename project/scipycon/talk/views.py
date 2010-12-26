@@ -205,3 +205,12 @@ def list_talks(request, scope, template_name='talk/list-all-talks.html'):
         'params': {'scope': scope},
         'talk_list': talks,
     }))
+
+def download_slides(request, scope):
+    """View that lets users allow to download the slides they want.
+    """
+
+    template_name = 'talk/download-slides.html'
+    return render_to_response(template_name, RequestContext(request, {
+        'params': {'scope': scope},
+    }))
