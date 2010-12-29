@@ -43,6 +43,9 @@ urlpatterns += patterns('project.scipycon.talk.views',
         'list_talks', name='scipycon_list_talk'),
     url(r'^%s/download_slides/$' % (SCOPE_ARG_PATTERN),
         'download_slides', name='scipycon_download_slides'),
+    url(r'^%s/download_videos/$' % (SCOPE_ARG_PATTERN),
+        'download_videos', name='scipycon_download_videos'),
+
     )
 
 # Registration

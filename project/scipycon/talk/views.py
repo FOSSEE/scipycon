@@ -214,3 +214,12 @@ def download_slides(request, scope):
     return render_to_response(template_name, RequestContext(request, {
         'params': {'scope': scope},
     }))
+
+def download_videos(request, scope):
+    """View that gives users the link to the videos
+    """
+
+    template_name = 'talk/download-videos.html'
+    return render_to_response(template_name, RequestContext(request, {
+        'params': {'scope': scope},
+    }))
