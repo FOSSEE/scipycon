@@ -2,7 +2,7 @@
 import os
 
 ADMINS = (
-    ('Madhusudan.C.S', 'admin@scipy.in'),
+    #('Madhusudan.C.S', 'admin@scipy.in'),
 )
 
 MANAGERS = ADMINS
